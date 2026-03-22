@@ -1,0 +1,293 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <!-- TopNavBar -->
+  <nav class="fixed top-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl shadow-[0_0_20px_rgba(0,218,243,0.06)] border-b border-white/5">
+    <div class="flex justify-between items-center max-w-7xl mx-auto px-6 py-4">
+      <a href="/" class="text-xl font-black text-[#c3f5ff] tracking-tight font-headline">nca</a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a class="text-[#c3f5ff] border-b-2 border-[#c3f5ff] pb-1 font-headline font-bold tracking-tighter text-sm" href="#features">Features</a>
+        <a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors font-headline font-bold tracking-tighter text-sm" href="#use-cases">Use Cases</a>
+        <a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors font-headline font-bold tracking-tighter text-sm" href="/get-started">Install</a>
+        <a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors font-headline font-bold tracking-tighter text-sm" href="https://github.com/madebyaris/native-cli-ai" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/madebyaris/native-cli-ai" target="_blank" rel="noreferrer" class="material-symbols-outlined text-[#c3f5ff] cursor-pointer hover:bg-[#2A2A2A]/50 p-2 rounded-full transition-all duration-300">terminal</a>
+        <a href="/get-started" class="bg-primary text-on-primary px-6 py-2 rounded-full font-bold text-sm hover:shadow-[0_0_20px_#00daf366] transition-all active:scale-95 duration-200">
+          Install nca
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="relative overflow-hidden">
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-20 hero-section">
+      <div class="kinetic-bg">
+        <div class="kinetic-grid"></div>
+        <div class="kinetic-blob blob-1"></div>
+        <div class="kinetic-blob blob-2"></div>
+        <div class="kinetic-blob blob-3"></div>
+      </div>
+      <div class="max-w-7xl mx-auto px-6 text-center z-10 relative">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-surface-container-highest/30 border border-white/5 mb-8">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <span class="font-label text-[10px] tracking-widest uppercase text-primary">Rust-native &middot; Single binary &middot; Terminal-first</span>
+        </div>
+        <h1 class="text-6xl md:text-[8rem] font-black font-headline tracking-tighter leading-[0.9] mb-8 text-on-background">
+          Native CLI AI,<br/><span class="text-primary italic">Fast &amp; Low Memory.</span>
+        </h1>
+        <p class="max-w-xl mx-auto text-on-surface-variant text-base md:text-lg font-medium mb-12 leading-relaxed">
+          Rust-native coding agent. Single binary. Interactive TUI, detached sessions, worktree-isolated subagents, and machine-readable output. No Electron. No browser.
+        </p>
+        <!-- Terminal Emulator -->
+        <div class="w-full max-w-3xl mx-auto rounded-xl overflow-hidden border border-white/10 shadow-2xl bg-black/70 backdrop-blur-md">
+          <div class="bg-surface-container-highest px-4 py-3 flex items-center justify-between">
+            <div class="flex gap-2">
+              <div class="w-3 h-3 rounded-full bg-[#FF5F56]"></div>
+              <div class="w-3 h-3 rounded-full bg-[#FFBD2E]"></div>
+              <div class="w-3 h-3 rounded-full bg-[#27C93F]"></div>
+            </div>
+            <div class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest">nca — zsh</div>
+            <div class="w-10"></div>
+          </div>
+          <div class="p-6 text-left font-mono text-sm sm:text-base min-h-[300px]">
+            <div class="flex gap-3 mb-2">
+              <span class="text-primary">➜</span>
+              <span class="text-on-surface">~/project</span>
+              <span class="text-secondary">nca</span>
+            </div>
+            <div class="text-on-surface-variant mb-4">Resuming session abc123... loaded 42 messages, 3 tool calls.</div>
+            <div class="flex gap-3 mb-2">
+              <span class="text-primary">➜</span>
+              <span class="text-on-surface">~/project</span>
+              <span class="text-secondary">nca spawn --prompt "Inspect the repo and draft a plan"</span>
+            </div>
+            <div class="text-on-surface-variant mb-4">Session spawned: <span class="text-primary">s_7f2a</span> (detached)</div>
+            <div class="flex gap-3 mb-2">
+              <span class="text-primary">➜</span>
+              <span class="text-on-surface">~/project</span>
+              <span class="text-secondary">nca attach s_7f2a</span>
+            </div>
+            <div class="mt-4 p-3 bg-surface-container-low/50 rounded-sm border-l-2 border-primary">
+              <div class="text-[10px] uppercase font-label mb-1 text-primary">Agent Active</div>
+              <div class="text-on-surface">Reading AGENTS.md... Discovered 4 skills. Scanning workspace tree...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-gradient-transition"></div>
+    </section>
+
+    <!-- Features Bento Grid -->
+    <section id="features" class="py-24 bg-black relative z-10">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="mb-16">
+          <h2 class="text-4xl font-black font-headline tracking-tighter mb-4">BUILT FOR TERMINAL WORKFLOWS.</h2>
+          <p class="text-on-surface-variant font-label uppercase tracking-widest text-xs">Sessions, subagents, IPC, and machine-readable output in one binary</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 h-full">
+          <!-- Large Box: Persistent Sessions -->
+          <div class="md:col-span-2 md:row-span-2 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between group hover:bg-surface-container-high transition-all duration-300">
+            <div>
+              <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">history</span>
+              </div>
+              <h3 class="text-2xl font-bold font-headline mb-4">Persistent Sessions</h3>
+              <p class="text-on-surface-variant leading-relaxed">Sessions are saved as JSON snapshots plus JSONL event logs inside your workspace. Resume where you left off, inspect status, read logs, or attach to a running session over IPC. No throwaway prompt boxes.</p>
+            </div>
+            <div class="mt-12 rounded-lg bg-black/40 border border-white/5 p-4 overflow-hidden h-40 relative">
+              <div class="text-[10px] font-mono text-primary opacity-60">
+                $ nca sessions --status running<br/>
+                s_7f2a  running  "Inspect the repo"  12m ago<br/>
+                s_3bc1  running  "Fix auth tests"     3m ago<br/><br/>
+                $ nca attach s_7f2a<br/>
+                Attached to session s_7f2a via /tmp/nca/s_7f2a.sock
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent"></div>
+            </div>
+          </div>
+          
+          <!-- Medium Box: MCP Tools -->
+          <div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 flex flex-col justify-between group hover:bg-surface-container-high transition-all duration-300">
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+              <div class="flex-1">
+                <div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center mb-4">
+                  <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">hub</span>
+                </div>
+                <h3 class="text-xl font-bold font-headline mb-2">MCP Tools &amp; Skills</h3>
+                <p class="text-sm text-on-surface-variant">Loads built-in tools for filesystem, search, diff, patch, shell, and web access. MCP tools are loaded dynamically from config so your tool surface grows with your environment. Skills are discovered from <code class="text-primary">AGENTS.md</code>, filesystem directories, and user-level skill paths.</p>
+              </div>
+              <div class="hidden sm:grid grid-cols-3 gap-2 flex-shrink-0">
+                <div class="w-12 h-12 bg-black/20 rounded-md border border-white/5 flex items-center justify-center"><span class="material-symbols-outlined text-xs opacity-40">edit_note</span></div>
+                <div class="w-12 h-12 bg-black/20 rounded-md border border-white/5 flex items-center justify-center"><span class="material-symbols-outlined text-xs opacity-40">search</span></div>
+                <div class="w-12 h-12 bg-black/20 rounded-md border border-white/5 flex items-center justify-center"><span class="material-symbols-outlined text-xs opacity-40">terminal</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Small Box: Worktree Subagents -->
+          <div class="bg-surface-container-low rounded-xl p-8 group hover:bg-surface-container-high transition-all duration-300">
+            <div class="w-10 h-10 rounded-lg bg-tertiary-fixed-dim/20 flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-tertiary-fixed-dim">account_tree</span>
+            </div>
+            <h3 class="text-lg font-bold font-headline mb-2">Worktree Subagents</h3>
+            <p class="text-xs text-on-surface-variant">Spawn child agents with explicit parent-child lineage and optional isolated git worktrees. Each child session inherits context and records its own event log.</p>
+          </div>
+
+          <!-- Small Box: Multimodal -->
+          <div class="bg-surface-container-low rounded-xl p-8 group hover:bg-surface-container-high transition-all duration-300">
+            <div class="w-10 h-10 rounded-lg bg-error-container/20 flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined text-error">image</span>
+            </div>
+            <h3 class="text-lg font-bold font-headline mb-2">Native Multimodal</h3>
+            <p class="text-xs text-on-surface-variant">Paste images with Ctrl+V or use <code class="text-primary">/image</code> in the TUI. MiniMax vision is handled in Rust with no Python MCP. If the model is not vision-capable, nca errors instead of silently dropping images.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section id="use-cases" class="py-24 bg-black relative z-10">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="mb-16">
+          <h2 class="text-4xl font-black font-headline tracking-tighter mb-4">HOW PEOPLE USE IT.</h2>
+          <p class="text-on-surface-variant font-label uppercase tracking-widest text-xs">From quick one-shot tasks to multi-agent orchestration</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-surface-container-low rounded-xl p-8 group hover:bg-surface-container-high transition-all duration-300 border-t-2 border-primary/30">
+            <div class="font-label text-[10px] tracking-widest uppercase text-primary mb-4">Solo coding</div>
+            <h3 class="text-lg font-bold font-headline mb-3">Interactive TUI</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">Start with <code class="text-primary">nca</code>, use the full-screen TUI, switch agent profiles with Tab, review diffs, and keep everything in one terminal-native flow.</p>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-8 group hover:bg-surface-container-high transition-all duration-300 border-t-2 border-secondary/30">
+            <div class="font-label text-[10px] tracking-widest uppercase text-secondary mb-4">Background work</div>
+            <h3 class="text-lg font-bold font-headline mb-3">Spawn &amp; Attach</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">Use <code class="text-primary">nca spawn</code> to kick off analysis in the background, keep coding, then come back with <code class="text-primary">status</code>, <code class="text-primary">logs</code>, or <code class="text-primary">attach</code>.</p>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-8 group hover:bg-surface-container-high transition-all duration-300 border-t-2 border-tertiary-fixed-dim/30">
+            <div class="font-label text-[10px] tracking-widest uppercase text-tertiary-fixed-dim mb-4">Orchestration</div>
+            <h3 class="text-lg font-bold font-headline mb-3">JSON &amp; IPC</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed">Use <code class="text-primary">--json</code>, <code class="text-primary">--stream ndjson</code>, Unix-socket IPC, and <code class="text-primary">NCA_ORCH_*</code> env vars to drive nca as a worker process inside a larger system.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Providers Section -->
+    <section class="py-24 bg-surface-container-lowest relative z-10">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="mb-16">
+          <h2 class="text-4xl font-black font-headline tracking-tighter mb-4">MULTI-PROVIDER BY DESIGN.</h2>
+          <p class="text-on-surface-variant font-label uppercase tracking-widest text-xs">MiniMax-first, with OpenAI, Anthropic, and OpenRouter built in</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-surface-container-low rounded-xl p-8 group hover:bg-surface-container-high transition-all duration-300">
+            <h3 class="text-xl font-bold font-headline mb-4">Provider config is layered</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed mb-6">Defaults, then <code class="text-primary">~/.nca/config.toml</code>, then workspace-local <code class="text-primary">.nca/config.local.toml</code>, then environment overrides. Use <code class="text-primary">nca doctor</code> to verify readiness and <code class="text-primary">nca models</code> to inspect selection.</p>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-3 py-1 bg-black/30 rounded-sm border border-white/5 font-mono text-xs text-primary">MINIMAX_API_KEY</span>
+              <span class="px-3 py-1 bg-black/30 rounded-sm border border-white/5 font-mono text-xs text-secondary">OPENAI_API_KEY</span>
+              <span class="px-3 py-1 bg-black/30 rounded-sm border border-white/5 font-mono text-xs text-tertiary-fixed-dim">ANTHROPIC_API_KEY</span>
+              <span class="px-3 py-1 bg-black/30 rounded-sm border border-white/5 font-mono text-xs text-error">OPENROUTER_API_KEY</span>
+            </div>
+          </div>
+          <div class="bg-surface-container-low rounded-xl p-8 group hover:bg-surface-container-high transition-all duration-300">
+            <h3 class="text-xl font-bold font-headline mb-4">Context management built in</h3>
+            <p class="text-sm text-on-surface-variant leading-relaxed mb-6">Auto-summarize kicks in when context reaches a configurable threshold so long conversations stay within the token window without losing important decisions or context.</p>
+            <div class="rounded-lg bg-black/40 border border-white/5 p-4">
+              <div class="text-[10px] font-mono text-on-surface-variant">
+                <span class="text-primary">[memory.context]</span><br/>
+                context_window_target = <span class="text-secondary">32000</span><br/>
+                auto_summarize_threshold = <span class="text-secondary">75</span><br/>
+                enable_auto_summarize = <span class="text-secondary">true</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install CTA Section -->
+    <section class="py-32 relative bg-black">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-4xl font-black font-headline mb-4 tracking-tight">GET STARTED.</h2>
+        <p class="text-on-surface-variant mb-12 font-label uppercase tracking-widest text-xs">One command on macOS and Linux</p>
+        <div class="relative group cursor-pointer inline-block w-full">
+          <div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-xl blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+          <div class="relative bg-black rounded-xl border border-white/10 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+            <code class="text-lg md:text-2xl font-mono text-primary font-bold">
+              curl -fsSL https://nca-cli.com/install | bash
+            </code>
+            <button id="copy-install" class="bg-surface-container-highest hover:bg-surface-variant text-on-surface px-8 py-4 rounded-xl flex items-center gap-3 transition-colors border border-white/10">
+              <span class="material-symbols-outlined">content_copy</span>
+              <span class="font-label uppercase tracking-widest text-xs font-bold">Copy</span>
+            </button>
+          </div>
+        </div>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <span class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60">macOS Apple Silicon</span>
+          <span class="text-on-surface-variant/20">&middot;</span>
+          <span class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60">macOS Intel</span>
+          <span class="text-on-surface-variant/20">&middot;</span>
+          <span class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60">Linux x86_64</span>
+          <span class="text-on-surface-variant/20">&middot;</span>
+          <span class="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/60">Linux ARM64</span>
+        </div>
+        <a href="/get-started" class="inline-block mt-8 text-primary font-label uppercase tracking-widest text-xs hover:underline">View all install options &rarr;</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-12 border-t border-white/5 bg-[#000000]">
+    <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+      <div class="flex flex-col items-center md:items-start gap-4">
+        <a href="/" class="text-lg font-bold text-[#c3f5ff]">nca</a>
+        <p class="font-['Space_Grotesk'] uppercase text-[10px] tracking-widest text-[#bac9cc]/60">&copy; 2026 native-cli-ai by <a href="https://github.com/madebyaris" class="hover:text-[#d8b9ff] transition-colors">Aris Setia</a>. MIT License.</p>
+      </div>
+      <div class="flex gap-8">
+        <a class="font-['Space_Grotesk'] uppercase text-[10px] tracking-widest text-[#bac9cc]/60 hover:text-[#d8b9ff] transition-colors" href="/get-started">Install</a>
+        <a class="font-['Space_Grotesk'] uppercase text-[10px] tracking-widest text-[#bac9cc]/60 hover:text-[#d8b9ff] transition-colors" href="https://github.com/madebyaris/native-cli-ai" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="font-['Space_Grotesk'] uppercase text-[10px] tracking-widest text-[#bac9cc]/60 hover:text-[#d8b9ff] transition-colors" href="https://github.com/madebyaris" target="_blank" rel="noreferrer">Sponsor</a>
+        <a class="font-['Space_Grotesk'] uppercase text-[10px] tracking-widest text-[#bac9cc]/60 hover:text-[#d8b9ff] transition-colors" href="https://github.com/madebyaris/native-cli-ai/releases" target="_blank" rel="noreferrer">Releases</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hero = document.querySelector('.hero-section');
+    const blobs = document.querySelectorAll('.kinetic-blob') as NodeListOf<HTMLElement>;
+    
+    if (hero) {
+      hero.addEventListener('mousemove', (e: Event) => {
+        const mouseEvent = e as MouseEvent;
+        const x = (mouseEvent.clientX / window.innerWidth - 0.5) * 40;
+        const y = (mouseEvent.clientY / window.innerHeight - 0.5) * 40;
+        
+        blobs.forEach((blob, index) => {
+          const factor = (index + 1) * 0.5;
+          blob.style.transform = `translate(${x * factor}px, ${y * factor}px)`;
+        });
+      });
+
+      hero.addEventListener('mouseleave', () => {
+        blobs.forEach(blob => {
+          blob.style.transform = `translate(0, 0)`;
+        });
+      });
+    }
+
+    document.getElementById('copy-install')?.addEventListener('click', () => {
+      navigator.clipboard.writeText('curl -fsSL https://nca-cli.com/install | bash');
+      const btn = document.getElementById('copy-install');
+      const label = btn?.querySelector('.font-label');
+      if (label) {
+        label.textContent = 'Copied!';
+        setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+      }
+    });
+  </script>
+</BaseLayout>

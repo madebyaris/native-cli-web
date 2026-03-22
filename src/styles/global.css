@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@theme {
+  --color-on-tertiary-fixed-variant: #3c4947;
+  --color-on-secondary-container: #d5b5ff;
+  --color-primary-container: #00e5ff;
+  --color-primary-fixed-dim: #00daf3;
+  --color-on-tertiary: #263331;
+  --color-inverse-surface: #e2e2e2;
+  --color-outline-variant: #3b494c;
+  --color-secondary: #d8b9ff;
+  --color-on-error: #690005;
+  --color-surface-container-low: #1b1b1b;
+  --color-surface-dim: #131313;
+  --color-tertiary-container: #c5d4d0;
+  --color-on-surface-variant: #bac9cc;
+  --color-on-primary-container: #00626e;
+  --color-on-tertiary-fixed: #111e1c;
+  --color-surface-tint: #00daf3;
+  --color-secondary-fixed: #eddcff;
+  --color-error: #ffb4ab;
+  --color-on-secondary: #450086;
+  --color-on-secondary-fixed-variant: #6200bc;
+  --color-tertiary: #e1f0ec;
+  --color-surface-bright: #393939;
+  --color-on-background: #e2e2e2;
+  --color-on-primary: #00363d;
+  --color-primary-fixed: #9cf0ff;
+  --color-on-secondary-fixed: #290055;
+  --color-inverse-on-surface: #303030;
+  --color-secondary-container: #6e06d0;
+  --color-secondary-fixed-dim: #d8b9ff;
+  --color-outline: #849396;
+  --color-on-error-container: #ffdad6;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-background: #131313;
+  --color-on-primary-fixed-variant: #004f58;
+  --color-error-container: #93000a;
+  --color-tertiary-fixed-dim: #bbcac6;
+  --color-surface: #131313;
+  --color-on-primary-fixed: #001f24;
+  --color-surface-container-highest: #353535;
+  --color-on-tertiary-container: #4e5c59;
+  --color-on-surface: #e2e2e2;
+  --color-surface-variant: #353535;
+  --color-tertiary-fixed: #d7e6e2;
+  --color-primary: #c3f5ff;
+  --color-inverse-primary: #006875;
+  --color-surface-container: #1f1f1f;
+
+  --font-headline: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-label: "Space Grotesk", sans-serif;
+
+  --radius-DEFAULT: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+.noise-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Animated Mesh Background */
+.kinetic-bg {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  overflow: hidden;
+}
+.kinetic-blob {
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  filter: blur(80px);
+  opacity: 0.15;
+  border-radius: 50%;
+  animation: float 20s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+}
+.blob-1 {
+  background: radial-gradient(circle, #00daf3 0%, transparent 70%);
+  top: -10%;
+  left: -10%;
+  animation-duration: 25s;
+}
+.blob-2 {
+  background: radial-gradient(circle, #6200bc 0%, transparent 70%);
+  bottom: -10%;
+  right: -10%;
+  animation-duration: 30s;
+  animation-delay: -5s;
+}
+.blob-3 {
+  background: radial-gradient(circle, #004f58 0%, transparent 70%);
+  top: 20%;
+  right: 10%;
+  width: 40%;
+  height: 40%;
+  animation-duration: 22s;
+  animation-delay: -12s;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(10%, 15%) scale(1.1); }
+  66% { transform: translate(-5%, 10%) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+.kinetic-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+      linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+}
+
+.hero-gradient-transition {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, #000000);
+  z-index: 5;
+}
