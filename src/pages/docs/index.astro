@@ -1,0 +1,54 @@
+---
+import { getCollection } from "astro:content";
+import DocsLayout from "../../layouts/DocsLayout.astro";
+
+const entries = await getCollection("docs");
+const sorted = [...entries].sort((a, b) => a.data.sidebarOrder - b.data.sidebarOrder);
+const overview = sorted.find((e) => e.id === "overview") ?? sorted[0];
+---
+
+<DocsLayout
+  title="Documentation | nca"
+  description="Install, configure, and use the nca native CLI AI — commands, sessions, tools, providers, and more."
+  entries={entries}
+>
+  <div class="prose-docs font-body">
+    <h1 class="font-display text-4xl tracking-[-0.04rem] text-fg md:text-[2.35rem]">Documentation</h1>
+    <p class="font-body mt-3 text-fg-muted">
+      Guides mirrored from the{" "}
+      <a
+        href="https://github.com/madebyaris/native-cli-ai/tree/main/docs/documentation"
+        class="font-medium text-accent underline decoration-accent/35 underline-offset-[3px] hover:text-accent-hover"
+        target="_blank"
+        rel="noreferrer"
+      >
+        native-cli-ai repository
+      </a>
+      . Start with Overview or jump to a topic below.
+    </p>
+
+    <ul class="mt-10 list-none space-y-3 p-0">
+      {sorted.map((e) => (
+        <li class="rounded-md border border-border bg-surface-400/40 transition-colors hover:border-border-strong">
+          <a href={`/docs/${e.id}`} class="font-ui flex flex-col gap-1 px-4 py-4 no-underline md:flex-row md:items-center md:justify-between">
+            <span class="text-base font-medium text-fg">{e.data.title}</span>
+            {e.data.description && (
+              <span class="text-sm text-fg-muted md:max-w-md md:text-right">{e.data.description}</span>
+            )}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    {overview && (
+      <p class="mt-10">
+        <a
+          href={`/docs/${overview.id}`}
+          class="font-ui font-medium text-accent underline decoration-accent/35 underline-offset-[3px] hover:text-accent-hover"
+        >
+          Read the overview →
+        </a>
+      </p>
+    )}
+  </div>
+</DocsLayout>

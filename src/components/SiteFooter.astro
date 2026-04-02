@@ -1,0 +1,35 @@
+---
+import { GITHUB_REPO } from "../consts";
+---
+
+<footer class="mt-auto border-t border-border bg-page px-4 py-10 md:px-6">
+  <div class="mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-start md:justify-between">
+    <div>
+      <p class="font-display text-base font-semibold text-fg">nca</p>
+      <p class="font-ui mt-2 max-w-sm text-xs uppercase tracking-wider text-fg-muted">
+        Native CLI AI — Rust-native agent, single binary, terminal-first.
+      </p>
+      <p class="font-ui mt-4 text-xs text-fg-muted">
+        &copy; 2026
+        <a href="https://github.com/madebyaris" class="text-fg-muted underline hover:text-accent-hover">Aris Setia</a>.
+        MIT License.
+      </p>
+    </div>
+    <nav class="font-ui flex flex-wrap gap-x-8 gap-y-3 text-sm" aria-label="Footer">
+      <a href="/docs" class="text-fg-muted hover:text-accent-hover">Documentation</a>
+      <a href="/get-started" class="text-fg-muted hover:text-accent-hover">Install</a>
+      <a href={GITHUB_REPO} class="text-fg-muted hover:text-accent-hover" target="_blank" rel="noreferrer">GitHub</a>
+      <a
+        href={`${GITHUB_REPO}/releases`}
+        class="text-fg-muted hover:text-accent-hover"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Releases
+      </a>
+      <a href="https://github.com/madebyaris" class="text-fg-muted hover:text-accent-hover" target="_blank" rel="noreferrer"
+        >Sponsor</a
+      >
+    </nav>
+  </div>
+</footer>

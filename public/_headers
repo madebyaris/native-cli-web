@@ -1,3 +1,12 @@
 /install
   Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=300
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llm.txt
+  Content-Type: text/plain; charset=utf-8
+
+/robots.txt
+  Content-Type: text/plain; charset=utf-8

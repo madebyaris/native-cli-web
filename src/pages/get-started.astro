@@ -1,5 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { GITHUB_REPO } from "../consts";
 
 const platforms = [
   { name: "macOS (Apple Silicon)", target: "aarch64-apple-darwin" },
@@ -11,134 +14,126 @@ const platforms = [
 ---
 
 <BaseLayout
-  title="Install nca | native-cli-ai"
+  title="Install nca | Native CLI AI"
   description="Install nca on macOS or Linux with one command, from GitHub Releases, or build from source."
 >
-  <!-- TopNavBar -->
-  <nav class="fixed top-0 w-full z-50 bg-[#131313]/70 backdrop-blur-xl shadow-[0_0_20px_rgba(0,218,243,0.06)] border-b border-white/5">
-    <div class="flex justify-between items-center max-w-7xl mx-auto px-6 py-4">
-      <a href="/" class="text-xl font-black text-[#c3f5ff] tracking-tight font-headline">nca</a>
-      <div class="hidden md:flex items-center space-x-8">
-        <a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors font-headline font-bold tracking-tighter text-sm" href="/#features">Features</a>
-        <a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors font-headline font-bold tracking-tighter text-sm" href="/#use-cases">Use Cases</a>
-        <a class="text-[#c3f5ff] border-b-2 border-[#c3f5ff] pb-1 font-headline font-bold tracking-tighter text-sm" href="/get-started">Install</a>
-        <a class="text-[#bac9cc] hover:text-[#c3f5ff] transition-colors font-headline font-bold tracking-tighter text-sm" href="https://github.com/madebyaris/native-cli-ai" target="_blank" rel="noreferrer">GitHub</a>
-      </div>
-      <div class="flex items-center gap-4">
-        <a href="https://github.com/madebyaris/native-cli-ai" target="_blank" rel="noreferrer" class="material-symbols-outlined text-[#c3f5ff] cursor-pointer hover:bg-[#2A2A2A]/50 p-2 rounded-full transition-all duration-300">terminal</a>
-      </div>
-    </div>
-  </nav>
+  <SiteHeader active="install" />
 
-  <main class="relative overflow-hidden pt-32 pb-20">
-    <div class="max-w-4xl mx-auto px-6">
-      <!-- Page heading -->
-      <div class="mb-16">
-        <h1 class="text-5xl md:text-7xl font-black font-headline tracking-tighter leading-[0.9] mb-6 text-on-background">Install <span class="text-primary">nca</span></h1>
-        <p class="text-on-surface-variant text-lg md:text-xl font-medium leading-relaxed max-w-2xl">
-          One command on macOS and Linux. Detects your platform, downloads the latest release from GitHub, and installs to <code class="text-primary">/usr/local/bin</code>.
+  <main class="flex-1 border-b border-border">
+    <div class="mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-24">
+      <h1 class="font-display text-4xl tracking-[-0.04rem] text-fg md:text-5xl">
+        Install <span class="text-accent">nca</span>
+      </h1>
+      <p class="font-body mt-5 text-lg text-fg-muted">
+        One command on macOS and Linux. Detects your platform, downloads the latest release from GitHub, and installs to <code
+          class="font-mono-article rounded-sm bg-surface-400 px-1 text-[0.95em]">/usr/local/bin</code
+        >.
+      </p>
+
+      <section class="mt-14">
+        <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">One-line install</h2>
+        <div
+          class="mt-4 flex flex-col gap-4 rounded-md border border-border bg-page p-5 shadow-[var(--shadow-ambient)] md:flex-row md:items-center md:justify-between md:p-6"
+        >
+          <code class="font-mono-article break-all text-sm text-fg md:text-base"
+            >curl -fsSL https://nca-cli.com/install | bash</code
+          >
+          <button
+            type="button"
+            id="copy-install"
+            class="font-ui shrink-0 rounded-md border border-border bg-surface-300 px-4 py-2.5 text-sm font-medium text-fg hover:text-accent-hover"
+          >
+            Copy
+          </button>
+        </div>
+        <p class="font-body mt-4 text-sm text-fg-muted">
+          Set <code class="font-mono-article text-[0.9em]">NCA_INSTALL_DIR</code> to change the install path from the default.
         </p>
-      </div>
-
-      <!-- One-line install -->
-      <section class="mb-16">
-        <h2 class="text-xs font-label uppercase tracking-widest text-primary mb-6">One-line install</h2>
-        <div class="relative group">
-          <div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-xl blur opacity-20 group-hover:opacity-80 transition duration-1000 group-hover:duration-200"></div>
-          <div class="relative bg-black rounded-xl border border-white/10 p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <code class="text-lg md:text-2xl font-mono text-primary font-bold break-all">curl -fsSL https://nca-cli.com/install | bash</code>
-            <button id="copy-install" class="bg-surface-container-highest hover:bg-surface-variant text-on-surface px-6 py-3 rounded-xl flex items-center gap-3 transition-colors border border-white/10 shrink-0">
-              <span class="material-symbols-outlined">content_copy</span>
-              <span class="font-label uppercase tracking-widest text-xs font-bold">Copy</span>
-            </button>
-          </div>
-        </div>
-        <p class="mt-4 text-on-surface-variant text-sm">Set <code class="text-primary">NCA_INSTALL_DIR</code> to change the install path from the default <code class="text-primary">/usr/local/bin</code>.</p>
       </section>
 
-      <!-- GitHub Releases -->
-      <section class="mb-16">
-        <h2 class="text-xs font-label uppercase tracking-widest text-primary mb-6">GitHub Releases</h2>
-        <p class="text-on-surface-variant text-sm mb-6">Pre-built binaries for every release are available on the <a href="https://github.com/madebyaris/native-cli-ai/releases" target="_blank" rel="noreferrer" class="text-primary hover:underline">Releases page</a>.</p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <section class="mt-14">
+        <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">GitHub Releases</h2>
+        <p class="font-body mt-4 text-fg-muted">
+          Pre-built binaries for every release are on the <a
+            href={`${GITHUB_REPO}/releases`}
+            class="font-medium text-accent underline decoration-accent/35 underline-offset-[3px] hover:text-accent-hover"
+            target="_blank"
+            rel="noreferrer">Releases page</a
+          >.
+        </p>
+        <ul class="mt-6 space-y-2" role="list">
           {platforms.map((p) => (
-            <div class="bg-surface-container-low rounded-xl p-5 flex justify-between items-center border border-white/5 hover:bg-surface-container-high transition-all duration-200">
-              <span class="text-on-surface font-headline font-bold text-sm">{p.name}</span>
-              <code class="text-primary text-xs font-mono">{p.target}</code>
-            </div>
+            <li
+              class="font-ui flex flex-col justify-between gap-2 rounded-md border border-border bg-surface-400/60 px-4 py-3 sm:flex-row sm:items-center"
+            >
+              <span class="text-sm font-medium text-fg">{p.name}</span>
+              <code class="font-mono-article text-xs text-fg-muted">{p.target}</code>
+            </li>
           ))}
+        </ul>
+      </section>
+
+      <section class="mt-14">
+        <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">Build from source</h2>
+        <p class="font-body mt-4 text-sm text-fg-muted">Requires Rust edition 2024 and a recent toolchain.</p>
+        <div class="mt-4 overflow-x-auto rounded-md border border-border bg-terminal-bg p-5">
+          <pre
+            class="font-mono-article text-[13px] leading-relaxed text-terminal-fg"><span class="text-terminal-accent">$</span> git clone https://github.com/madebyaris/native-cli-ai.git
+<span class="text-terminal-accent">$</span> cd native-cli-ai
+<span class="text-terminal-accent">$</span> cargo build --release
+<span class="text-terminal-accent">$</span> cp target/release/nca /usr/local/bin/</pre>
         </div>
       </section>
 
-      <!-- Build from source -->
-      <section class="mb-16">
-        <h2 class="text-xs font-label uppercase tracking-widest text-primary mb-6">Build from source</h2>
-        <p class="text-on-surface-variant text-sm mb-6">Requires Rust edition 2024 and a recent toolchain.</p>
-        <div class="bg-surface-container-low rounded-xl border border-white/5 p-6 overflow-x-auto">
-          <pre class="text-sm font-mono text-on-surface leading-relaxed"><span class="text-primary">$</span> git clone https://github.com/madebyaris/native-cli-ai.git
-<span class="text-primary">$</span> cd native-cli-ai
-<span class="text-primary">$</span> cargo build --release
-<span class="text-primary">$</span> cp target/release/nca /usr/local/bin/</pre>
+      <section class="mt-14">
+        <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">Quick start</h2>
+        <div class="mt-4 overflow-x-auto rounded-md border border-border bg-terminal-bg p-5">
+          <pre
+            class="font-mono-article text-[13px] leading-relaxed text-terminal-fg"><span class="text-terminal-muted"># Configure a provider</span>
+<span class="text-terminal-accent">$</span> export MINIMAX_API_KEY=<span class="text-fg">"your-api-key"</span>
+
+<span class="text-terminal-muted"># Interactive CLI</span>
+<span class="text-terminal-accent">$</span> nca
+
+<span class="text-terminal-muted"># Line REPL (no full-screen TUI)</span>
+<span class="text-terminal-accent">$</span> nca --no-tui
+
+<span class="text-terminal-muted"># One-shot</span>
+<span class="text-terminal-accent">$</span> nca run --prompt <span class="text-fg">"Explain this repository"</span>
+
+<span class="text-terminal-muted"># Detached session</span>
+<span class="text-terminal-accent">$</span> nca spawn --prompt <span class="text-fg">"Inspect the repo and draft a plan"</span>
+
+<span class="text-terminal-muted"># Inspect &amp; attach</span>
+<span class="text-terminal-accent">$</span> nca sessions
+<span class="text-terminal-accent">$</span> nca status &lt;session_id&gt;
+<span class="text-terminal-accent">$</span> nca attach &lt;session_id&gt;</pre>
         </div>
       </section>
 
-      <!-- Quick Start -->
-      <section class="mb-16">
-        <h2 class="text-xs font-label uppercase tracking-widest text-primary mb-6">Quick start</h2>
-        <div class="bg-surface-container-low rounded-xl border border-white/5 p-6 overflow-x-auto">
-          <pre class="text-sm font-mono text-on-surface leading-relaxed"><span class="text-on-surface-variant"># Configure a provider</span>
-<span class="text-primary">$</span> export MINIMAX_API_KEY=<span class="text-secondary">"your-api-key"</span>
-
-<span class="text-on-surface-variant"># Start the interactive CLI</span>
-<span class="text-primary">$</span> nca
-
-<span class="text-on-surface-variant"># Line REPL instead of the full-screen TUI</span>
-<span class="text-primary">$</span> nca --no-tui
-
-<span class="text-on-surface-variant"># Run one task and exit</span>
-<span class="text-primary">$</span> nca run --prompt <span class="text-secondary">"Explain this repository"</span>
-
-<span class="text-on-surface-variant"># Spawn a detached session</span>
-<span class="text-primary">$</span> nca spawn --prompt <span class="text-secondary">"Inspect the repo and draft a plan"</span>
-
-<span class="text-on-surface-variant"># Inspect and attach</span>
-<span class="text-primary">$</span> nca sessions
-<span class="text-primary">$</span> nca status &lt;session_id&gt;
-<span class="text-primary">$</span> nca attach &lt;session_id&gt;</pre>
-        </div>
-      </section>
-
-      <!-- Back to home -->
-      <div class="text-center">
-        <a href="/" class="text-primary font-label uppercase tracking-widest text-xs hover:underline">&larr; Back to home</a>
-      </div>
+      <p class="mt-14 text-center">
+        <a
+          href="/"
+          class="font-ui text-sm font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+        >
+          Back to home
+        </a>
+      </p>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="w-full py-12 border-t border-white/5 bg-[#000000]">
-    <div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-8">
-      <div class="flex flex-col items-center md:items-start gap-4">
-        <a href="/" class="text-lg font-bold text-[#c3f5ff]">nca</a>
-        <p class="font-['Space_Grotesk'] uppercase text-[10px] tracking-widest text-[#bac9cc]/60">&copy; 2026 native-cli-ai by <a href="https://github.com/madebyaris" class="hover:text-[#d8b9ff] transition-colors">Aris Setia</a>. MIT License.</p>
-      </div>
-      <div class="flex gap-8">
-        <a class="font-['Space_Grotesk'] uppercase text-[10px] tracking-widest text-[#bac9cc]/60 hover:text-[#d8b9ff] transition-colors" href="/get-started">Install</a>
-        <a class="font-['Space_Grotesk'] uppercase text-[10px] tracking-widest text-[#bac9cc]/60 hover:text-[#d8b9ff] transition-colors" href="https://github.com/madebyaris/native-cli-ai" target="_blank" rel="noreferrer">GitHub</a>
-        <a class="font-['Space_Grotesk'] uppercase text-[10px] tracking-widest text-[#bac9cc]/60 hover:text-[#d8b9ff] transition-colors" href="https://github.com/madebyaris" target="_blank" rel="noreferrer">Sponsor</a>
-        <a class="font-['Space_Grotesk'] uppercase text-[10px] tracking-widest text-[#bac9cc]/60 hover:text-[#d8b9ff] transition-colors" href="https://github.com/madebyaris/native-cli-ai/releases" target="_blank" rel="noreferrer">Releases</a>
-      </div>
-    </div>
-  </footer>
+  <SiteFooter />
 
   <script>
-    document.getElementById('copy-install')?.addEventListener('click', () => {
-      navigator.clipboard.writeText('curl -fsSL https://nca-cli.com/install | bash');
-      const btn = document.getElementById('copy-install');
-      const label = btn?.querySelector('.font-label');
-      if (label) {
-        label.textContent = 'Copied!';
-        setTimeout(() => { label.textContent = 'Copy'; }, 2000);
+    document.getElementById("copy-install")?.addEventListener("click", () => {
+      navigator.clipboard.writeText("curl -fsSL https://nca-cli.com/install | bash");
+      const btn = document.getElementById("copy-install");
+      if (btn) {
+        const t = btn.textContent;
+        btn.textContent = "Copied";
+        setTimeout(() => {
+          btn.textContent = t ?? "Copy";
+        }, 2000);
       }
     });
   </script>

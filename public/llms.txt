@@ -1,0 +1,32 @@
+# nca (Native CLI AI)
+
+> nca is an open-source, Rust-native terminal interface for coding agents. It ships as a single binary with a TUI and REPL, sessions, git worktrees, provider configuration, and agent orchestration features.
+
+The project is developed in public on GitHub. Documentation on nca-cli.com mirrors the repository docs.
+
+## Services
+
+- [Product site](https://nca-cli.com/): Overview, install paths, and interactive demo
+- [Install](https://nca-cli.com/get-started): One-line install, GitHub Releases, and build-from-source steps
+- [Documentation](https://nca-cli.com/docs): Guides for commands, configuration, sessions, tools, providers, and advanced topics
+- [Source code](https://github.com/madebyaris/native-cli-ai): Repository, issues, and releases
+
+## What We Do Not Do
+
+nca does not provide hosted inference or a proprietary cloud API as part of this project. Model access depends on user-configured providers and API keys. nca is not legal or security advice; follow your organization’s policies for AI tooling and secrets.
+
+## Contact
+
+- Repository and issues: https://github.com/madebyaris/native-cli-ai
+- Website: https://nca-cli.com/
+
+## Key Information
+
+- [Documentation index](https://nca-cli.com/docs): All published guides
+- [Getting started](https://nca-cli.com/docs/getting-started): Requirements and first run
+
+## AI Discovery Files
+
+- [Sitemap index](https://nca-cli.com/sitemap-index.xml): Machine-readable list of site URLs
+- [Robots](https://nca-cli.com/robots.txt): Crawler policy and sitemap location
+- [llm.txt alias](https://nca-cli.com/llm.txt): Same content as this file for compatibility
