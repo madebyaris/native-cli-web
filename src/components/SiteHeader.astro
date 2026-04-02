@@ -1,0 +1,123 @@
+---
+import { NCA_VERSION, GITHUB_REPO } from "../consts";
+
+interface Props {
+  active?: "home" | "install" | "docs";
+}
+
+const { active } = Astro.props;
+
+const nav = [
+  { href: "/#features", label: "Features", key: undefined },
+  { href: "/#workflows", label: "Workflows", key: undefined },
+  { href: "/get-started", label: "Install", key: "install" as const },
+  { href: "/docs", label: "Documentation", key: "docs" as const },
+];
+
+const linkClass = (key: typeof active | undefined) =>
+  key && active === key
+    ? "text-fg border-b border-fg font-medium"
+    : "text-fg-muted hover:text-accent-hover border-b border-transparent transition-colors duration-150";
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-border bg-page/85 backdrop-blur-md"
+>
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
+    <div class="flex items-center gap-3">
+      <a href="/" class="font-display text-lg font-semibold tracking-tight text-fg">nca</a>
+      <a
+        href={`${GITHUB_REPO}/releases/tag/v${NCA_VERSION}`}
+        class="font-ui hidden rounded-pill border border-border bg-surface-300 px-2 py-0.5 text-[11px] font-medium text-fg-muted transition-colors hover:border-border-strong hover:text-fg sm:inline-flex"
+        target="_blank"
+        rel="noreferrer"
+      >
+        v{NCA_VERSION}
+      </a>
+    </div>
+
+    <nav class="font-ui hidden items-center gap-8 text-sm md:flex" aria-label="Primary">
+      {nav.map((item) => (
+        <a href={item.href} class:list={[linkClass(item.key), "pb-0.5"]}>
+          {item.label}
+        </a>
+      ))}
+      <a
+        href={GITHUB_REPO}
+        class="text-fg-muted hover:text-accent-hover border-b border-transparent pb-0.5 transition-colors duration-150"
+        target="_blank"
+        rel="noreferrer"
+      >
+        GitHub
+      </a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a
+        href="/get-started"
+        class="font-ui hidden rounded-md bg-accent px-4 py-2 text-sm font-semibold text-white shadow-md shadow-accent/30 transition-colors hover:bg-[#e04500] hover:shadow-lg hover:shadow-accent/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:inline-flex"
+      >
+        Install
+      </a>
+
+      <button
+        type="button"
+        id="mobile-nav-toggle"
+        class="font-ui inline-flex rounded-md border border-border p-2 text-fg md:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-nav-panel"
+        aria-label="Open menu"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-nav-panel"
+    class="font-ui hidden border-t border-border bg-page px-4 py-4 md:hidden"
+  >
+    <div class="flex flex-col gap-1">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            item.key && active === item.key ? "text-fg font-medium" : "text-fg-muted",
+            "rounded-md px-2 py-2 hover:bg-surface-400",
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a
+        href={GITHUB_REPO}
+        class="text-fg-muted rounded-md px-2 py-2 hover:bg-surface-400"
+        target="_blank"
+        rel="noreferrer"
+      >
+        GitHub
+      </a>
+      <a
+        href="/get-started"
+        class="font-ui mt-2 rounded-md bg-accent px-3 py-2.5 text-center text-sm font-semibold text-white shadow-md shadow-accent/30 transition-colors hover:bg-[#e04500]"
+      >
+        Install nca
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById("mobile-nav-toggle");
+  const panel = document.getElementById("mobile-nav-panel");
+  if (btn && panel) {
+    btn.addEventListener("click", () => {
+      const wasHidden = panel.classList.contains("hidden");
+      panel.classList.toggle("hidden");
+      btn.setAttribute("aria-expanded", String(wasHidden));
+      btn.setAttribute("aria-label", wasHidden ? "Close menu" : "Open menu");
+    });
+  }
+</script>

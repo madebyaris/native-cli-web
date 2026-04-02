@@ -1,0 +1,315 @@
+---
+/**
+ * Interactive HTML demo of the nca full-screen TUI (browser-only, not the real binary).
+ */
+---
+
+<div class="relative">
+  <div
+    id="nca-tui-demo"
+    class="nca-tui-demo relative overflow-hidden rounded-md border border-white/[0.1] bg-[#0a0c10] text-left shadow-[var(--shadow-elevated)] ring-1 ring-black/5"
+    role="region"
+    aria-label="Interactive nca TUI demo"
+    tabindex="-1"
+  >
+    <div
+      class="grid min-h-[280px] grid-cols-1 gap-px border-b border-white/[0.08] bg-white/[0.08] md:min-h-[300px] md:grid-cols-[1fr_min(38%,280px)]"
+    >
+      <!-- Transcript -->
+      <div class="flex min-h-0 flex-col bg-[#12141c]">
+        <div
+          class="border-b border-white/[0.08] px-3 py-2 font-mono text-[10px] leading-tight text-[#8b909e] md:text-[11px]"
+        >
+          transcript — <span data-demo-line-count>1</span> lines (↑↓ wheel · End bottom)
+        </div>
+        <div
+          class="demo-transcript scrollbar-thin max-h-[180px] flex-1 overflow-y-auto px-3 py-2 font-mono text-[11px] leading-relaxed md:max-h-[220px] md:text-[12px]"
+        >
+          <p class="mb-2 text-[#e8c066]">
+            ▶ Interactive run — type a message, Tab cycles agent profile, Ctrl+P opens commands.
+          </p>
+          <div data-demo-transcript-append class="space-y-2 text-[#c8cdd6]"></div>
+        </div>
+        <div
+          class="border-t border-white/[0.08] px-3 py-1.5 font-mono text-[9px] text-[#6b7280] md:text-[10px]"
+        >
+          Tab agent · Ctrl+V image · Ctrl+P commands · !cmd shell · @path search · / inline · wheel scroll
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="flex flex-col border-t border-white/[0.08] bg-[#0f1117] md:border-t-0 md:border-l">
+        <div
+          class="border-b border-white/[0.08] px-2 py-1.5 font-mono text-[10px] font-medium tracking-wide text-[#9ca3af] uppercase"
+        >
+          Context
+        </div>
+        <div class="space-y-0.5 px-2 py-2 font-mono text-[10px] leading-snug text-[#b8bec8] md:text-[11px]">
+          <div><span class="text-[#6b7280]">workspace</span> ~/project</div>
+          <div><span class="text-[#6b7280]">model</span> <span class="text-[#7eb8ff]">MiniMax-M2.7</span></div>
+          <div>
+            <span class="text-[#6b7280]">agent</span>
+            <span data-demo-agent class="text-[#c4a8ff]">@build</span>
+          </div>
+          <div><span class="text-[#6b7280]">mode</span> AcceptEdits</div>
+          <div><span class="text-[#6b7280]">status</span> <span class="text-[#6ee7b7]">idle</span></div>
+          <div><span class="text-[#6b7280]">blocks</span> <span data-demo-blocks>1</span></div>
+          <div><span class="text-[#6b7280]">lines</span> <span data-demo-lines>1</span></div>
+        </div>
+        <div
+          class="border-t border-white/[0.08] px-2 py-1.5 font-mono text-[10px] font-medium tracking-wide text-[#9ca3af] uppercase"
+        >
+          Usage
+        </div>
+        <div class="space-y-0.5 px-2 py-2 font-mono text-[10px] text-[#b8bec8] md:text-[11px]">
+          <div>
+            input <span data-demo-tok-in>0</span> · output <span data-demo-tok-out>0</span> · total
+            <span data-demo-tok-total>0</span>
+          </div>
+          <div>cost <span class="text-[#9ca3af]">$0.0000</span></div>
+          <div class="text-[#6b7280]">no pending prompt</div>
+        </div>
+        <div
+          class="border-t border-white/[0.08] px-2 py-1.5 font-mono text-[10px] font-medium tracking-wide text-[#9ca3af] uppercase"
+        >
+          Sidebar
+        </div>
+        <div class="flex-1 px-2 py-2 font-mono text-[10px] text-[#b8bec8] md:text-[11px]">
+          <div class="text-[#6b7280]">sub-agents</div>
+          <div class="mb-2">none (spawn shows here)</div>
+          <div class="text-[#6b7280]">dev</div>
+          <div class="text-[#7eb8ff]">.nca/sessions</div>
+          <div class="text-[#7eb8ff]">docs/research/</div>
+          <div class="mt-2 text-[#6b7280]">Ctrl+P commands</div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Status strip -->
+    <div
+      class="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-white/[0.08] bg-[#0c0e14] px-3 py-2 font-mono text-[10px] md:text-[11px]"
+    >
+      <span class="inline-flex items-center gap-1.5 text-[#6ee7b7]">
+        <span class="h-1.5 w-1.5 rounded-full bg-[#34d399]"></span> idle
+      </span>
+      <span class="text-[#7eb8ff]">MiniMax-M2.7</span>
+      <span data-demo-agent-status class="text-[#c4a8ff]">@build</span>
+      <span class="text-[#9ca3af]">perm:AcceptEdits</span>
+      <span data-demo-timer class="ml-auto tabular-nums text-[#9ca3af]">00:00</span>
+    </div>
+
+    <!-- Message -->
+    <div class="bg-[#12141c] px-3 py-2">
+      <div class="mb-1 font-mono text-[10px] text-[#6b7280]">message</div>
+      <div class="flex items-center gap-2 rounded border border-white/[0.1] bg-[#0a0c10] px-2 py-1.5">
+        <span class="shrink-0 font-mono text-[#f97316]">❯</span>
+        <input
+          type="text"
+          data-demo-input
+          class="demo-input min-w-0 flex-1 bg-transparent font-mono text-[12px] text-[#e5e7eb] outline-none placeholder:text-[#4b5563] md:text-[13px]"
+          placeholder="Try Tab, Ctrl+P, Enter…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Demo message input"
+        />
+      </div>
+    </div>
+
+    <!-- Command palette overlay -->
+    <div
+      data-demo-palette
+      class="pointer-events-none invisible absolute inset-0 z-10 flex items-start justify-center rounded-md bg-black/50 p-4 opacity-0 transition-opacity duration-150"
+      aria-hidden="true"
+    >
+      <div
+        class="pointer-events-auto mt-6 w-full max-w-sm rounded-md border border-white/[0.12] bg-[#1a1d26] p-2 font-mono text-[11px] shadow-xl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Command palette"
+      >
+        <div class="mb-2 px-2 py-1 text-[10px] text-[#6b7280]">Commands</div>
+        <ul class="space-y-0.5">
+          <li>
+            <button type="button" data-demo-cmd="Run tests" class="w-full rounded px-2 py-1.5 text-left text-[#e5e7eb] hover:bg-white/[0.06]">
+              Run tests
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              data-demo-cmd="Explain selection"
+              class="w-full rounded px-2 py-1.5 text-left text-[#e5e7eb] hover:bg-white/[0.06]"
+            >
+              Explain selection
+            </button>
+          </li>
+          <li>
+            <button type="button" data-demo-cmd="/image clear" class="w-full rounded px-2 py-1.5 text-left text-[#e5e7eb] hover:bg-white/[0.06]">
+              /image clear
+            </button>
+          </li>
+        </ul>
+        <p class="mt-2 px-2 text-[10px] text-[#6b7280]">Esc to close</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="font-ui mt-3 text-center text-[11px] text-fg-muted">
+    Interactive demo — <kbd class="rounded bg-surface-400 px-1 font-mono text-[10px]">Tab</kbd> cycles agent ·
+    <kbd class="rounded bg-surface-400 px-1 font-mono text-[10px]">Ctrl</kbd>+<kbd
+      class="rounded bg-surface-400 px-1 font-mono text-[10px]">P</kbd
+    >
+    command palette · <kbd class="rounded bg-surface-400 px-1 font-mono text-[10px]">Enter</kbd> sends (no model)
+  </p>
+</div>
+
+<script>
+  const AGENTS = ["@build", "@plan", "@review", "@fix", "@test"];
+
+  function init() {
+    const root = document.getElementById("nca-tui-demo");
+    if (!root) return;
+
+    const input = root.querySelector("[data-demo-input]");
+    const append = root.querySelector("[data-demo-transcript-append]");
+    const palette = root.querySelector("[data-demo-palette]");
+    const agentEls = root.querySelectorAll("[data-demo-agent], [data-demo-agent-status]");
+    const lineCountEl = root.querySelector("[data-demo-line-count]");
+    const linesEl = root.querySelector("[data-demo-lines]");
+    const blocksEl = root.querySelector("[data-demo-blocks]");
+    const tokIn = root.querySelector("[data-demo-tok-in]");
+    const tokOut = root.querySelector("[data-demo-tok-out]");
+    const tokTotal = root.querySelector("[data-demo-tok-total]");
+    const timerEl = root.querySelector("[data-demo-timer]");
+
+    if (!input || !append) return;
+    const inputEl = input as HTMLInputElement;
+    const transcriptAppend = append;
+
+    let agentIdx = 0;
+    let lineCount = 1;
+    let blockCount = 1;
+    let sec = 0;
+    let tokInN = 0;
+    let tokOutN = 0;
+
+    function setAgent() {
+      const a = AGENTS[agentIdx] ?? "@build";
+      agentEls?.forEach((el) => {
+        el.textContent = a;
+      });
+    }
+
+    function openPalette() {
+      if (!palette) return;
+      palette.classList.remove("invisible", "pointer-events-none", "opacity-0");
+      palette.setAttribute("aria-hidden", "false");
+    }
+
+    function closePalette() {
+      if (!palette) return;
+      palette.classList.add("invisible", "pointer-events-none", "opacity-0");
+      palette.setAttribute("aria-hidden", "true");
+      inputEl.focus();
+    }
+
+    function appendLine(role: "user" | "assistant", text: string) {
+      const wrap = document.createElement("div");
+      if (role === "user") {
+        wrap.className = "text-[#93c5fd]";
+        wrap.textContent = `you › ${text}`;
+      } else {
+        wrap.className = "text-[#a7f3d0]";
+        wrap.textContent = `nca › ${text}`;
+      }
+      transcriptAppend.appendChild(wrap);
+      lineCount += 1;
+      blockCount += 1;
+      if (lineCountEl) lineCountEl.textContent = String(lineCount);
+      if (linesEl) linesEl.textContent = String(lineCount);
+      if (blocksEl) blocksEl.textContent = String(blockCount);
+      const scrollEl = transcriptAppend.parentElement;
+      if (scrollEl) scrollEl.scrollTo({ top: scrollEl.scrollHeight, behavior: "smooth" });
+    }
+
+    function bumpTokens(inN: number, outN: number) {
+      tokInN += inN;
+      tokOutN += outN;
+      if (tokIn) tokIn.textContent = String(tokInN);
+      if (tokOut) tokOut.textContent = String(tokOutN);
+      if (tokTotal) tokTotal.textContent = String(tokInN + tokOutN);
+    }
+
+    inputEl.addEventListener("keydown", (e) => {
+      if (e.key === "Tab") {
+        e.preventDefault();
+        agentIdx = (agentIdx + 1) % AGENTS.length;
+        setAgent();
+        return;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "p") {
+        e.preventDefault();
+        openPalette();
+        return;
+      }
+      if (e.key === "Escape" && palette && !palette.classList.contains("invisible")) {
+        e.preventDefault();
+        closePalette();
+        return;
+      }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const v = inputEl.value.trim();
+        if (!v) return;
+        appendLine("user", v);
+        bumpTokens(Math.min(32, v.length * 2), 0);
+        inputEl.value = "";
+        const replies = [
+          "(demo) Acknowledged — in the real binary this would invoke tools and stream output.",
+          "(demo) Try Tab to switch agent profile.",
+          "(demo) Ctrl+P opens the real command palette.",
+        ];
+        const r = replies[Math.floor(Math.random() * replies.length)]!;
+        window.setTimeout(() => {
+          appendLine("assistant", r);
+          bumpTokens(0, r.length);
+        }, 280);
+      }
+    });
+
+    root.querySelectorAll("[data-demo-cmd]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const t = btn.getAttribute("data-demo-cmd") ?? "";
+        inputEl.value = t;
+        closePalette();
+      });
+    });
+
+    palette?.addEventListener("click", (e) => {
+      if (e.target === palette) closePalette();
+    });
+
+    window.setInterval(() => {
+      sec += 1;
+      if (timerEl) {
+        const m = Math.floor(sec / 60);
+        const s = sec % 60;
+        timerEl.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+      }
+    }, 1000);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && palette && !palette.classList.contains("invisible")) {
+        closePalette();
+      }
+    });
+  }
+
+  init();
+</script>
+
+<style is:global>
+  .nca-tui-demo .demo-input::placeholder {
+    color: rgb(75 85 99);
+  }
+</style>

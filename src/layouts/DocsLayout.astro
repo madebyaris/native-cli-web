@@ -1,0 +1,59 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  title: string;
+  description?: string;
+  entries: CollectionEntry<"docs">[];
+  /** Empty when on /docs hub — no sidebar item is marked active */
+  currentId?: string;
+}
+
+const { title, description, entries, currentId } = Astro.props;
+
+const sorted = [...entries].sort((a, b) => a.data.sidebarOrder - b.data.sidebarOrder);
+---
+
+<BaseLayout title={title} description={description}>
+  <SiteHeader active="docs" />
+  <a
+    href="#doc-main"
+    class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-20 focus:z-[100] focus:rounded-md focus:border focus:border-border focus:bg-page focus:px-3 focus:py-2 focus:text-sm focus:shadow-[var(--shadow-ambient)]"
+  >
+    Skip to content
+  </a>
+
+  <div
+    class="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-8 md:flex-row md:gap-12 md:px-6 md:py-12"
+  >
+    <aside class="md:w-56 md:shrink-0">
+      <nav class="md:sticky md:top-28" aria-label="Documentation sections">
+        <p class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">Documentation</p>
+        <div class="mt-3 -mx-1 flex gap-1 overflow-x-auto pb-2 md:mx-0 md:flex-col md:overflow-visible md:pb-0">
+          {sorted.map((e) => (
+            <a
+              href={`/docs/${e.id}`}
+              class:list={[
+                "font-ui shrink-0 rounded-md px-2 py-1.5 text-sm whitespace-nowrap md:whitespace-normal",
+                currentId && currentId === e.id
+                  ? "bg-surface-400 text-fg font-medium"
+                  : "text-fg-muted hover:bg-surface-400/60 hover:text-fg",
+              ]}
+            >
+              {e.data.title}
+            </a>
+          ))}
+        </div>
+      </nav>
+    </aside>
+
+    <main id="doc-main" class="min-w-0 flex-1 pb-12">
+      <slot />
+    </main>
+  </div>
+
+  <SiteFooter />
+</BaseLayout>

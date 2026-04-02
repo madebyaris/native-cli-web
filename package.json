@@ -1,17 +1,22 @@
 {
   "name": "native-cli-ai-web",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview --host",
-    "check": "astro check"
+    "check": "astro check",
+    "sync-docs": "node scripts/sync-docs.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.0.8",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.3"
   },
