@@ -3,6 +3,9 @@ export const NCA_VERSION = "0.3.0";
 
 export const GITHUB_REPO = "https://github.com/madebyaris/native-cli-ai";
 
+export const SPONSOR_GITHUB = "https://github.com/sponsors/madebyaris";
+export const SPONSOR_PAYPAL = "https://paypal.me/airs";
+
 export const DOCS_UPSTREAM =
   "https://raw.githubusercontent.com/madebyaris/native-cli-ai/main/docs/documentation";
 

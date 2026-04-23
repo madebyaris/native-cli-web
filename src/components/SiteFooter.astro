@@ -1,5 +1,5 @@
 ---
-import { GITHUB_REPO } from "../consts";
+import { GITHUB_REPO, SPONSOR_GITHUB } from "../consts";
 ---
 
 <footer class="mt-auto border-t border-border bg-page px-4 py-10 md:px-6">
@@ -27,7 +27,8 @@ import { GITHUB_REPO } from "../consts";
       >
         Releases
       </a>
-      <a href="https://github.com/madebyaris" class="text-fg-muted hover:text-accent-hover" target="_blank" rel="noreferrer"
+      <a href="/support" class="text-fg-muted hover:text-accent-hover">Support</a>
+      <a href={SPONSOR_GITHUB} class="text-fg-muted hover:text-accent-hover" target="_blank" rel="noreferrer"
         >Sponsor</a
       >
     </nav>
