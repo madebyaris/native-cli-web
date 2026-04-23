@@ -2,7 +2,7 @@
 import { NCA_VERSION, GITHUB_REPO } from "../consts";
 
 interface Props {
-  active?: "home" | "install" | "docs";
+  active?: "home" | "install" | "docs" | "support";
 }
 
 const { active } = Astro.props;
@@ -12,6 +12,7 @@ const nav = [
   { href: "/#workflows", label: "Workflows", key: undefined },
   { href: "/get-started", label: "Install", key: "install" as const },
   { href: "/docs", label: "Documentation", key: "docs" as const },
+  { href: "/support", label: "Support", key: "support" as const },
 ];
 
 const linkClass = (key: typeof active | undefined) =>
