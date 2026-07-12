@@ -43,25 +43,24 @@ const otherWays = [
 ---
 
 <BaseLayout
-  title="Support nca | Native CLI AI"
+  title="Support nca development | Native CLI AI"
   description="Sponsor nca and the surrounding open-source work via GitHub Sponsors or PayPal. Other ways to help: star the repo, file issues, share the project."
 >
   <SiteHeader active="support" />
 
-  <main class="flex-1 border-b border-border">
+  <main id="main-content" class="flex-1 border-b border-border">
     <section class="relative overflow-hidden border-b border-border">
       <div class="from-page-elevated/80 pointer-events-none absolute inset-0 bg-gradient-to-b to-page"></div>
       <div class="relative mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-24">
         <p class="font-ui mb-4 text-xs font-medium uppercase tracking-[0.2em] text-fg-muted">
           Indie · Open source · No VC
         </p>
-        <h1 class="font-display text-4xl tracking-[-0.04rem] text-fg md:text-5xl">
-          Help keep <span class="text-accent">nca</span> alive.
+        <h1 class="font-display text-4xl tracking-[-0.04rem] text-fg text-balance md:text-5xl">
+          Help keep <span class="text-accent" translate="no">nca</span> alive.
         </h1>
         <p class="font-body mt-5 text-lg leading-relaxed text-fg-muted">
-          nca is built and maintained by one indie developer in Indonesia. Sponsorship pays for
-          the time it takes to ship releases, write docs, fix bugs, and keep the project free for
-          everyone.
+          nca is built and maintained by one indie developer in Indonesia. Sponsorship pays for the time it takes to ship
+          releases, write docs, fix bugs, and keep the project free for everyone.
         </p>
       </div>
     </section>
@@ -70,26 +69,28 @@ const otherWays = [
       <section>
         <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">Sponsor directly</h2>
         <div class="mt-6 grid gap-4 md:grid-cols-2">
-          {ways.map((w) => (
-            <article class="flex flex-col rounded-md border border-border bg-page p-6 shadow-[var(--shadow-ambient)]">
-              <h3 class="font-display text-xl text-fg">{w.title}</h3>
-              <p class="font-body mt-3 flex-1 text-sm leading-relaxed text-fg-muted">{w.body}</p>
-              <p class="font-ui mt-4 text-xs uppercase tracking-wider text-fg-muted">{w.note}</p>
-              <a
-                href={w.href}
-                target="_blank"
-                rel="noreferrer"
-                class:list={[
-                  "font-ui mt-5 inline-flex items-center justify-center rounded-md px-4 py-2.5 text-sm font-semibold transition-colors",
-                  w.accent
-                    ? "bg-accent text-white shadow-md shadow-accent/30 hover:bg-[#e04500] hover:shadow-lg hover:shadow-accent/35"
-                    : "border border-border bg-surface-300 text-fg hover:border-border-strong hover:text-accent-hover",
-                ]}
-              >
-                {w.label} →
-              </a>
-            </article>
-          ))}
+          {
+            ways.map((w) => (
+              <article class="flex flex-col rounded-md border border-border bg-page p-6 shadow-[var(--shadow-ambient)]">
+                <h3 class="font-display text-xl text-fg">{w.title}</h3>
+                <p class="font-body mt-3 flex-1 text-sm leading-relaxed text-fg-muted">{w.body}</p>
+                <p class="font-ui mt-4 text-xs uppercase tracking-wider text-fg-muted">{w.note}</p>
+                <a
+                  href={w.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class:list={[
+                    "font-ui mt-5 inline-flex items-center justify-center rounded-md px-4 py-2.5 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+                    w.accent
+                      ? "bg-accent text-white shadow-md shadow-accent/25 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30"
+                      : "border border-border bg-surface-300 text-fg hover:border-border-strong hover:text-accent-hover",
+                  ]}
+                >
+                  {w.label} →
+                </a>
+              </article>
+            ))
+          }
         </div>
       </section>
 
@@ -106,7 +107,10 @@ const otherWays = [
           </li>
           <li class="font-body flex gap-3">
             <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
-            <span>Maintenance on related open-source work — spec-kit-command-cursor, advance-minimax-m2-cursor-rules, agent-orchestration, chaca-scanner, and wp-block-to-html.</span>
+            <span
+              >Maintenance on related open-source work — RankMySEO, agent-orchestration, and other Native CLI ecosystem
+              tools.</span
+            >
           </li>
         </ul>
       </section>
@@ -114,31 +118,34 @@ const otherWays = [
       <section class="mt-16">
         <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">No budget? Still helpful</h2>
         <div class="mt-5 grid gap-4 md:grid-cols-3">
-          {otherWays.map((o) => (
-            <a
-              href={o.href}
-              target={o.href.startsWith("http") ? "_blank" : undefined}
-              rel={o.href.startsWith("http") ? "noreferrer" : undefined}
-              class="block rounded-md border border-border bg-surface-400/40 p-5 transition-colors hover:border-border-strong"
-            >
-              <p class="font-ui text-sm font-medium text-fg">{o.title}</p>
-              <p class="font-body mt-2 text-sm text-fg-muted">{o.body}</p>
-            </a>
-          ))}
+          {
+            otherWays.map((o) => (
+              <a
+                href={o.href}
+                target={o.href.startsWith("http") ? "_blank" : undefined}
+                rel={o.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                class="block rounded-md border border-border bg-surface-400/40 p-5 transition-colors hover:border-border-strong"
+              >
+                <p class="font-ui text-sm font-medium text-fg">{o.title}</p>
+                <p class="font-body mt-2 text-sm text-fg-muted">{o.body}</p>
+              </a>
+            ))
+          }
         </div>
       </section>
 
       <section class="mt-16 rounded-md border border-border bg-surface-400/40 p-6">
         <p class="font-display text-xl text-fg">Companies using nca?</p>
         <p class="font-body mt-3 text-sm leading-relaxed text-fg-muted">
-          If your team relies on nca in day-to-day work, a recurring sponsorship at a tier that
-          reflects that usage helps the project stay maintained at the pace you need. Reach out via
+          If your team relies on nca in day-to-day work, a recurring sponsorship at a tier that reflects that usage helps
+          the project stay maintained at the pace you need. Reach out via
           <a
             href={`${GITHUB_REPO}/issues`}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             class="font-medium text-accent underline decoration-accent/35 underline-offset-[3px] hover:text-accent-hover"
-          >GitHub issues</a> if you'd like to discuss custom support.
+            >GitHub issues</a
+          > if you'd like to discuss custom support.
         </p>
       </section>
 

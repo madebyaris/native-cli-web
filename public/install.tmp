@@ -31,10 +31,7 @@ detect_platform() {
 }
 
 main() {
-    local platform target_url archive
-    # Global tmpdir: EXIT trap runs after main returns (local would be unset with set -u).
-    tmpdir="$(mktemp -d)"
-    trap 'rm -rf "${tmpdir:-}"' EXIT
+    local platform target_url tmpdir archive
 
     info "Installing ${BINARY} v${VERSION}"
 
@@ -43,6 +40,9 @@ main() {
 
     info "Platform: ${platform}"
     info "Downloading from: ${target_url}"
+
+    tmpdir="$(mktemp -d)"
+    trap 'rm -rf "$tmpdir"' EXIT
 
     archive="${tmpdir}/${BINARY}.tar.gz"
 

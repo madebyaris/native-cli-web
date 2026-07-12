@@ -1,6 +1,6 @@
 ---
 title: "Tools"
-description: "All agent tools — file ops, search, shell, web, and more"
+description: "nca agent tools reference: file operations, structured search, shell, web, ask_question, spawn_subagent, and MCP."
 sidebarOrder: 6
 ---
 

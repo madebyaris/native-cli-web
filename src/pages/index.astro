@@ -3,44 +3,55 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import NcaTuiDemo from "../components/NcaTuiDemo.astro";
+import CopyInstall from "../components/CopyInstall.astro";
 import { NCA_VERSION, GITHUB_REPO } from "../consts";
+
+const whatsNew = [
+  {
+    title: "Dedicated nca-tui crate",
+    body: "Full-screen transcript, overlays, and REPL live in their own crate. The shipped app is still one nca binary.",
+  },
+  {
+    title: "Unified product home",
+    body: "Sessions, memory, and CLI index land under ~/.local/share/ncacli (or $NCA_HOME). Legacy ~/.nca still migrates.",
+  },
+  {
+    title: "Live busy activity",
+    body: "Status bar and transcript footer show thinking, streaming, and tool paths with elapsed time so waits never look stuck.",
+  },
+  {
+    title: "Multi-OS releases",
+    body: "GitHub Releases build Linux, macOS, and Windows x86_64. Custom OpenAI/Anthropic-compatible endpoints via /connect.",
+  },
+];
 ---
 
 <BaseLayout
-  title="nca — Native CLI AI | Rust-native coding agent"
-  description="Terminal-native AI agent: TUI & REPL, sessions & worktrees. Under ~20MB RAM, orchestration-friendly, lighter than Claude Code or OpenCode. One Rust binary."
+  title="nca — Terminal-native AI coding agent | Native CLI AI"
+  description="Rust-native AI coding agent for the terminal. Single binary with TUI, sessions, worktrees, and local-first control."
 >
   <SiteHeader active="home" />
 
-  <main class="flex-1">
+  <main id="main-content" class="flex-1">
     <section class="relative overflow-hidden border-b border-border">
       <div class="from-page-elevated/80 pointer-events-none absolute inset-0 bg-gradient-to-b to-page"></div>
-      <div class="relative mx-auto max-w-6xl px-4 pb-20 pt-12 md:px-6 md:pb-28 md:pt-16">
-        <p
-          class="font-ui hero-animate mb-4 text-xs font-medium uppercase tracking-[0.2em] text-fg-muted"
-        >
+      <div class="relative mx-auto max-w-6xl px-4 pb-16 pt-12 md:px-6 md:pb-24 md:pt-16">
+        <p class="font-ui hero-animate mb-4 text-xs font-medium uppercase tracking-[0.2em] text-fg-muted">
           Rust-native · Single binary · Terminal-first
         </p>
         <h1
-          class="font-display hero-animate hero-animate-delay-1 max-w-4xl text-4xl font-normal leading-[1.08] tracking-[-0.045rem] text-fg md:text-6xl md:tracking-[-0.065rem]"
+          class="font-display hero-animate hero-animate-delay-1 max-w-3xl text-4xl font-normal leading-[1.08] tracking-[-0.045rem] text-fg text-balance md:text-6xl md:tracking-[-0.065rem]"
         >
-          Orchestrate coding agents<br class="hidden sm:block" /> from the terminal.
+          Terminal-native AI coding agent.
         </h1>
-        <p
-          class="font-body hero-animate hero-animate-delay-2 mt-6 max-w-3xl text-lg leading-relaxed text-fg-muted md:text-xl"
-        >
-          Interactive TUI and line REPL, detached sessions, git worktrees for subagents, and machine-readable
-          output — built in Rust for fast startup and local-first control. Startup typically stays under
-          <span class="font-medium text-fg">20&nbsp;MB</span> of RAM, on the order of
-          <span class="font-medium text-fg">10× lighter</span> than Claude&nbsp;Code or OpenCode — far less memory than most
-          competing agents — so the binary stays out of your way. We are aiming for
-          <span class="font-medium text-fg">full compatibility with agent orchestration</span> workflows (JSON, NDJSON, IPC, env
-          hooks) so nca fits pipelines and multi-agent setups without a browser shell.
+        <p class="font-body hero-animate hero-animate-delay-2 mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl">
+          Interactive TUI and line REPL, detached sessions, git worktrees for subagents, and machine-readable output.
+          Built in Rust for fast startup and local-first control. No browser shell in the default path.
         </p>
         <div class="hero-animate hero-animate-delay-3 mt-10 flex flex-wrap items-center gap-4">
           <a
             href="/get-started"
-            class="font-ui rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white shadow-md shadow-accent/30 transition-colors hover:bg-[#e04500] hover:shadow-lg hover:shadow-accent/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            class="font-ui rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white shadow-md shadow-accent/25 transition-colors hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             Install nca
           </a>
@@ -54,7 +65,7 @@ import { NCA_VERSION, GITHUB_REPO } from "../consts";
             href={GITHUB_REPO}
             class="font-ui text-sm font-medium text-fg-muted hover:text-accent-hover"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             GitHub
           </a>
@@ -73,13 +84,13 @@ import { NCA_VERSION, GITHUB_REPO } from "../consts";
     >
       <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 md:flex-row md:items-center md:justify-between md:px-6">
         <p class="font-ui text-sm text-fg">
-          <span class="font-medium">Latest release:</span> v{NCA_VERSION}
+          <span class="font-medium">Latest release:</span> v{NCA_VERSION} — dedicated TUI, unified product home, live busy activity
         </p>
         <a
           href={`${GITHUB_REPO}/releases/tag/v${NCA_VERSION}`}
           class="font-ui text-sm font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           View release notes
         </a>
@@ -88,63 +99,117 @@ import { NCA_VERSION, GITHUB_REPO } from "../consts";
 
     <section id="features" class="border-b border-border py-20 md:py-28">
       <div class="mx-auto max-w-6xl px-4 md:px-6">
-        <h2 class="font-display max-w-2xl text-3xl tracking-[-0.03rem] text-fg md:text-4xl">
+        <h2 class="font-display max-w-2xl text-3xl tracking-[-0.03rem] text-fg text-balance md:text-4xl">
           Built for real terminal workflows
         </h2>
         <p class="font-body mt-4 max-w-2xl text-fg-muted">
-          Sessions persist in your workspace. Tools cover filesystem, search, shell, and web. MCP extends the
+          Sessions persist under your product home. Tools cover filesystem, search, shell, and web. MCP extends the
           surface when you need it.
         </p>
         <div class="mt-14 grid gap-12 md:grid-cols-2 md:gap-16">
           <div>
-            <h3 class="font-display text-xl tracking-tight text-fg">Sessions &amp; IPC</h3>
+            <h3 class="font-display text-xl tracking-tight text-fg">
+              <a href="/docs/sessions" class="hover:text-accent-hover">Sessions &amp; IPC</a>
+            </h3>
             <p class="font-body mt-3 text-fg-muted">
-              JSON snapshots and JSONL logs per session. Resume, <code class="font-mono-article text-[0.9em]">status</code>, <code
-                class="font-mono-article text-[0.9em]">logs</code
-              >, and <code class="font-mono-article text-[0.9em]">attach</code> over a Unix socket — no throwaway prompt box.
+              JSON snapshots and JSONL logs per session. Resume, <code class="font-mono-article text-[0.9em]">status</code>,
+              <code class="font-mono-article text-[0.9em]">logs</code>, and
+              <code class="font-mono-article text-[0.9em]">attach</code> over IPC — no throwaway prompt box.
             </p>
           </div>
           <div>
-            <h3 class="font-display text-xl tracking-tight text-fg">Skills &amp; MCP</h3>
+            <h3 class="font-display text-xl tracking-tight text-fg">
+              <a href="/docs/skills" class="hover:text-accent-hover">Skills &amp; MCP</a>
+            </h3>
             <p class="font-body mt-3 text-fg-muted">
-              Discover skills from <code class="font-mono-article text-[0.9em]">AGENTS.md</code>, workspace and user skill dirs, plus
-              built-ins. MCP servers load from config so tools grow with your stack.
+              Discover skills from <code class="font-mono-article text-[0.9em]">AGENTS.md</code>, workspace and user skill
+              dirs, plus built-ins. MCP servers load from config so tools grow with your stack.
             </p>
           </div>
           <div>
-            <h3 class="font-display text-xl tracking-tight text-fg">Subagents &amp; worktrees</h3>
+            <h3 class="font-display text-xl tracking-tight text-fg">
+              <a href="/docs/advanced" class="hover:text-accent-hover">Subagents &amp; worktrees</a>
+            </h3>
             <p class="font-body mt-3 text-fg-muted">
               Spawn child agents with parent/child lineage and optional isolated git worktrees for parallel work without
               tangling branches.
             </p>
           </div>
           <div>
-            <h3 class="font-display text-xl tracking-tight text-fg">Multimodal where it counts</h3>
+            <h3 class="font-display text-xl tracking-tight text-fg">
+              <a href="/docs/interactive-mode" class="hover:text-accent-hover">Multimodal where it counts</a>
+            </h3>
             <p class="font-body mt-3 text-fg-muted">
-              Paste images in the TUI (<kbd class="font-mono-article rounded bg-surface-400 px-1 text-[0.85em]">Ctrl+V</kbd> or <code
-                class="font-mono-article text-[0.9em]">/image</code
-              >). If the model is not vision-capable, nca fails loudly — no silent drops.
+              Paste images in the TUI (<kbd class="font-mono-article rounded bg-surface-400 px-1 text-[0.85em]">Ctrl+V</kbd> or
+              <code class="font-mono-article text-[0.9em]">/image</code>). If the model is not vision-capable, nca fails
+              loudly — no silent drops.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="workflows" class="border-b border-border bg-page-elevated/50 py-20 md:py-28">
+    <section id="whats-new" class="border-b border-border bg-page-elevated/50 py-20 md:py-28">
       <div class="mx-auto max-w-6xl px-4 md:px-6">
-        <h2 class="font-display max-w-2xl text-3xl tracking-[-0.03rem] text-fg md:text-4xl">How people use it</h2>
+        <h2 class="font-display max-w-2xl text-3xl tracking-[-0.03rem] text-fg text-balance md:text-4xl">
+          What's new in v{NCA_VERSION}
+        </h2>
+        <div class="mt-14 grid gap-10 md:grid-cols-2">
+          {
+            whatsNew.map((item) => (
+              <div>
+                <h3 class="font-display text-xl tracking-tight text-fg">{item.title}</h3>
+                <p class="font-body mt-3 text-fg-muted">{item.body}</p>
+              </div>
+            ))
+          }
+        </div>
+        <p class="font-ui mt-10 text-sm text-fg-muted">
+          Full guide:
+          <a href="/docs/interactive-mode" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+            >Interactive mode</a
+          >
+          ·
+          <a href="/docs/configuration" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+            >Configuration</a
+          >
+          ·
+          <a href="/docs/providers" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+            >Providers</a
+          >
+        </p>
+      </div>
+    </section>
+
+    <section id="workflows" class="border-b border-border py-20 md:py-28">
+      <div class="mx-auto max-w-6xl px-4 md:px-6">
+        <h2 class="font-display max-w-2xl text-3xl tracking-[-0.03rem] text-fg text-balance md:text-4xl">How people use it</h2>
         <div class="mt-14 space-y-16">
           <div class="flex flex-col gap-6 md:flex-row md:items-start md:gap-16">
             <p class="font-ui w-40 shrink-0 text-xs font-medium uppercase tracking-widest text-fg-muted">Solo</p>
             <div class="min-w-0 max-w-3xl flex-1">
               <h3 class="font-display text-xl text-fg">Interactive TUI</h3>
               <p class="font-body mt-2 text-fg-muted">
-                The hero is an interactive HTML demo of that layout: yellow hint line, <kbd
-                  class="font-mono-article rounded bg-surface-400 px-1 text-[0.85em]">Tab</kbd> cycles agents, <kbd
-                  class="font-mono-article rounded bg-surface-400 px-1 text-[0.85em]">Ctrl+P</kbd> opens a palette, plus sidebar,
-                status strip, and message line — use the real <code class="font-mono-article text-[0.9em]">nca</code> binary for full
-                behavior.
+                Full-screen transcript with markdown, live busy timers, slash commands, and a command palette. Use
+                <kbd class="font-mono-article rounded bg-surface-400 px-1 text-[0.85em]">Tab</kbd> to cycle agents and
+                <kbd class="font-mono-article rounded bg-surface-400 px-1 text-[0.85em]">Ctrl+P</kbd> to run commands.
               </p>
+              <figure class="mt-6">
+                <div
+                  class="overflow-hidden rounded-md border border-border bg-terminal-bg shadow-[var(--shadow-elevated)] ring-1 ring-black/5"
+                >
+                  <img
+                    src="/images/nca-tui-0.4.png"
+                    alt="nca full-screen TUI with transcript, context sidebar, status strip, and message composer"
+                    class="block h-auto w-full"
+                    width="1458"
+                    height="737"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <figcaption class="font-ui mt-3 text-xs text-fg-muted">Real TUI — transcript, sidebar, and status strip</figcaption>
+              </figure>
             </div>
           </div>
           <div class="flex flex-col gap-6 md:flex-row md:items-start md:gap-16">
@@ -152,9 +217,10 @@ import { NCA_VERSION, GITHUB_REPO } from "../consts";
             <div class="min-w-0 max-w-3xl flex-1">
               <h3 class="font-display text-xl text-fg">Spawn &amp; attach</h3>
               <p class="font-body mt-2 text-fg-muted">
-                Kick off <code class="font-mono-article text-[0.9em]">nca spawn</code>, keep coding, then return with <code
-                  class="font-mono-article text-[0.9em]">status</code
-                >, <code class="font-mono-article text-[0.9em]">logs</code>, or <code class="font-mono-article text-[0.9em]">attach</code> — same binary, line-oriented shell session.
+                Kick off <code class="font-mono-article text-[0.9em]">nca spawn</code>, keep coding, then return with
+                <code class="font-mono-article text-[0.9em]">status</code>,
+                <code class="font-mono-article text-[0.9em]">logs</code>, or
+                <code class="font-mono-article text-[0.9em]">attach</code>.
               </p>
               <figure class="mt-6">
                 <div
@@ -162,7 +228,7 @@ import { NCA_VERSION, GITHUB_REPO } from "../consts";
                 >
                   <img
                     src="/images/nca-terminal-cli.png"
-                    alt="nca line shell: NCA ZSH window with nca spawn, detached session id, nca attach, and AGENTS IPC status line"
+                    alt="nca line shell: nca spawn, detached session id, nca attach, and AGENTS IPC status line"
                     class="block h-auto w-full"
                     width="939"
                     height="307"
@@ -171,7 +237,7 @@ import { NCA_VERSION, GITHUB_REPO } from "../consts";
                   />
                 </div>
                 <figcaption class="font-ui mt-3 text-xs text-fg-muted">
-                  Real line CLI — spawn / attach / session id (separate mode from the full-screen TUI)
+                  Line CLI — spawn / attach / session id (separate from the full-screen TUI)
                 </figcaption>
               </figure>
             </div>
@@ -179,11 +245,13 @@ import { NCA_VERSION, GITHUB_REPO } from "../consts";
           <div class="flex flex-col gap-6 md:flex-row md:items-start md:gap-16">
             <p class="font-ui w-40 shrink-0 text-xs font-medium uppercase tracking-widest text-fg-muted">Automation</p>
             <div>
-              <h3 class="font-display text-xl text-fg">JSON, NDJSON &amp; orchestration</h3>
+              <h3 class="font-display text-xl text-fg">
+                <a href="/docs/advanced" class="hover:text-accent-hover">JSON, NDJSON &amp; orchestration</a>
+              </h3>
               <p class="font-body mt-2 max-w-xl text-fg-muted">
-                Drive nca as a worker with <code class="font-mono-article text-[0.9em]">--json</code>, <code
-                  class="font-mono-article text-[0.9em]">--stream ndjson</code
-                >, and <code class="font-mono-article text-[0.9em]">NCA_ORCH_*</code> metadata.
+                Drive nca as a worker with <code class="font-mono-article text-[0.9em]">--json</code>,
+                <code class="font-mono-article text-[0.9em]">--stream ndjson</code>, and
+                <code class="font-mono-article text-[0.9em]">NCA_ORCH_*</code> metadata.
               </p>
             </div>
           </div>
@@ -191,47 +259,45 @@ import { NCA_VERSION, GITHUB_REPO } from "../consts";
       </div>
     </section>
 
-    <section class="py-20 md:py-28">
+    <section class="border-b border-border bg-page-elevated/40 py-20 md:py-28">
       <div class="mx-auto max-w-6xl px-4 md:px-6">
-        <h2 class="font-display text-3xl tracking-[-0.03rem] text-fg md:text-4xl">Providers &amp; context</h2>
+        <h2 class="font-display text-3xl tracking-[-0.03rem] text-fg text-balance md:text-4xl">Providers &amp; context</h2>
         <p class="font-body mt-4 max-w-2xl text-fg-muted">
-          MiniMax-first with OpenAI, Anthropic, and OpenRouter. Config layers from defaults through <code
-            class="font-mono-article text-[0.9em]">~/.nca/config.toml</code
-          > and workspace overrides. Auto-summarize keeps long threads within your token budget.
+          MiniMax-first with OpenAI, Anthropic, OpenRouter, and custom OpenAI/Anthropic-compatible endpoints. Config layers
+          from defaults through
+          <code class="font-mono-article text-[0.9em]">~/.local/share/ncacli/config.toml</code>
+          and workspace overrides. Auto-summarize keeps long threads within your token budget; smart compaction is opt-in.
         </p>
         <div class="mt-10 max-w-xl rounded-md border border-border bg-surface-400 p-5">
-          <p class="font-mono-article text-[12px] leading-relaxed text-fg md:text-[13px]">
+          <p class="font-mono-article text-[12px] leading-relaxed text-fg md:text-[13px]" translate="no">
             <span class="text-accent">[memory.context]</span><br />
-            context_window_target = 32000<br />
+            context_window_target = 0<br />
             auto_summarize_threshold = 75<br />
-            enable_auto_summarize = true
+            enable_auto_summarize = true<br />
+            smart_compaction_mode = "off"
           </p>
         </div>
+        <p class="font-ui mt-6 text-sm">
+          <a href="/docs/providers" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+            >Provider setup</a
+          >
+          ·
+          <a href="/docs/configuration" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+            >Configuration reference</a
+          >
+        </p>
       </div>
     </section>
 
-    <section class="border-t border-border bg-surface-400/30 py-24 md:py-32">
+    <section class="py-24 md:py-32">
       <div class="mx-auto max-w-3xl px-4 text-center md:px-6">
-        <h2 class="font-display text-3xl tracking-[-0.03rem] text-fg md:text-4xl">Install in one command</h2>
+        <h2 class="font-display text-3xl tracking-[-0.03rem] text-fg text-balance md:text-4xl">Install in one command</h2>
         <p class="font-body mt-3 text-fg-muted">macOS and Linux — downloads the latest release from GitHub</p>
-        <div class="mt-10">
-          <div
-            class="mx-auto flex max-w-full flex-col items-stretch gap-4 rounded-md border border-border bg-page p-6 text-left shadow-[var(--shadow-ambient)] md:flex-row md:items-center md:justify-between md:p-8"
-          >
-            <code class="font-mono-article break-all text-sm text-fg md:text-base"
-              >curl -fsSL https://nca-cli.com/install | bash</code
-            >
-            <button
-              type="button"
-              id="copy-install"
-              class="font-ui shrink-0 rounded-md border border-border bg-surface-300 px-5 py-3 text-sm font-medium text-fg transition-colors hover:text-accent-hover"
-            >
-              Copy
-            </button>
-          </div>
+        <div class="mt-10 text-left">
+          <CopyInstall />
         </div>
         <p class="font-ui mt-6 text-xs text-fg-muted">
-          Apple Silicon &amp; Intel · Linux x86_64 &amp; ARM64
+          Apple Silicon &amp; Intel · Linux x86_64 &amp; ARM64 · Windows via GitHub Releases
         </p>
         <a
           href="/get-started"
@@ -244,18 +310,4 @@ import { NCA_VERSION, GITHUB_REPO } from "../consts";
   </main>
 
   <SiteFooter />
-
-  <script>
-    document.getElementById("copy-install")?.addEventListener("click", () => {
-      navigator.clipboard.writeText("curl -fsSL https://nca-cli.com/install | bash");
-      const btn = document.getElementById("copy-install");
-      if (btn) {
-        const t = btn.textContent;
-        btn.textContent = "Copied";
-        setTimeout(() => {
-          btn.textContent = t ?? "Copy";
-        }, 2000);
-      }
-    });
-  </script>
 </BaseLayout>

@@ -1,6 +1,6 @@
 ---
 title: "Permissions"
-description: "Approval system, permission modes, and safe mode"
+description: "nca approval system, permission modes, safe mode, and how tool approvals work in the interactive TUI."
 sidebarOrder: 8
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Skills"
-description: "Skill discovery, installation, and authoring"
+description: "Discover, install, and author nca skills from AGENTS.md, workspace directories, user skill dirs, and built-ins."
 sidebarOrder: 9
 ---
 
@@ -97,6 +97,8 @@ Use the rust-patterns skill to review this code.
 ```
 
 Or the agent can invoke skills programmatically via the `invoke_skill` tool.
+
+When delegating work to a child session with `spawn_subagent`, the parent can also pass a `skills` list so the sub-agent knows which skill names to load first if they match the task.
 
 ### Slash Command
 

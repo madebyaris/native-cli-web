@@ -1,0 +1,71 @@
+---
+interface Props {
+  /** Compact inline style for hero CTAs vs full install block */
+  variant?: "block" | "compact";
+}
+
+const { variant = "block" } = Astro.props;
+const cmd = "curl -fsSL https://nca-cli.com/install | bash";
+---
+
+{
+  variant === "block" ? (
+    <div class="install-copy flex max-w-full flex-col items-stretch gap-4 rounded-md border border-border bg-page p-6 text-left shadow-[var(--shadow-ambient)] md:flex-row md:items-center md:justify-between md:p-8">
+      <code class="font-mono-article break-all text-sm text-fg md:text-base" translate="no">
+        {cmd}
+      </code>
+      <button
+        type="button"
+        class="copy-install-btn font-ui shrink-0 rounded-md border border-border bg-surface-300 px-5 py-3 text-sm font-medium text-fg transition-colors hover:border-border-strong hover:text-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        data-copy={cmd}
+        aria-label="Copy install command"
+      >
+        Copy
+      </button>
+      <span class="sr-only" data-copy-status aria-live="polite"></span>
+    </div>
+  ) : (
+    <div class="install-copy flex flex-col gap-4 rounded-md border border-border bg-page p-5 shadow-[var(--shadow-ambient)] md:flex-row md:items-center md:justify-between md:p-6">
+      <code class="font-mono-article break-all text-sm text-fg md:text-base" translate="no">
+        {cmd}
+      </code>
+      <button
+        type="button"
+        class="copy-install-btn font-ui shrink-0 rounded-md border border-border bg-surface-300 px-4 py-2.5 text-sm font-medium text-fg transition-colors hover:text-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        data-copy={cmd}
+        aria-label="Copy install command"
+      >
+        Copy
+      </button>
+      <span class="sr-only" data-copy-status aria-live="polite"></span>
+    </div>
+  )
+}
+
+<script>
+  function wireCopy(root: ParentNode = document) {
+    root.querySelectorAll<HTMLButtonElement>(".copy-install-btn").forEach((btn) => {
+      if (btn.dataset.wired === "1") return;
+      btn.dataset.wired = "1";
+      btn.addEventListener("click", async () => {
+        const text = btn.dataset.copy ?? "";
+        const status = btn.parentElement?.querySelector("[data-copy-status]");
+        try {
+          await navigator.clipboard.writeText(text);
+          const prev = btn.textContent;
+          btn.textContent = "Copied";
+          if (status) status.textContent = "Install command copied to clipboard.";
+          window.setTimeout(() => {
+            btn.textContent = prev ?? "Copy";
+            if (status) status.textContent = "";
+          }, 2000);
+        } catch {
+          if (status) status.textContent = "Could not copy. Select the command and copy manually.";
+        }
+      });
+    });
+  }
+
+  wireCopy();
+  document.addEventListener("astro:page-load", () => wireCopy());
+</script>

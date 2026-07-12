@@ -2,74 +2,69 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import CopyInstall from "../components/CopyInstall.astro";
 import { GITHUB_REPO } from "../consts";
 
 const platforms = [
-  { name: "macOS (Apple Silicon)", target: "aarch64-apple-darwin" },
-  { name: "macOS (Intel)", target: "x86_64-apple-darwin" },
-  { name: "Linux (x86_64, glibc)", target: "x86_64-unknown-linux-gnu" },
-  { name: "Linux (x86_64, static)", target: "x86_64-unknown-linux-musl" },
-  { name: "Linux (ARM64)", target: "aarch64-unknown-linux-gnu" },
+  { name: "macOS (Apple Silicon)", target: "aarch64-apple-darwin", archive: ".tar.gz" },
+  { name: "macOS (Intel)", target: "x86_64-apple-darwin", archive: ".tar.gz" },
+  { name: "Linux (x86_64)", target: "x86_64-unknown-linux-gnu", archive: ".tar.gz" },
+  { name: "Linux (ARM64)", target: "aarch64-unknown-linux-gnu", archive: ".tar.gz" },
+  { name: "Windows (x86_64)", target: "x86_64-pc-windows-msvc", archive: ".zip" },
 ];
 ---
 
 <BaseLayout
-  title="Install nca | Native CLI AI"
-  description="Install nca on macOS or Linux with one command, from GitHub Releases, or build from source."
+  title="Install nca on macOS, Linux, or Windows"
+  description="Install nca on macOS or Linux with one command, download Windows binaries from GitHub Releases, or build from source. Rust-native AI coding CLI."
 >
   <SiteHeader active="install" />
 
-  <main class="flex-1 border-b border-border">
+  <main id="main-content" class="flex-1 border-b border-border">
     <div class="mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-24">
-      <h1 class="font-display text-4xl tracking-[-0.04rem] text-fg md:text-5xl">
-        Install <span class="text-accent">nca</span>
+      <h1 class="font-display text-4xl tracking-[-0.04rem] text-fg text-balance md:text-5xl">
+        Install <span class="text-accent" translate="no">nca</span>
       </h1>
       <p class="font-body mt-5 text-lg text-fg-muted">
-        One command on macOS and Linux. Detects your platform, downloads the latest release from GitHub, and installs to <code
-          class="font-mono-article rounded-sm bg-surface-400 px-1 text-[0.95em]">/usr/local/bin</code
-        >.
+        One command on macOS and Linux. Detects your platform, downloads the latest release from GitHub, and installs to
+        <code class="font-mono-article rounded-sm bg-surface-400 px-1 text-[0.95em]">/usr/local/bin</code>.
       </p>
 
       <section class="mt-14">
         <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">One-line install</h2>
-        <div
-          class="mt-4 flex flex-col gap-4 rounded-md border border-border bg-page p-5 shadow-[var(--shadow-ambient)] md:flex-row md:items-center md:justify-between md:p-6"
-        >
-          <code class="font-mono-article break-all text-sm text-fg md:text-base"
-            >curl -fsSL https://nca-cli.com/install | bash</code
-          >
-          <button
-            type="button"
-            id="copy-install"
-            class="font-ui shrink-0 rounded-md border border-border bg-surface-300 px-4 py-2.5 text-sm font-medium text-fg hover:text-accent-hover"
-          >
-            Copy
-          </button>
+        <div class="mt-4">
+          <CopyInstall variant="compact" />
         </div>
         <p class="font-body mt-4 text-sm text-fg-muted">
-          Set <code class="font-mono-article text-[0.9em]">NCA_INSTALL_DIR</code> to change the install path from the default.
+          Set <code class="font-mono-article text-[0.9em]">NCA_INSTALL_DIR</code> to change the install path from the
+          default. After install, run <code class="font-mono-article text-[0.9em]">nca doctor</code> to verify provider
+          readiness, then open a project directory and type <code class="font-mono-article text-[0.9em]">nca</code>.
         </p>
       </section>
 
       <section class="mt-14">
         <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">GitHub Releases</h2>
         <p class="font-body mt-4 text-fg-muted">
-          Pre-built binaries for every release are on the <a
+          Pre-built binaries for every release are on the
+          <a
             href={`${GITHUB_REPO}/releases`}
             class="font-medium text-accent underline decoration-accent/35 underline-offset-[3px] hover:text-accent-hover"
             target="_blank"
-            rel="noreferrer">Releases page</a
-          >.
+            rel="noopener noreferrer">Releases page</a
+          >. Windows: download the matching <code class="font-mono-article text-[0.9em]">.zip</code> and put
+          <code class="font-mono-article text-[0.9em]">nca.exe</code> on your <code class="font-mono-article text-[0.9em]">PATH</code>.
         </p>
         <ul class="mt-6 space-y-2" role="list">
-          {platforms.map((p) => (
-            <li
-              class="font-ui flex flex-col justify-between gap-2 rounded-md border border-border bg-surface-400/60 px-4 py-3 sm:flex-row sm:items-center"
-            >
-              <span class="text-sm font-medium text-fg">{p.name}</span>
-              <code class="font-mono-article text-xs text-fg-muted">{p.target}</code>
-            </li>
-          ))}
+          {
+            platforms.map((p) => (
+              <li class="font-ui flex flex-col justify-between gap-2 rounded-md border border-border bg-surface-400/60 px-4 py-3 sm:flex-row sm:items-center">
+                <span class="text-sm font-medium text-fg">{p.name}</span>
+                <span class="font-mono-article text-xs text-fg-muted">
+                  {p.target} · {p.archive}
+                </span>
+              </li>
+            ))
+          }
         </ul>
       </section>
 
@@ -78,7 +73,8 @@ const platforms = [
         <p class="font-body mt-4 text-sm text-fg-muted">Requires Rust edition 2024 and a recent toolchain.</p>
         <div class="mt-4 overflow-x-auto rounded-md border border-border bg-terminal-bg p-5">
           <pre
-            class="font-mono-article text-[13px] leading-relaxed text-terminal-fg"><span class="text-terminal-accent">$</span> git clone https://github.com/madebyaris/native-cli-ai.git
+            class="font-mono-article text-[13px] leading-relaxed text-terminal-fg"
+            translate="no"><span class="text-terminal-accent">$</span> git clone https://github.com/madebyaris/native-cli-ai.git
 <span class="text-terminal-accent">$</span> cd native-cli-ai
 <span class="text-terminal-accent">$</span> cargo build --release
 <span class="text-terminal-accent">$</span> cp target/release/nca /usr/local/bin/</pre>
@@ -89,7 +85,8 @@ const platforms = [
         <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">Quick start</h2>
         <div class="mt-4 overflow-x-auto rounded-md border border-border bg-terminal-bg p-5">
           <pre
-            class="font-mono-article text-[13px] leading-relaxed text-terminal-fg"><span class="text-terminal-muted"># Configure a provider</span>
+            class="font-mono-article text-[13px] leading-relaxed text-terminal-fg"
+            translate="no"><span class="text-terminal-muted"># Configure a provider</span>
 <span class="text-terminal-accent">$</span> export MINIMAX_API_KEY=<span class="text-fg">"your-api-key"</span>
 
 <span class="text-terminal-muted"># Interactive CLI</span>
@@ -109,6 +106,16 @@ const platforms = [
 <span class="text-terminal-accent">$</span> nca status &lt;session_id&gt;
 <span class="text-terminal-accent">$</span> nca attach &lt;session_id&gt;</pre>
         </div>
+        <p class="font-ui mt-6 text-sm text-fg-muted">
+          Next:
+          <a href="/docs/getting-started" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+            >Getting started</a
+          >
+          ·
+          <a href="/docs/providers" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+            >Providers</a
+          >
+        </p>
       </section>
 
       <p class="mt-14 text-center">
@@ -123,18 +130,4 @@ const platforms = [
   </main>
 
   <SiteFooter />
-
-  <script>
-    document.getElementById("copy-install")?.addEventListener("click", () => {
-      navigator.clipboard.writeText("curl -fsSL https://nca-cli.com/install | bash");
-      const btn = document.getElementById("copy-install");
-      if (btn) {
-        const t = btn.textContent;
-        btn.textContent = "Copied";
-        setTimeout(() => {
-          btn.textContent = t ?? "Copy";
-        }, 2000);
-      }
-    });
-  </script>
 </BaseLayout>

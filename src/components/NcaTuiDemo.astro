@@ -1,6 +1,7 @@
 ---
 /**
  * Interactive HTML demo of the nca full-screen TUI (browser-only, not the real binary).
+ * Reflects v0.4: live busy activity, /connect, /todos, product-home paths.
  */
 ---
 
@@ -15,29 +16,27 @@
     <div
       class="grid min-h-[280px] grid-cols-1 gap-px border-b border-white/[0.08] bg-white/[0.08] md:min-h-[300px] md:grid-cols-[1fr_min(38%,280px)]"
     >
-      <!-- Transcript -->
       <div class="flex min-h-0 flex-col bg-[#12141c]">
-        <div
-          class="border-b border-white/[0.08] px-3 py-2 font-mono text-[10px] leading-tight text-[#8b909e] md:text-[11px]"
-        >
+        <div class="border-b border-white/[0.08] px-3 py-2 font-mono text-[10px] leading-tight text-[#8b909e] md:text-[11px]">
           transcript — <span data-demo-line-count>1</span> lines (↑↓ wheel · End bottom)
         </div>
         <div
           class="demo-transcript scrollbar-thin max-h-[180px] flex-1 overflow-y-auto px-3 py-2 font-mono text-[11px] leading-relaxed md:max-h-[220px] md:text-[12px]"
         >
           <p class="mb-2 text-[#e8c066]">
-            ▶ Interactive run — type a message, Tab cycles agent profile, Ctrl+P opens commands.
+            ▶ Interactive run — type a message, Tab cycles agent, Ctrl+P opens commands.
           </p>
           <div data-demo-transcript-append class="space-y-2 text-[#c8cdd6]"></div>
         </div>
         <div
           class="border-t border-white/[0.08] px-3 py-1.5 font-mono text-[9px] text-[#6b7280] md:text-[10px]"
+          data-demo-busy-footer
+          aria-live="polite"
         >
-          Tab agent · Ctrl+V image · Ctrl+P commands · !cmd shell · @path search · / inline · wheel scroll
+          idle · ready for input
         </div>
       </div>
 
-      <!-- Sidebar -->
       <aside class="flex flex-col border-t border-white/[0.08] bg-[#0f1117] md:border-t-0 md:border-l">
         <div
           class="border-b border-white/[0.08] px-2 py-1.5 font-mono text-[10px] font-medium tracking-wide text-[#9ca3af] uppercase"
@@ -52,9 +51,11 @@
             <span data-demo-agent class="text-[#c4a8ff]">@build</span>
           </div>
           <div><span class="text-[#6b7280]">mode</span> AcceptEdits</div>
-          <div><span class="text-[#6b7280]">status</span> <span class="text-[#6ee7b7]">idle</span></div>
+          <div>
+            <span class="text-[#6b7280]">status</span>
+            <span data-demo-status class="text-[#6ee7b7]">idle</span>
+          </div>
           <div><span class="text-[#6b7280]">blocks</span> <span data-demo-blocks>1</span></div>
-          <div><span class="text-[#6b7280]">lines</span> <span data-demo-lines>1</span></div>
         </div>
         <div
           class="border-t border-white/[0.08] px-2 py-1.5 font-mono text-[10px] font-medium tracking-wide text-[#9ca3af] uppercase"
@@ -67,30 +68,28 @@
             <span data-demo-tok-total>0</span>
           </div>
           <div>cost <span class="text-[#9ca3af]">$0.0000</span></div>
-          <div class="text-[#6b7280]">no pending prompt</div>
         </div>
         <div
           class="border-t border-white/[0.08] px-2 py-1.5 font-mono text-[10px] font-medium tracking-wide text-[#9ca3af] uppercase"
         >
-          Sidebar
+          Home
         </div>
         <div class="flex-1 px-2 py-2 font-mono text-[10px] text-[#b8bec8] md:text-[11px]">
-          <div class="text-[#6b7280]">sub-agents</div>
-          <div class="mb-2">none (spawn shows here)</div>
-          <div class="text-[#6b7280]">dev</div>
-          <div class="text-[#7eb8ff]">.nca/sessions</div>
-          <div class="text-[#7eb8ff]">docs/research/</div>
-          <div class="mt-2 text-[#6b7280]">Ctrl+P commands</div>
+          <div class="text-[#6b7280]">product home</div>
+          <div class="mb-2 text-[#7eb8ff]">~/.local/share/ncacli/</div>
+          <div class="text-[#6b7280]">sessions</div>
+          <div class="text-[#7eb8ff]">workspaces/…/sessions/</div>
+          <div class="mt-2 text-[#6b7280]">Ctrl+P · /connect · /todos</div>
         </div>
       </aside>
     </div>
 
-    <!-- Status strip -->
     <div
       class="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-white/[0.08] bg-[#0c0e14] px-3 py-2 font-mono text-[10px] md:text-[11px]"
     >
-      <span class="inline-flex items-center gap-1.5 text-[#6ee7b7]">
-        <span class="h-1.5 w-1.5 rounded-full bg-[#34d399]"></span> idle
+      <span class="inline-flex items-center gap-1.5" data-demo-status-pill>
+        <span class="h-1.5 w-1.5 rounded-full bg-[#34d399]" data-demo-status-dot aria-hidden="true"></span>
+        <span data-demo-status-label class="text-[#6ee7b7]">idle</span>
       </span>
       <span class="text-[#7eb8ff]">MiniMax-M2.7</span>
       <span data-demo-agent-status class="text-[#c4a8ff]">@build</span>
@@ -98,7 +97,6 @@
       <span data-demo-timer class="ml-auto tabular-nums text-[#9ca3af]">00:00</span>
     </div>
 
-    <!-- Message -->
     <div class="bg-[#12141c] px-3 py-2">
       <div class="mb-1 font-mono text-[10px] text-[#6b7280]">message</div>
       <div class="flex items-center gap-2 rounded border border-white/[0.1] bg-[#0a0c10] px-2 py-1.5">
@@ -115,7 +113,6 @@
       </div>
     </div>
 
-    <!-- Command palette overlay -->
     <div
       data-demo-palette
       class="pointer-events-none invisible absolute inset-0 z-10 flex items-start justify-center rounded-md bg-black/50 p-4 opacity-0 transition-opacity duration-150"
@@ -127,20 +124,21 @@
         aria-modal="true"
         aria-label="Command palette"
       >
-        <div class="mb-2 px-2 py-1 text-[10px] text-[#6b7280]">Commands</div>
-        <ul class="space-y-0.5">
+        <div class="mb-2 px-2 py-1 text-[10px] text-[#6b7280]">Commands (Enter runs)</div>
+        <ul class="space-y-0.5" role="listbox">
           <li>
-            <button type="button" data-demo-cmd="Run tests" class="w-full rounded px-2 py-1.5 text-left text-[#e5e7eb] hover:bg-white/[0.06]">
-              Run tests
+            <button type="button" data-demo-cmd="/connect" class="w-full rounded px-2 py-1.5 text-left text-[#e5e7eb] hover:bg-white/[0.06]">
+              /connect — provider, key, custom endpoint
             </button>
           </li>
           <li>
-            <button
-              type="button"
-              data-demo-cmd="Explain selection"
-              class="w-full rounded px-2 py-1.5 text-left text-[#e5e7eb] hover:bg-white/[0.06]"
-            >
-              Explain selection
+            <button type="button" data-demo-cmd="/todos" class="w-full rounded px-2 py-1.5 text-left text-[#e5e7eb] hover:bg-white/[0.06]">
+              /todos — session todo list
+            </button>
+          </li>
+          <li>
+            <button type="button" data-demo-cmd="/status" class="w-full rounded px-2 py-1.5 text-left text-[#e5e7eb] hover:bg-white/[0.06]">
+              /status — session health
             </button>
           </li>
           <li>
@@ -168,19 +166,23 @@
 
   function init() {
     const root = document.getElementById("nca-tui-demo");
-    if (!root) return;
+    if (!root || root.dataset.ready === "1") return;
+    root.dataset.ready = "1";
 
     const input = root.querySelector("[data-demo-input]");
     const append = root.querySelector("[data-demo-transcript-append]");
     const palette = root.querySelector("[data-demo-palette]");
     const agentEls = root.querySelectorAll("[data-demo-agent], [data-demo-agent-status]");
     const lineCountEl = root.querySelector("[data-demo-line-count]");
-    const linesEl = root.querySelector("[data-demo-lines]");
     const blocksEl = root.querySelector("[data-demo-blocks]");
     const tokIn = root.querySelector("[data-demo-tok-in]");
     const tokOut = root.querySelector("[data-demo-tok-out]");
     const tokTotal = root.querySelector("[data-demo-tok-total]");
     const timerEl = root.querySelector("[data-demo-timer]");
+    const statusEls = root.querySelectorAll("[data-demo-status], [data-demo-status-label]");
+    const statusDot = root.querySelector("[data-demo-status-dot]");
+    const busyFooter = root.querySelector("[data-demo-busy-footer]");
+    const firstCmd = palette?.querySelector<HTMLButtonElement>("[data-demo-cmd]");
 
     if (!input || !append) return;
     const inputEl = input as HTMLInputElement;
@@ -192,18 +194,39 @@
     let sec = 0;
     let tokInN = 0;
     let tokOutN = 0;
+    let busy = false;
 
     function setAgent() {
       const a = AGENTS[agentIdx] ?? "@build";
-      agentEls?.forEach((el) => {
+      agentEls.forEach((el) => {
         el.textContent = a;
       });
+    }
+
+    function setBusy(next: boolean, label = "thinking") {
+      busy = next;
+      const text = next ? `${label} ${Math.max(1, sec % 20)}s` : "idle";
+      statusEls.forEach((el) => {
+        el.textContent = text;
+        el.classList.toggle("text-[#fbbf24]", next);
+        el.classList.toggle("text-[#6ee7b7]", !next);
+      });
+      if (statusDot instanceof HTMLElement) {
+        statusDot.classList.toggle("bg-[#fbbf24]", next);
+        statusDot.classList.toggle("bg-[#34d399]", !next);
+      }
+      if (busyFooter) {
+        busyFooter.textContent = next
+          ? `${label} ${Math.max(1, sec % 20)}s · tool path preview in real binary`
+          : "idle · ready for input";
+      }
     }
 
     function openPalette() {
       if (!palette) return;
       palette.classList.remove("invisible", "pointer-events-none", "opacity-0");
       palette.setAttribute("aria-hidden", "false");
+      firstCmd?.focus();
     }
 
     function closePalette() {
@@ -226,7 +249,6 @@
       lineCount += 1;
       blockCount += 1;
       if (lineCountEl) lineCountEl.textContent = String(lineCount);
-      if (linesEl) linesEl.textContent = String(lineCount);
       if (blocksEl) blocksEl.textContent = String(blockCount);
       const scrollEl = transcriptAppend.parentElement;
       if (scrollEl) scrollEl.scrollTo({ top: scrollEl.scrollHeight, behavior: "smooth" });
@@ -264,15 +286,20 @@
         appendLine("user", v);
         bumpTokens(Math.min(32, v.length * 2), 0);
         inputEl.value = "";
+        setBusy(true, "thinking");
         const replies = [
-          "(demo) Acknowledged — in the real binary this would invoke tools and stream output.",
+          "(demo) Acknowledged — real nca streams tools with busy timers.",
           "(demo) Try Tab to switch agent profile.",
-          "(demo) Ctrl+P opens the real command palette.",
+          "(demo) Ctrl+P opens /connect, /todos, /status.",
         ];
         const r = replies[Math.floor(Math.random() * replies.length)]!;
         window.setTimeout(() => {
-          appendLine("assistant", r);
-          bumpTokens(0, r.length);
+          setBusy(true, "streaming");
+          window.setTimeout(() => {
+            appendLine("assistant", r);
+            bumpTokens(0, r.length);
+            setBusy(false);
+          }, 320);
         }, 280);
       }
     });
@@ -296,6 +323,7 @@
         const s = sec % 60;
         timerEl.textContent = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
       }
+      if (busy) setBusy(true, statusEls[0]?.textContent?.startsWith("streaming") ? "streaming" : "thinking");
     }, 1000);
 
     document.addEventListener("keydown", (e) => {

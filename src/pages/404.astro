@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+---
+
+<BaseLayout
+  title="Page not found on nca-cli.com | Native CLI AI"
+  description="The page you requested does not exist on nca-cli.com. Browse nca documentation, install the terminal AI coding agent, or return home."
+>
+  <SiteHeader />
+  <main id="main-content" class="flex flex-1 items-center border-b border-border">
+    <div class="mx-auto max-w-xl px-4 py-24 text-center md:px-6">
+      <p class="font-ui text-xs font-medium uppercase tracking-[0.2em] text-fg-muted">404</p>
+      <h1 class="font-display mt-4 text-4xl tracking-[-0.04rem] text-fg text-balance">Page not found</h1>
+      <p class="font-body mt-4 text-fg-muted">
+        That URL is not on this site. nca is a Rust-native terminal AI coding agent. Use the links below to install it,
+        read the docs, or return to the product overview.
+      </p>
+      <h2 class="font-display mt-10 text-xl text-fg">Helpful links</h2>
+      <ul class="font-ui mt-4 space-y-2 text-sm text-fg-muted">
+        <li>
+          <a href="/" class="text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Home</a>
+          — product overview and interactive TUI demo
+        </li>
+        <li>
+          <a href="/docs" class="text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+            >Documentation</a
+          >
+          — commands, sessions, providers, and orchestration
+        </li>
+        <li>
+          <a
+            href="/get-started"
+            class="text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Install</a
+          >
+          — one-line install for macOS and Linux, Windows releases
+        </li>
+        <li>
+          <a
+            href="/support"
+            class="text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Support</a
+          >
+          — sponsor the project or contribute
+        </li>
+      </ul>
+      <div class="font-ui mt-10 flex flex-wrap items-center justify-center gap-4 text-sm">
+        <a
+          href="/"
+          class="rounded-md bg-accent px-5 py-2.5 font-semibold text-white shadow-md shadow-accent/25 hover:bg-accent-hover"
+        >
+          Home
+        </a>
+        <a href="/docs" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+          >Documentation</a
+        >
+        <a
+          href="/get-started"
+          class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+          >Install</a
+        >
+      </div>
+    </div>
+  </main>
+  <SiteFooter />
+</BaseLayout>
