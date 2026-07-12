@@ -1,6 +1,6 @@
 ---
 title: "Commands"
-description: "Complete CLI command and flag reference"
+description: "Complete nca CLI command and flag reference for run, spawn, sessions, attach, logs, skills, models, and doctor."
 sidebarOrder: 2
 ---
 

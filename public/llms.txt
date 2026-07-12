@@ -1,19 +1,20 @@
 # nca (Native CLI AI)
 
-> nca is an open-source, Rust-native terminal interface for coding agents. It ships as a single binary with a TUI and REPL, sessions, git worktrees, provider configuration, and agent orchestration features.
+> nca is an open-source, Rust-native terminal interface for coding agents. It ships as a single binary with a TUI and REPL, live busy activity, sessions under a unified product home, git worktrees, multi-provider configuration (including custom endpoints), and agent orchestration features.
 
-The project is developed in public on GitHub. Documentation on nca-cli.com mirrors the repository docs.
+The project is developed in public on GitHub. Documentation on nca-cli.com mirrors the repository docs. Current release: v0.4.
 
 ## Services
 
-- [Product site](https://nca-cli.com/): Overview, install paths, and interactive demo
-- [Install](https://nca-cli.com/get-started): One-line install, GitHub Releases, and build-from-source steps
+- [Product site](https://nca-cli.com/): Overview, What's New in v0.4, install paths, and interactive demo
+- [Install](https://nca-cli.com/get-started): One-line install, GitHub Releases (macOS, Linux, Windows), and build-from-source steps
 - [Documentation](https://nca-cli.com/docs): Guides for commands, configuration, sessions, tools, providers, and advanced topics
 - [Source code](https://github.com/madebyaris/native-cli-ai): Repository, issues, and releases
+- [Support](https://nca-cli.com/support): Sponsorship and community support
 
 ## What We Do Not Do
 
-nca does not provide hosted inference or a proprietary cloud API as part of this project. Model access depends on user-configured providers and API keys. nca is not legal or security advice; follow your organization’s policies for AI tooling and secrets.
+nca does not provide hosted inference or a proprietary cloud API as part of this project. Model access depends on user-configured providers and API keys. nca is not legal or security advice; follow your organization's policies for AI tooling and secrets.
 
 ## Contact
 
@@ -24,6 +25,9 @@ nca does not provide hosted inference or a proprietary cloud API as part of this
 
 - [Documentation index](https://nca-cli.com/docs): All published guides
 - [Getting started](https://nca-cli.com/docs/getting-started): Requirements and first run
+- [Interactive mode](https://nca-cli.com/docs/interactive-mode): TUI, busy activity, slash commands
+- [Providers](https://nca-cli.com/docs/providers): MiniMax, Anthropic, OpenAI, OpenRouter, custom endpoints
+- [Advanced / orchestration](https://nca-cli.com/docs/advanced): Sub-agents, MCP, JSON/NDJSON, IPC
 
 ## AI Discovery Files
 

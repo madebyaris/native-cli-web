@@ -16,15 +16,41 @@ interface Props {
   /** Absolute URL for og:image (defaults to site OG asset) */
   ogImage?: string;
   ogType?: "website" | "article";
+  /** Extra JSON-LD nodes merged into @graph (BreadcrumbList, TechArticle, etc.) */
+  jsonLdExtra?: Record<string, unknown>[];
 }
 
 const title = Astro.props.title ?? "nca — Native CLI AI";
 const description = Astro.props.description ?? SITE_DESCRIPTION;
 const ogType = Astro.props.ogType ?? "website";
 const ogImageUrl = Astro.props.ogImage ?? absoluteOgImageUrl();
+const jsonLdExtra = Astro.props.jsonLdExtra ?? [];
 
 const siteBase = Astro.site ?? new URL(SITE_URL);
-const canonicalURL = new URL(Astro.url.pathname, siteBase).href;
+const pathname = Astro.url.pathname.endsWith("/") && Astro.url.pathname !== "/"
+  ? Astro.url.pathname.slice(0, -1)
+  : Astro.url.pathname;
+const canonicalURL = new URL(pathname === "" ? "/" : pathname, siteBase).href;
+
+const softwareApp = {
+  "@type": "SoftwareApplication",
+  name: "nca",
+  alternateName: "Native CLI AI",
+  description: SITE_DESCRIPTION,
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "macOS, Linux, Windows",
+  softwareVersion: NCA_VERSION,
+  url: SITE_URL,
+  downloadUrl: `${SITE_URL}/get-started`,
+  installUrl: `${SITE_URL}/install`,
+  codeRepository: GITHUB_REPO,
+  license: "https://opensource.org/licenses/MIT",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+};
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -32,19 +58,13 @@ const jsonLd = {
     {
       "@type": "WebSite",
       name: "nca",
+      alternateName: "Native CLI AI",
       url: SITE_URL,
       description: SITE_DESCRIPTION,
+      inLanguage: "en",
     },
-    {
-      "@type": "SoftwareApplication",
-      name: "nca",
-      description: SITE_DESCRIPTION,
-      applicationCategory: "DeveloperApplication",
-      operatingSystem: "macOS, Linux",
-      softwareVersion: NCA_VERSION,
-      url: SITE_URL,
-      codeRepository: GITHUB_REPO,
-    },
+    softwareApp,
+    ...jsonLdExtra,
   ],
 };
 ---
@@ -57,6 +77,7 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f2f1ed" />
+    <meta name="author" content="Aris Setia" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" hreflang="en" href={canonicalURL} />
     <link rel="alternate" hreflang="x-default" href={canonicalURL} />
@@ -72,11 +93,13 @@ const jsonLd = {
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content={String(OG_IMAGE_WIDTH)} />
     <meta property="og:image:height" content={String(OG_IMAGE_HEIGHT)} />
+    <meta property="og:image:alt" content="nca — Native CLI AI" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content="nca — Native CLI AI" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -89,6 +112,7 @@ const jsonLd = {
   </head>
   <body class="font-body selection:bg-surface-400 selection:text-fg text-fg flex min-h-screen flex-col">
     <div class="noise-overlay" aria-hidden="true"></div>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <slot />
   </body>
 </html>
