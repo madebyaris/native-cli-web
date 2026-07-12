@@ -16,11 +16,11 @@ export const SITE_URL = "https://nca-cli.com";
 export const SITE_DESCRIPTION =
   "Rust-native coding agent. Single binary. Terminal-first TUI with live busy activity, sessions, worktrees, and local-first control.";
 
-/** Default Open Graph / Twitter image (absolute URL). File: public/og.png */
-export const OG_IMAGE_PATH = "/og.png";
-/** Actual asset dimensions (update if og.png is replaced) */
-export const OG_IMAGE_WIDTH = 1536;
-export const OG_IMAGE_HEIGHT = 1024;
+/** Default Open Graph / Twitter image (absolute URL). File: public/og.jpg */
+export const OG_IMAGE_PATH = "/og.jpg";
+/** Actual asset dimensions (update if og asset is replaced) */
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 800;
 
 export function absoluteOgImageUrl(): string {
   return new URL(OG_IMAGE_PATH, SITE_URL).href;
