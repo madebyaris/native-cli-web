@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import CopyInstall from "../components/CopyInstall.astro";
-import { GITHUB_REPO } from "../consts";
+import { GITHUB_REPO, NCA_VERSION } from "../consts";
 
 const platforms = [
   { name: "macOS (Apple Silicon)", target: "aarch64-apple-darwin", archive: ".tar.gz" },
@@ -12,6 +12,10 @@ const platforms = [
   { name: "Linux (ARM64)", target: "aarch64-unknown-linux-gnu", archive: ".tar.gz" },
   { name: "Windows (x86_64)", target: "x86_64-pc-windows-msvc", archive: ".zip" },
 ];
+
+function assetUrl(target: string, archive: string) {
+  return `${GITHUB_REPO}/releases/download/v${NCA_VERSION}/nca-${target}${archive}`;
+}
 ---
 
 <BaseLayout
@@ -45,23 +49,29 @@ const platforms = [
       <section class="mt-14">
         <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">GitHub Releases</h2>
         <p class="font-body mt-4 text-fg-muted">
-          Pre-built binaries for every release are on the
+          Pre-built binaries for every release are on the{" "}
           <a
             href={`${GITHUB_REPO}/releases`}
             class="font-medium text-accent underline decoration-accent/35 underline-offset-[3px] hover:text-accent-hover"
             target="_blank"
             rel="noopener noreferrer">Releases page</a
-          >. Windows: download the matching <code class="font-mono-article text-[0.9em]">.zip</code> and put
-          <code class="font-mono-article text-[0.9em]">nca.exe</code> on your <code class="font-mono-article text-[0.9em]">PATH</code>.
+          >. Windows: download the matching <code class="font-mono-article text-[0.9em]">.zip</code> and put <code class="font-mono-article text-[0.9em]">nca.exe</code> on your <code class="font-mono-article text-[0.9em]">PATH</code>.
         </p>
         <ul class="mt-6 space-y-2" role="list">
           {
             platforms.map((p) => (
-              <li class="font-ui flex flex-col justify-between gap-2 rounded-md border border-border bg-surface-400/60 px-4 py-3 sm:flex-row sm:items-center">
-                <span class="text-sm font-medium text-fg">{p.name}</span>
-                <span class="font-mono-article text-xs text-fg-muted">
+              <li class="font-ui flex flex-col gap-3 rounded-md border border-border bg-surface-400/60 px-4 py-3 sm:flex-row sm:items-center">
+                <span class="text-sm font-medium text-fg sm:w-44">{p.name}</span>
+                <span class="font-mono-article min-w-0 flex-1 text-xs text-fg-muted">
                   {p.target} · {p.archive}
                 </span>
+                <a
+                  href={assetUrl(p.target, p.archive)}
+                  class="inline-flex min-h-10 shrink-0 items-center justify-center rounded-md border border-border bg-page px-3 text-sm font-semibold text-fg hover:border-border-strong hover:text-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                >
+                  Download
+                  <span class="sr-only"> {p.name}</span>
+                </a>
               </li>
             ))
           }
@@ -107,14 +117,7 @@ const platforms = [
 <span class="text-terminal-accent">$</span> nca attach &lt;session_id&gt;</pre>
         </div>
         <p class="font-ui mt-6 text-sm text-fg-muted">
-          Next:
-          <a href="/docs/getting-started" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
-            >Getting started</a
-          >
-          ·
-          <a href="/docs/providers" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
-            >Providers</a
-          >
+          Next: <a href="/docs/getting-started" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Getting started</a> · <a href="/docs/providers" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Providers</a>
         </p>
       </section>
 

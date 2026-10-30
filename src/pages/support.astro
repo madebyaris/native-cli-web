@@ -2,7 +2,60 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import PixelIcon from "../components/PixelIcon.astro";
 import { GITHUB_REPO, SPONSOR_GITHUB, SPONSOR_PAYPAL } from "../consts";
+
+// A prompt chevron and an underscore cursor, for the agent that runs in the terminal.
+const promptIcon = ["#........", ".#.......", "..#......", ".#.......", "#...####."];
+const codeIcon = [
+  "...#..#...",
+  "..#....#..",
+  ".#......#.",
+  "#........#",
+  ".#......#.",
+  "..#....#..",
+  "...#..#...",
+];
+const hourglassIcon = [
+  "#######",
+  ".#####.",
+  "..###..",
+  "...#...",
+  "...#...",
+  "..###..",
+  ".#####.",
+  "#######",
+];
+
+const backers = [
+  {
+    name: "Cursor",
+    href: "https://cursor.com",
+    also: "SpaceXAI",
+    status: "Current",
+    body: "Model tokens through the ambassador program.",
+    icon: promptIcon,
+  },
+  {
+    name: "Kenari",
+    href: "https://kenari.id",
+    also: "",
+    status: "Current",
+    body: "OSS model tokens for this project.",
+    icon: codeIcon,
+  },
+  {
+    name: "MiniMax",
+    href: "https://www.minimax.io",
+    also: "",
+    status: "Ended",
+    body: "Ambassador support while that term lasted.",
+    icon: hourglassIcon,
+  },
+];
+
+const heartIcon = ["##.##.", "######", "######", ".####.", "..##..", "...#.."];
+const sendIcon = ["#.....", "##....", "###...", "###...", "##....", "#....."];
 
 const ways = [
   {
@@ -12,6 +65,7 @@ const ways = [
     label: "Sponsor on GitHub",
     body: "Recurring monthly support. Helps keep work on nca and the surrounding tools sustainable.",
     note: "Recurring or one-time · Public sponsor badge",
+    icon: heartIcon,
   },
   {
     title: "PayPal",
@@ -20,6 +74,7 @@ const ways = [
     label: "Send via PayPal",
     body: "Prefer a one-off contribution? PayPal works in most regions without needing a subscription.",
     note: "One-time · paypal.me/airs",
+    icon: sendIcon,
   },
 ];
 
@@ -44,14 +99,21 @@ const otherWays = [
 
 <BaseLayout
   title="Support nca development | Native CLI AI"
-  description="Sponsor nca and the surrounding open-source work via GitHub Sponsors or PayPal. Other ways to help: star the repo, file issues, share the project."
+  description="Cursor and SpaceXAI send ambassador tokens. Kenari sends OSS tokens. MiniMax's ambassador support has ended. Sponsor nca on GitHub or PayPal."
 >
   <SiteHeader active="support" />
 
   <main id="main-content" class="flex-1 border-b border-border">
-    <section class="relative overflow-hidden border-b border-border">
-      <div class="from-page-elevated/80 pointer-events-none absolute inset-0 bg-gradient-to-b to-page"></div>
-      <div class="relative mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-24">
+    <section class="border-b border-border">
+      <div class="mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-24">
+        <img
+          src="/images/nca-robot.png"
+          alt="nca robot"
+          width="512"
+          height="512"
+          class="mb-6 h-16 w-16 [image-rendering:pixelated]"
+          decoding="async"
+        />
         <p class="font-ui mb-4 text-xs font-medium uppercase tracking-[0.2em] text-fg-muted">
           Indie · Open source · No VC
         </p>
@@ -67,12 +129,48 @@ const otherWays = [
 
     <div class="mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-20">
       <section>
+        <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">Who already sends tokens</h2>
+        <ul class="mt-6 divide-y divide-border border-y border-border">
+          {
+            backers.map((b) => (
+              <li class="flex flex-col gap-2 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
+                <div class="flex min-w-0 gap-4">
+                  <PixelIcon
+                    rows={b.icon}
+                    class={`mt-1.5 h-7 w-7 shrink-0 ${b.status === "Current" ? "text-accent" : "text-fg-muted/50"}`}
+                  />
+                  <div>
+                  <p class="font-display text-xl text-fg">
+                    <a
+                      href={b.href}
+                      class="underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {b.name}
+                    </a>
+                    {b.also ? <span> and {b.also}</span> : null}
+                  </p>
+                  <p class="font-body mt-1 text-sm text-fg-muted">{b.body}</p>
+                  </div>
+                </div>
+                <p class="font-ui shrink-0 text-xs font-medium uppercase tracking-wider text-fg-muted">{b.status}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="mt-16">
         <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">Sponsor directly</h2>
         <div class="mt-6 grid gap-4 md:grid-cols-2">
           {
             ways.map((w) => (
               <article class="flex flex-col rounded-md border border-border bg-page p-6 shadow-[var(--shadow-ambient)]">
-                <h3 class="font-display text-xl text-fg">{w.title}</h3>
+                <div class="flex items-center gap-3">
+                  <PixelIcon rows={w.icon} class={`h-7 w-7 shrink-0 ${w.accent ? "text-accent" : "text-fg-muted"}`} />
+                  <h3 class="font-display text-xl text-fg">{w.title}</h3>
+                </div>
                 <p class="font-body mt-3 flex-1 text-sm leading-relaxed text-fg-muted">{w.body}</p>
                 <p class="font-ui mt-4 text-xs uppercase tracking-wider text-fg-muted">{w.note}</p>
                 <a
@@ -82,7 +180,7 @@ const otherWays = [
                   class:list={[
                     "font-ui mt-5 inline-flex items-center justify-center rounded-md px-4 py-2.5 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
                     w.accent
-                      ? "bg-accent text-white shadow-md shadow-accent/25 hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30"
+                      ? "bg-accent text-page hover:bg-accent-hover"
                       : "border border-border bg-surface-300 text-fg hover:border-border-strong hover:text-accent-hover",
                   ]}
                 >

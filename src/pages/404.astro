@@ -11,7 +11,18 @@ import SiteFooter from "../components/SiteFooter.astro";
   <SiteHeader />
   <main id="main-content" class="flex flex-1 items-center border-b border-border">
     <div class="mx-auto max-w-xl px-4 py-24 text-center md:px-6">
-      <p class="font-ui text-xs font-medium uppercase tracking-[0.2em] text-fg-muted">404</p>
+      <picture class="mx-auto block h-32 w-32 [image-rendering:pixelated]">
+        <source type="image/webp" srcset="/images/nca-robot.webp" />
+        <img
+          src="/images/nca-robot.png"
+          alt="nca pixel robot mascot with one orange eye, looking for a page that is not here"
+          width="512"
+          height="512"
+          class="h-full w-full"
+          decoding="async"
+        />
+      </picture>
+      <p class="font-ui mt-6 text-xs font-medium uppercase tracking-[0.2em] text-fg-muted">404</p>
       <h1 class="font-display mt-4 text-4xl tracking-[-0.04rem] text-fg text-balance">Page not found</h1>
       <p class="font-body mt-4 text-fg-muted">
         That URL is not on this site. nca is a Rust-native terminal AI coding agent. Use the links below to install it,
@@ -47,7 +58,7 @@ import SiteFooter from "../components/SiteFooter.astro";
       <div class="font-ui mt-10 flex flex-wrap items-center justify-center gap-4 text-sm">
         <a
           href="/"
-          class="rounded-md bg-accent px-5 py-2.5 font-semibold text-white shadow-md shadow-accent/25 hover:bg-accent-hover"
+          class="rounded-md bg-accent px-5 py-2.5 font-semibold text-page hover:bg-accent-hover"
         >
           Home
         </a>

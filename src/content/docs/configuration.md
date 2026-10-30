@@ -107,6 +107,17 @@ last_session_file = ".nca/.last_session"
 auto_compact_on_finish = false      # Auto-summarize when session ends
 ```
 
+### `[recording]` — Screen Recordings
+
+```toml
+[recording]
+# Empty (default) saves recordings in this project's nca data folder:
+# ~/.local/share/ncacli/workspaces/<workspace-id>/recordings/
+# A relative path is taken from the project root, so ".nca/recordings" keeps them inside the
+# project. An absolute path is used as-is.
+dir = ""
+```
+
 ### `[harness]` — System Prompt and Instructions
 
 ```toml
@@ -205,6 +216,7 @@ editor = ""              # External editor command (e.g., "vim", "code --wait")
 theme = ""               # UI theme (optional)
 hide_tips = false         # Hide usage tips
 scroll_speed = 3          # Scroll speed in TUI
+mouse_capture = true      # false lets the terminal select and copy text (wheel scrolling is off; use PageUp/PageDown)
 onboarding_completed = false
 ```
 

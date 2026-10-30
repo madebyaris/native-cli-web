@@ -8,10 +8,8 @@ interface Props {
 const { active } = Astro.props;
 
 const nav = [
-  { href: "/#features", label: "Features", key: undefined },
-  { href: "/#whats-new", label: "What's New", key: undefined },
-  { href: "/get-started", label: "Install", key: "install" as const },
-  { href: "/docs", label: "Documentation", key: "docs" as const },
+  { href: "/#workflows", label: "Workflows", key: undefined },
+  { href: "/docs", label: "Docs", key: "docs" as const },
   { href: "/support", label: "Support", key: "support" as const },
 ];
 
@@ -27,7 +25,17 @@ const linkClass = (key: typeof active | undefined) =>
   >
     <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-6">
       <div class="flex items-center gap-3">
-        <a href="/" class="font-display text-lg font-semibold tracking-tight text-fg" translate="no">nca</a>
+        <a href="/" class="font-display flex items-center gap-2 text-lg font-semibold tracking-tight text-fg" translate="no">
+          <img
+            src="/images/nca-robot.png"
+            alt="nca"
+            width="512"
+            height="512"
+            class="h-10 w-10 [image-rendering:pixelated]"
+            decoding="async"
+          />
+          <span aria-hidden="true">nca</span>
+        </a>
         <a
           href={`${GITHUB_REPO}/releases/tag/v${NCA_VERSION}`}
           class="font-ui hidden rounded-pill border border-border bg-surface-300 px-2 py-0.5 text-[11px] font-medium text-fg-muted transition-colors hover:border-border-strong hover:text-fg sm:inline-flex"
@@ -59,7 +67,7 @@ const linkClass = (key: typeof active | undefined) =>
       <div class="flex items-center gap-2">
         <a
           href="/get-started"
-          class="font-ui hidden rounded-md bg-accent px-4 py-2 text-sm font-semibold text-white shadow-md shadow-accent/25 transition-colors hover:bg-accent-hover hover:shadow-lg hover:shadow-accent/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:inline-flex"
+          class="font-ui hidden rounded-md bg-accent px-4 py-2 text-sm font-semibold text-page transition-colors hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:inline-flex"
         >
           Install
         </a>

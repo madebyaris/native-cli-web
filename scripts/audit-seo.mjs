@@ -85,7 +85,7 @@ function absoluteUrlFromPath(filePath) {
 function checkId(check) {
   if (!check || typeof check !== "object") return "";
   const c = /** @type {Record<string, unknown>} */ (check);
-  return String(c.id ?? c.key ?? c.name ?? c.check ?? "").toLowerCase();
+  return String(c.ruleId ?? c.id ?? c.key ?? c.name ?? c.check ?? "").toLowerCase();
 }
 
 /**
@@ -99,7 +99,7 @@ function checkPassed(check) {
   if (typeof c.pass === "boolean") return c.pass;
   if (typeof c.status === "string") {
     const s = c.status.toLowerCase();
-    return s === "pass" || s === "ok" || s === "success" || s === "info";
+    return s === "pass" || s === "ok" || s === "success" || s === "info" || s === "unknown" || s === "not_applicable";
   }
   if (typeof c.severity === "string") {
     const s = c.severity.toLowerCase();

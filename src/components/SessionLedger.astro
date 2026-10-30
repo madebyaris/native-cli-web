@@ -1,0 +1,29 @@
+---
+// Shell lifecycle of a background session. Commands come from docs/commands.md.
+// The two output lines are the ones the old screenshot showed.
+---
+
+<figure class="m-0">
+  <div
+    class="overflow-hidden border border-border bg-terminal-bg font-mono-article text-[12px] leading-7 text-terminal-fg md:text-[13px]"
+    translate="no"
+  >
+    <div class="flex items-center gap-2 border-b border-border px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-terminal-muted">
+      <span class="session-dot" aria-hidden="true"></span>
+      <span>~/project</span>
+    </div>
+    <ol class="m-0 list-none space-y-0 p-4 md:p-5">
+      <li class="break-words"><span class="text-accent">$ </span>nca spawn --prompt "Inspect the repo and draft a plan"</li>
+      <li class="break-words pl-4 text-terminal-muted">Session spawned: <span class="text-accent">s_7f2a</span> (detached)</li>
+      <li class="break-words pt-3 text-terminal-muted"># close the laptop, go to lunch</li>
+      <li class="break-words pt-3"><span class="text-accent">$ </span>nca status s_7f2a</li>
+      <li class="break-words"><span class="text-accent">$ </span>nca logs s_7f2a --follow</li>
+      <li class="break-words"><span class="text-accent">$ </span>nca attach s_7f2a</li>
+      <li class="break-words border-l-2 border-accent pl-3 text-terminal-muted">Reading AGENTS.md… 4 skills · scanning workspace · IPC on Unix socket</li>
+      <li class="break-words pt-3"><span class="text-accent">$ </span>nca cancel s_7f2a<span class="ml-1 text-terminal-muted"># or let it finish</span></li>
+    </ol>
+  </div>
+  <figcaption class="font-ui mt-3 text-xs text-fg-muted">
+    The whole loop. Commands are from the docs, output is trimmed.
+  </figcaption>
+</figure>

@@ -32,18 +32,21 @@ const pathname = Astro.url.pathname.endsWith("/") && Astro.url.pathname !== "/"
   : Astro.url.pathname;
 const canonicalURL = new URL(pathname === "" ? "/" : pathname, siteBase).href;
 
+const homeUrl = `${SITE_URL}/`;
+const appId = `${SITE_URL}/#app`;
+
 const softwareApp = {
   "@type": "SoftwareApplication",
+  "@id": appId,
   name: "nca",
   alternateName: "Native CLI AI",
   description: SITE_DESCRIPTION,
   applicationCategory: "DeveloperApplication",
   operatingSystem: "macOS, Linux, Windows",
   softwareVersion: NCA_VERSION,
-  url: SITE_URL,
+  url: homeUrl,
   downloadUrl: `${SITE_URL}/get-started`,
   installUrl: `${SITE_URL}/install`,
-  codeRepository: GITHUB_REPO,
   license: "https://opensource.org/licenses/MIT",
   offers: {
     "@type": "Offer",
@@ -52,18 +55,30 @@ const softwareApp = {
   },
 };
 
+const sourceCode = {
+  "@type": "SoftwareSourceCode",
+  "@id": `${SITE_URL}/#source`,
+  name: "nca",
+  codeRepository: GITHUB_REPO,
+  programmingLanguage: "Rust",
+  license: "https://opensource.org/licenses/MIT",
+  targetProduct: { "@id": appId },
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
       name: "nca",
       alternateName: "Native CLI AI",
-      url: SITE_URL,
+      url: homeUrl,
       description: SITE_DESCRIPTION,
       inLanguage: "en",
     },
     softwareApp,
+    sourceCode,
     ...jsonLdExtra,
   ],
 };
@@ -76,13 +91,13 @@ const jsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f2f1ed" />
+    <meta name="theme-color" content="#10110f" />
     <meta name="author" content="Aris Setia" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" hreflang="en" href={canonicalURL} />
     <link rel="alternate" hreflang="x-default" href={canonicalURL} />
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap-index.xml" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg?v=robot" type="image/svg+xml" />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

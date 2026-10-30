@@ -109,6 +109,27 @@ function escapeYaml(s) {
   return s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 }
 
+/**
+ * The published install path is a binary. Keep the Rust toolchain on the
+ * source-build section when upstream still lists it as a prerequisite.
+ * @param {string} file
+ * @param {string} md
+ */
+function preferBinaryInstall(file, md) {
+  if (file !== "getting-started.md") return md;
+  const rustBullet =
+    "- **Rust toolchain** — install via [rustup](https://rustup.rs/) (edition 2024, stable channel)\n";
+  if (!md.includes(rustBullet)) return md;
+  let next = md.replace(rustBullet, "");
+  const marker = "### Build from Source\n\n";
+  const note =
+    "### Build from Source\n\nThe install script and the release archives ship a binary. Build from source needs the Rust toolchain (edition 2024, stable) from [rustup](https://rustup.rs/).\n\n";
+  if (next.includes(marker) && !next.includes("Build from source needs the Rust toolchain")) {
+    next = next.replace(marker, note);
+  }
+  return next;
+}
+
 /** @param {string} md */
 function rewriteLinks(md) {
   return md.replace(/\]\(\.\/([^)]+\.md)(#[^)]*)?\)/g, (_, path, hash) => {
@@ -187,6 +208,7 @@ async function syncDocs() {
     }
     let body = await res.text();
     body = rewriteLinks(body);
+    body = preferBinaryInstall(d.file, body);
     const outFile = d.out ?? d.file;
     const fm = `---
 title: "${escapeYaml(d.title)}"

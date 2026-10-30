@@ -8,7 +8,6 @@ sidebarOrder: 1
 
 ## Prerequisites
 
-- **Rust toolchain** — install via [rustup](https://rustup.rs/) (edition 2024, stable channel)
 - **Git** — required for session worktrees and version control integration
 - **ripgrep (`rg`)** — used by the `search_code` tool for fast code search
 - **An LLM API key** — MiniMax (default), Anthropic, OpenAI, OpenRouter, or any compatible endpoint
@@ -26,6 +25,8 @@ curl -fsSL https://nca-cli.com/install | bash
 Pre-built binaries ship for Linux, macOS, and Windows (x86_64 and ARM64). Grab the matching archive from [Releases](https://github.com/madebyaris/native-cli-ai/releases).
 
 ### Build from Source
+
+The install script and the release archives ship a binary. Build from source needs the Rust toolchain (edition 2024, stable) from [rustup](https://rustup.rs/).
 
 ```bash
 git clone https://github.com/madebyaris/native-cli-ai.git
@@ -101,7 +102,7 @@ nca -p "add a health check endpoint to the API"
 
 ## Directory Structure
 
-nca creates project-local files under `.nca/` for instructions, skills, and git worktrees. Session history, memory, and last-session pointers live under the product home (`$NCA_HOME`, `$XDG_DATA_HOME/ncacli`, or `~/.local/share/ncacli/`):
+nca creates project-local files under `.nca/` for instructions, skills, and git worktrees. Session history, command history, memory, last-session pointers, and screen recordings live under the product home (`$NCA_HOME`, `$XDG_DATA_HOME/ncacli`, or `~/.local/share/ncacli/`):
 
 ```
 ~/.local/share/ncacli/

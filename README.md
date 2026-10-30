@@ -20,7 +20,7 @@ npm run preview
 
 ```bash
 npm run sync-docs   # pull docs + install script + version from CLI repo
-npm run quality     # astro check + build + RankMySEO static audit
+npm run quality     # typecheck + build + RankMySEO static audit
 ```
 
 RankMySEO (`@rankmyseo/core`) audits generated HTML for titles, descriptions, H1, canonical, Open Graph, and JSON-LD. Live Core Web Vitals checks are reported as warnings only so static CI stays deterministic.
@@ -30,6 +30,6 @@ RankMySEO (`@rankmyseo/core`) audits generated HTML for titles, descriptions, H1
 - Framework preset: `Astro`
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Node version: use a current LTS release in Pages settings
+- Node version: 24. Astro 7.4 requires Node 22.23.4 or newer.
 
 This site uses Astro static output, so it does not require a Cloudflare SSR adapter.

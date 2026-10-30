@@ -1,0 +1,39 @@
+---
+/**
+ * Pixel icon drawn from a character grid. "#" is a filled cell, anything else is empty.
+ * Each run of filled cells becomes one rectangle, so edges stay hard at any size.
+ */
+interface Props {
+  rows: string[];
+  class?: string;
+}
+
+const { rows, class: className = "" } = Astro.props;
+const width = Math.max(...rows.map((row) => row.length));
+const height = rows.length;
+
+let d = "";
+rows.forEach((row, y) => {
+  let x = 0;
+  while (x < row.length) {
+    if (row[x] === "#") {
+      const start = x;
+      while (x < row.length && row[x] === "#") x++;
+      d += `M${start} ${y}h${x - start}v1h-${x - start}z`;
+    } else {
+      x++;
+    }
+  }
+});
+---
+
+<svg
+  class={className}
+  viewBox={`0 0 ${width} ${height}`}
+  aria-hidden="true"
+  focusable="false"
+  fill="currentColor"
+  shape-rendering="crispEdges"
+>
+  <path d={d} />
+</svg>
