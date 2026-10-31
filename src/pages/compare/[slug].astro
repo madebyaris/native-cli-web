@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteHeader from "../../components/SiteHeader.astro";
+import SiteFooter from "../../components/SiteFooter.astro";
+import { COMPARISONS, CHECKED_ON, type Comparison } from "../../lib/compare";
+import { SITE_URL } from "../../consts";
+
+export function getStaticPaths() {
+  return COMPARISONS.map((c) => ({ params: { slug: c.slug }, props: { c } }));
+}
+
+const { c } = Astro.props as { c: Comparison };
+
+const breadcrumbs = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/compare/${c.slug}/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: `nca vs ${c.name}`, item: `${SITE_URL}/compare/${c.slug}/` },
+  ],
+};
+
+const linkClass =
+  "font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover";
+const sectionLabel = "font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted";
+const cell =
+  "block px-4 pb-3 align-top text-fg-muted md:table-cell md:py-3 " +
+  "before:mb-1 before:block before:text-xs before:font-semibold before:text-fg before:content-[attr(data-label)] md:before:hidden";
+---
+
+<BaseLayout title={c.title} description={c.description} jsonLdExtra={[breadcrumbs]}>
+  <SiteHeader />
+
+  <main id="main-content" class="flex-1 border-b border-border">
+    <div class="mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-24">
+      <p class={sectionLabel}>Compare</p>
+      <h1 class="font-display mt-4 text-4xl tracking-[-0.04rem] text-fg text-balance md:text-5xl">
+        <span class="text-accent" translate="no">nca</span> vs {c.name}
+      </h1>
+      <p class="font-body mt-5 text-lg text-fg-muted">{c.summary}</p>
+
+      <section class="mt-14" aria-labelledby="side-by-side">
+        <h2 id="side-by-side" class={sectionLabel}>Side by side</h2>
+        <div class="mt-4 overflow-hidden rounded-md border border-border">
+          <table class="font-body block w-full border-collapse text-left text-sm md:table">
+            <thead class="sr-only md:not-sr-only md:table-header-group">
+              <tr class="bg-surface-400/60">
+                <th scope="col" class="px-4 py-3 font-medium text-fg-muted">&nbsp;</th>
+                <th scope="col" class="px-4 py-3 font-semibold text-fg" translate="no">nca</th>
+                <th scope="col" class="px-4 py-3 font-semibold text-fg">{c.name}</th>
+              </tr>
+            </thead>
+            <tbody class="block md:table-row-group">
+              {
+                c.rows.map((r) => (
+                  <tr class="block border-t border-border md:table-row">
+                    <th scope="row" class="block px-4 pt-3 font-medium text-fg md:table-cell md:align-top md:py-3">{r.label}</th>
+                    <td class={cell} data-label="nca">{r.nca}</td>
+                    <td class={cell} data-label={c.name}>{r.other}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="mt-14" aria-labelledby="where-behind">
+        <h2 id="where-behind" class={sectionLabel}>Where nca is behind</h2>
+        <ul class="font-body mt-4 list-disc space-y-3 pl-5 text-fg-muted marker:text-fg-muted">
+          {c.ncaBehind.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+
+      <section class="mt-14" aria-labelledby="where-ahead">
+        <h2 id="where-ahead" class={sectionLabel}>Where nca is ahead</h2>
+        <ul class="font-body mt-4 list-disc space-y-3 pl-5 text-fg-muted marker:text-fg-muted">
+          {c.ncaAhead.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+
+      <section class="mt-14" aria-labelledby="pick">
+        <h2 id="pick" class={sectionLabel}>Pick the one that fits</h2>
+        <dl class="font-body mt-4 space-y-5">
+          <div>
+            <dt class="font-medium text-fg">Pick {c.name} if</dt>
+            <dd class="mt-1 text-fg-muted">{c.pickOther}</dd>
+          </div>
+          <div>
+            <dt class="font-medium text-fg">Pick <span translate="no">nca</span> if</dt>
+            <dd class="mt-1 text-fg-muted">{c.pickNca}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="mt-14" aria-labelledby="sources">
+        <h2 id="sources" class={sectionLabel}>Sources</h2>
+        <ul class="font-body mt-4 space-y-2 text-sm">
+          {
+            c.sources.map((s) => (
+              <li>
+                <a href={s.href} class={linkClass} target="_blank" rel="noopener noreferrer">{s.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="font-body mt-6 text-sm text-fg-muted">
+          Facts checked {CHECKED_ON}. {c.name} changes often. Check its own pages for current plans and features.
+          The memory numbers come from one sample and are not a peak.
+        </p>
+      </section>
+
+      <p class="font-ui mt-14 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+        <a href="/get-started/" class={linkClass}>Install nca</a>
+        <a href="/docs/providers/" class={linkClass}>Set up a provider</a>
+      </p>
+    </div>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>

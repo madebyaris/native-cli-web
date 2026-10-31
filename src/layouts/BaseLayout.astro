@@ -27,10 +27,9 @@ const ogImageUrl = Astro.props.ogImage ?? absoluteOgImageUrl();
 const jsonLdExtra = Astro.props.jsonLdExtra ?? [];
 
 const siteBase = Astro.site ?? new URL(SITE_URL);
-const pathname = Astro.url.pathname.endsWith("/") && Astro.url.pathname !== "/"
-  ? Astro.url.pathname.slice(0, -1)
-  : Astro.url.pathname;
-const canonicalURL = new URL(pathname === "" ? "/" : pathname, siteBase).href;
+const rawPath = Astro.url.pathname;
+const pathname = rawPath === "/" || rawPath === "" ? "/" : rawPath.endsWith("/") ? rawPath : `${rawPath}/`;
+const canonicalURL = new URL(pathname, siteBase).href;
 
 const homeUrl = `${SITE_URL}/`;
 const appId = `${SITE_URL}/#app`;
@@ -69,6 +68,14 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "nca",
+      url: homeUrl,
+      logo: `${SITE_URL}/images/nca-robot.png`,
+      sameAs: [GITHUB_REPO],
+    },
+    {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       name: "nca",
@@ -76,6 +83,7 @@ const jsonLd = {
       url: homeUrl,
       description: SITE_DESCRIPTION,
       inLanguage: "en",
+      publisher: { "@id": `${SITE_URL}/#organization` },
     },
     softwareApp,
     sourceCode,
@@ -117,6 +125,17 @@ const jsonLd = {
     <meta name="twitter:image:alt" content="nca — Native CLI AI" />
 
     <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <!-- Cloudflare Web Analytics: cookieless, no consent banner needed. -->
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "743fb3b8fe234287b43046c1a83c63cc"}'></script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-83PM1L8JMX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-83PM1L8JMX");
+    </script>
   </head>
   <body class="font-body selection:bg-surface-400 selection:text-fg text-fg flex min-h-screen flex-col">
     <div class="noise-overlay" aria-hidden="true"></div>

@@ -1,6 +1,6 @@
 ---
 title: "Overview"
-description: "Overview of nca, the Rust-native terminal AI coding agent: quick start, feature map, and documentation index."
+description: "Overview of nca, a Rust terminal AI coding agent in one binary: what it does, how to install it, and where each guide in the documentation lives."
 sidebarOrder: 0
 ---
 
@@ -60,10 +60,11 @@ Windows users: download `nca-*-pc-windows-msvc.zip` from [GitHub Releases](https
 | [Permissions](/docs/permissions) | Approval system, permission modes, and safe mode |
 | [Skills](/docs/skills) | Skill discovery, installation, and authoring |
 | [Advanced](/docs/advanced) | Sub-agents, MCP servers, hooks, orchestration, and IPC |
+| [Desktop Clients (ACP)](/docs/acp) | Run nca from T3 Code, Termul, Zed, and other ACP clients |
 
 ## Architecture
 
-nca is a Rust workspace with six crates:
+nca is a Rust workspace with seven crates:
 
 ```
 nca
@@ -71,6 +72,7 @@ nca
 ├── nca-core           Agent loop, LLM providers, tool protocol, harness
 ├── nca-runtime        Session lifecycle, IPC, persistence, worktrees, supervision
 ├── nca-tui            Full-screen TUI, line REPL, overlays, transcript
+├── nca-acp            Agent Client Protocol server for desktop clients
 ├── nca-cli            Binary entrypoint, clap commands, stream glue
 └── nca-autoresearch   Automated research capabilities
 ```

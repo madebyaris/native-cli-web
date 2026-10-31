@@ -1,6 +1,6 @@
 ---
 title: "Advanced"
-description: "Advanced nca topics: sub-agents, git worktrees, MCP servers, hooks, JSON/NDJSON orchestration, and Unix IPC."
+description: "Run nca headless: sub-agents, git worktrees, MCP servers, hooks, JSON and NDJSON output, and the Unix socket protocol for scripts and CI jobs."
 sidebarOrder: 10
 ---
 

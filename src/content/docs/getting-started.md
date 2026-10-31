@@ -1,6 +1,6 @@
 ---
 title: "Getting Started"
-description: "Install nca on macOS, Linux, or Windows, run first-time setup, and configure providers for the terminal AI coding agent."
+description: "Install nca on macOS, Linux, or Windows with one command or a GitHub release archive, then run first-time setup and add your provider API key."
 sidebarOrder: 1
 ---
 

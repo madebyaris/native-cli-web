@@ -26,7 +26,7 @@ const pageTitle = `${entry.data.title} | nca AI coding CLI docs`;
 const pageDesc =
   entry.data.description ??
   `${entry.data.title} documentation for nca, the Rust-native terminal AI coding agent.`;
-const pageUrl = `${SITE_URL}/docs/${entry.id}`;
+const pageUrl = `${SITE_URL}/docs/${entry.id}/`;
 const docFile = join(process.cwd(), "src/content/docs", `${entry.id}.md`);
 const dateModified = statSync(docFile).mtime.toISOString();
 
@@ -36,7 +36,7 @@ const jsonLdExtra = [
     "@id": `${pageUrl}#breadcrumb`,
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-      { "@type": "ListItem", position: 2, name: "Documentation", item: `${SITE_URL}/docs` },
+      { "@type": "ListItem", position: 2, name: "Documentation", item: `${SITE_URL}/docs/` },
       { "@type": "ListItem", position: 3, name: entry.data.title, item: pageUrl },
     ],
   },
@@ -89,7 +89,7 @@ const jsonLdExtra = [
   >
     {
       prev ? (
-        <a href={`/docs/${prev.id}`} class="text-sm text-fg-muted hover:text-accent-hover">
+        <a href={`/docs/${prev.id}/`} class="text-sm text-fg-muted hover:text-accent-hover">
           <span class="block text-[11px] font-semibold uppercase tracking-[0.16em]">Previous</span>
           <span class="mt-1 block">{prev.data.title}</span>
         </a>
@@ -99,7 +99,7 @@ const jsonLdExtra = [
     }
     {
       next ? (
-        <a href={`/docs/${next.id}`} class="text-sm font-medium text-fg hover:text-accent-hover sm:text-right">
+        <a href={`/docs/${next.id}/`} class="text-sm font-medium text-fg hover:text-accent-hover sm:text-right">
           <span class="block text-[11px] font-semibold uppercase tracking-[0.16em] text-accent">Next</span>
           <span class="mt-1 block">{next.data.title}</span>
         </a>

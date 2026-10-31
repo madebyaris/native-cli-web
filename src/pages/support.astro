@@ -3,7 +3,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import PixelIcon from "../components/PixelIcon.astro";
-import { GITHUB_REPO, SPONSOR_GITHUB, SPONSOR_PAYPAL } from "../consts";
+import { GITHUB_REPO, SITE_URL, SPONSOR_GITHUB, SPONSOR_PAYPAL } from "../consts";
+
+const breadcrumbs = {
+  "@type": "BreadcrumbList",
+  "@id": `${SITE_URL}/support/#breadcrumb`,
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+    { "@type": "ListItem", position: 2, name: "Support", item: `${SITE_URL}/support/` },
+  ],
+};
 
 // A prompt chevron and an underscore cursor, for the agent that runs in the terminal.
 const promptIcon = ["#........", ".#.......", "..#......", ".#.......", "#...####."];
@@ -100,6 +109,7 @@ const otherWays = [
 <BaseLayout
   title="Support nca development | Native CLI AI"
   description="Cursor and SpaceXAI send ambassador tokens. Kenari sends OSS tokens. MiniMax's ambassador support has ended. Sponsor nca on GitHub or PayPal."
+  jsonLdExtra={[breadcrumbs]}
 >
   <SiteHeader active="support" />
 

@@ -1,6 +1,6 @@
 ---
 title: "Tools"
-description: "nca agent tools reference: file operations, structured search, shell, web, ask_question, spawn_subagent, and MCP."
+description: "What nca can call during each coding task: file reads and edits, structured search, the shell, the web, questions, subagents, and MCP servers."
 sidebarOrder: 6
 ---
 

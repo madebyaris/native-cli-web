@@ -46,6 +46,21 @@ function lastmodFor(url) {
   return BUILD_TIME;
 }
 
+/**
+ * Add the trailing slash to internal links in markdown, so a click does not
+ * follow the 307 that Workers static assets send for slashless paths.
+ */
+function trailingSlashInternalLinks() {
+  const internal = /^(\/(?:docs|get-started|support)(?:\/[a-z0-9-]+)?)(#.*)?$/;
+  const walk = (node) => {
+    if (node.type === "element" && node.tagName === "a" && typeof node.properties?.href === "string") {
+      node.properties.href = node.properties.href.replace(internal, (_, path, hash = "") => `${path}/${hash}`);
+    }
+    for (const child of node.children ?? []) walk(child);
+  };
+  return (tree) => walk(tree);
+}
+
 export default defineConfig({
   site: SITE,
   output: "static",
@@ -71,6 +86,7 @@ export default defineConfig({
     processor: unified({
       remarkPlugins: [remarkGfm],
       rehypePlugins: [
+        trailingSlashInternalLinks,
         rehypeSlug,
         [
           rehypeAutolinkHeadings,

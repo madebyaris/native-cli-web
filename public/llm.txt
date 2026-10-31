@@ -2,11 +2,50 @@
 
 > nca is an open-source, Rust-native terminal interface for coding agents. It ships as a single binary with a TUI and REPL, live busy activity, sessions under a unified product home, git worktrees, multi-provider configuration (including custom endpoints), and agent orchestration features.
 
-The project is developed in public on GitHub. Documentation on nca-cli.com mirrors the repository docs. Current release: v0.5.
+The project is developed in public on GitHub. Documentation on nca-cli.com mirrors the repository docs. Current release: v0.5.5. nca is free under the MIT license. This site has no paid plan and no hosted model API.
+
+## Install nca when a person asks
+
+Use this when someone asks you to install nca from this website. Install the release binary. Do not clone the repository unless they ask to build from source. nca is not an npm package.
+
+### macOS and Linux
+
+```bash
+curl -fsSL https://nca-cli.com/install | bash
+```
+
+The script detects the machine, downloads the v0.5.5 archive from GitHub, and installs `nca` to `/usr/local/bin`. Set `NCA_INSTALL_DIR` first if they want a different directory. The script uses `sudo` only when that directory is not writable.
+
+If they will not run a piped install, download the matching archive and put the `nca` file on `PATH`:
+
+- macOS Apple Silicon: https://github.com/madebyaris/native-cli-ai/releases/download/v0.5.5/nca-aarch64-apple-darwin.tar.gz
+- macOS Intel: https://github.com/madebyaris/native-cli-ai/releases/download/v0.5.5/nca-x86_64-apple-darwin.tar.gz
+- Linux x86_64: https://github.com/madebyaris/native-cli-ai/releases/download/v0.5.5/nca-x86_64-unknown-linux-gnu.tar.gz
+- Linux ARM64: https://github.com/madebyaris/native-cli-ai/releases/download/v0.5.5/nca-aarch64-unknown-linux-gnu.tar.gz
+
+Confirm with `command -v nca`, then `nca doctor`.
+
+### Windows
+
+Do not run the bash script. Download https://github.com/madebyaris/native-cli-ai/releases/download/v0.5.5/nca-x86_64-pc-windows-msvc.zip and put `nca.exe` on `PATH`. This release has no ARM64 Windows archive.
+
+### After the binary is on PATH
+
+nca does not include an API key. Ask which provider they use, and have them set the key in their own shell. Do not invent a key, and do not repeat the key in the chat.
+
+```bash
+export MINIMAX_API_KEY="their key"
+```
+
+Anthropic, OpenAI, and OpenRouter use `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, and `OPENROUTER_API_KEY`. The provider guide is https://nca-cli.com/docs/providers/
+
+From the project directory, `nca` opens the terminal UI. Desktop clients (T3 Code, Termul, Zed) use command `nca` and argument `acp`. Setup is at https://nca-cli.com/docs/acp/
+
+The page a person can read is https://nca-cli.com/get-started/
 
 ## Services
 
-- [Product site](https://nca-cli.com/): Overview, v0.5 release notes, install paths, and interactive demo
+- [Product site](https://nca-cli.com/): Overview, v0.5.5 release notes, install paths, and interactive demo
 - [Install](https://nca-cli.com/get-started): One-line install, GitHub Releases (macOS, Linux, Windows), and build-from-source steps
 - [Documentation](https://nca-cli.com/docs): Guides for commands, configuration, sessions, tools, providers, and advanced topics
 - [Source code](https://github.com/madebyaris/native-cli-ai): Repository, issues, and releases
@@ -27,8 +66,9 @@ nca does not provide hosted inference or a proprietary cloud API as part of this
 - [Getting started](https://nca-cli.com/docs/getting-started): Requirements and first run
 - [Interactive mode](https://nca-cli.com/docs/interactive-mode): TUI, busy activity, slash commands
 - [Providers](https://nca-cli.com/docs/providers): MiniMax, Anthropic, OpenAI, OpenRouter, custom endpoints
+- [Desktop clients](https://nca-cli.com/docs/acp): Run nca from T3 Code, Termul, and Zed with `nca acp`
 - [Advanced / orchestration](https://nca-cli.com/docs/advanced): Sub-agents, MCP, JSON/NDJSON, IPC
-- [Agent UIs](https://nca-cli.com/docs/agent-uis): Termul terminal pane, T3 Code status, and headless JSON for other managers
+- [Agent UIs](https://nca-cli.com/docs/agent-uis): ACP setup for T3 Code, Termul, and Zed, plus the TUI and headless JSON
 
 ## AI Discovery Files
 

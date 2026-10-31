@@ -1,6 +1,6 @@
 ---
 title: "Configuration"
-description: "nca configuration files, unified product home paths, TOML format, smart compaction, and environment variables."
+description: "Where nca reads its settings: TOML config files, product-home paths, smart compaction, and the environment variables that change how each session runs."
 sidebarOrder: 4
 ---
 
@@ -29,25 +29,25 @@ default = "minimax"   # "minimax" | "openrouter" | "anthropic" | "openai"
 api_key_env = "MINIMAX_API_KEY"     # Environment variable to read
 api_key = ""                         # Or set directly (not recommended)
 base_url = "https://api.minimax.io/anthropic"
-model = "MiniMax-M2.7"
+model = "MiniMax-M3.1-Flash"
 temperature = 0.7
 
 [provider.openai]
 api_key_env = "OPENAI_API_KEY"
 base_url = "https://api.openai.com"
-model = "gpt-4o-mini"
+model = "gpt-6-luna"
 temperature = 0.7
 
 [provider.anthropic]
 api_key_env = "ANTHROPIC_API_KEY"
 base_url = "https://api.anthropic.com"
-model = "claude-3-7-sonnet-latest"
+model = "claude-sonnet-5-5"
 temperature = 1.0
 
 [provider.openrouter]
 api_key_env = "OPENROUTER_API_KEY"
 base_url = "https://openrouter.ai/api"
-model = "openai/gpt-4o-mini"
+model = "openai/gpt-6-luna"
 temperature = 0.7
 site_url = ""       # Optional referrer URL
 app_name = ""       # Optional app name header
@@ -57,26 +57,27 @@ app_name = ""       # Optional app name header
 
 ```toml
 [model]
-default_model = "MiniMax-M2.7"
+default_model = "MiniMax-M3.1-Flash"
 max_tokens = 8192
 enable_thinking = false
 thinking_budget = 5120
 
 [model.aliases]
 # Built-in aliases (pre-configured):
-# default    → MiniMax-M2.7
-# minimax    → MiniMax-M2.7
-# m2.7       → MiniMax-M2.7
-# coding     → MiniMax-M2.7
-# reasoning  → MiniMax-M2.7
-# openai     → gpt-4o-mini
+# default    → MiniMax-M3.1-Flash
+# minimax    → MiniMax-M3.1-Flash
+# m3.1-flash → MiniMax-M3.1-Flash
+# m2.5        → MiniMax-M2.5
+# coding     → MiniMax-M3.1-Flash
+# reasoning  → MiniMax-M3.1-Flash
+# openai     → gpt-6-luna
 # gpt4o      → gpt-4o
-# claude     → claude-3-7-sonnet-latest
-# openrouter → openai/gpt-4o-mini
+# claude     → claude-sonnet-5-5
+# openrouter → openai/gpt-6-luna
 
 # Add your own:
-fast = "gpt-4o-mini"
-smart = "claude-3-7-sonnet-latest"
+fast = "gpt-6-luna"
+smart = "claude-sonnet-5-5"
 ```
 
 ### `[permissions]` — Permission System
@@ -163,16 +164,16 @@ query_provider_models_api = true       # Fetch model limits from provider API
 max_retained_messages = 50
 auto_summarize_threshold = 75          # Percentage of context window used before summarizing
 enable_auto_summarize = true
-smart_compaction_mode = "off"          # off | dry_run | on (provider-request view only)
+smart_compaction_mode = "on"           # off | dry_run | on (provider-request view only)
 ```
 
-`smart_compaction_mode` is opt-in and defaults to `off`:
+`smart_compaction_mode` defaults to `on`; the canonical history is never modified:
 
 | Mode | Behavior |
 |------|----------|
-| `off` | Send the full canonical history (default). |
+| `off` | Send the full canonical history, except when it exceeds the model window (a hard budget still evicts). |
 | `dry_run` | Compute savings diagnostics and emit `ContextCompaction` with phase `dry_run`, but still send the full history. |
-| `on` | Send a compact cloned provider view; session JSON / `AgentLoop.messages` stay complete. |
+| `on` | Send a compact cloned provider view fitted to `context_window - max_tokens`; session JSON / `AgentLoop.messages` stay complete. |
 
 ### `[hooks]` — Lifecycle Hooks
 
@@ -305,9 +306,9 @@ api_key_env = "ANTHROPIC_API_KEY"
 api_key_env = "OPENAI_API_KEY"
 
 [model.aliases]
-fast = "gpt-4o-mini"
-smart = "claude-3-7-sonnet-latest"
-default = "MiniMax-M2.7"
+fast = "gpt-6-luna"
+smart = "claude-sonnet-5-5"
+default = "MiniMax-M3.1-Flash"
 ```
 
 ### CI/Automation Setup

@@ -1,6 +1,6 @@
 ---
 title: "Sessions"
-description: "nca session lifecycle under the unified product home: spawn, resume, attach, logs, status, and persistence."
+description: "Spawn, resume, attach, and inspect an nca session. Each one keeps a JSON snapshot and a JSONL log under the product home. You can leave it running."
 sidebarOrder: 7
 ---
 
@@ -104,7 +104,7 @@ nca resume <session-id>
 nca resume <session-id> --prompt "continue with the tests"
 
 # Resume with a different model
-nca resume <session-id> --model "claude-3-7-sonnet-latest"
+nca resume <session-id> --model "claude-sonnet-5-5"
 
 # Resume the most recent session (shorthand)
 nca -r

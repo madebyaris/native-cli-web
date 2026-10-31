@@ -1,6 +1,6 @@
 ---
 title: "Commands"
-description: "Complete nca CLI command and flag reference for run, spawn, sessions, attach, logs, skills, models, and doctor."
+description: "Complete nca command and flag reference for acp, run, spawn, sessions, attach, logs, skills, models, and doctor, after the binary is installed."
 sidebarOrder: 2
 ---
 
@@ -53,7 +53,7 @@ nca -r
 nca --no-resume
 
 # Use a specific model
-nca --model "claude-3-7-sonnet-latest"
+nca --model "claude-sonnet-5-5"
 
 # Enable thinking with custom budget
 nca -t --thinking-budget 10000
@@ -74,6 +74,28 @@ nca --permission-mode bypass-permissions
 ---
 
 ## Subcommands
+
+### `nca acp`
+
+Serve the Agent Client Protocol (ACP v1) on stdin/stdout so desktop clients
+(T3 Code, Termul, Zed, ...) can drive nca as a local agent. stdout carries only
+JSON-RPC; logs go to stderr. It never prompts for input, so an API key must
+already be configured.
+
+```bash
+nca acp [OPTIONS]
+```
+
+| Flag | Type | Default | Description |
+|------|------|---------|-------------|
+| `--model` | string | — | Override model for every session |
+| `--safe` | flag | false | Read-only tools only |
+| `--permission-mode` | enum | config | Starting permission mode |
+
+See [Desktop Clients (ACP)](/docs/acp) for client setup and the full protocol
+surface.
+
+---
 
 ### `nca run`
 
@@ -117,7 +139,7 @@ nca spawn --prompt "..." [OPTIONS]
 
 ```bash
 nca spawn --prompt "write comprehensive tests for the auth module"
-nca spawn --prompt "document all public APIs" --model "MiniMax-M2.7"
+nca spawn --prompt "document all public APIs" --model "MiniMax-M3.1-Flash"
 ```
 
 ---
@@ -167,7 +189,7 @@ nca resume <SESSION_ID> [OPTIONS]
 ```bash
 nca resume abc123
 nca resume abc123 --prompt "continue where you left off"
-nca resume abc123 --model "claude-3-7-sonnet-latest"
+nca resume abc123 --model "claude-sonnet-5-5"
 ```
 
 ---

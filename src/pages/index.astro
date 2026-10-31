@@ -51,13 +51,13 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
         </p>
         <div class="hero-animate hero-animate-delay-3 mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
-            href="/get-started"
+            href="/get-started/"
             class="font-ui rounded-md bg-accent px-6 py-3 text-sm font-semibold text-page transition-colors hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             Install nca
           </a>
           <a
-            href="/docs"
+            href="/docs/"
             class="font-ui text-sm font-medium text-accent underline decoration-accent/40 underline-offset-4 hover:text-accent-hover"
           >
             Read the docs
@@ -80,6 +80,21 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
       </div>
     </div>
 
+    <section id="sponsor" class="mx-auto mt-16 max-w-3xl px-4 text-center md:px-6" aria-labelledby="sponsor-heading">
+      <h2 id="sponsor-heading" class="font-display text-2xl tracking-[-0.03rem] text-fg md:text-3xl">Our sponsor</h2>
+      <ul class="mx-auto mt-8 grid max-w-xl grid-cols-3 gap-3 md:gap-4">
+        <li class="flex h-20 items-center justify-center rounded-md bg-white p-4 md:h-24 md:p-6">
+          <img src="/images/sponsors/kenari.png" alt="Kenari" width="107" height="43" class="max-h-10 w-auto max-w-full object-contain" loading="lazy" />
+        </li>
+        <li class="flex h-20 items-center justify-center rounded-md bg-white p-4 md:h-24 md:p-6">
+          <img src="/images/sponsors/cursor.png" alt="Cursor" width="132" height="150" class="max-h-12 w-auto max-w-full object-contain" loading="lazy" />
+        </li>
+        <li class="flex h-20 items-center justify-center rounded-md bg-white p-4 md:h-24 md:p-6">
+          <img src="/images/sponsors/minimax.webp" alt="MiniMax" width="349" height="128" class="max-h-10 w-auto max-w-full object-contain" loading="lazy" />
+        </li>
+      </ul>
+    </section>
+
     <section
       id="release"
       class="mt-16 border-y border-border py-6"
@@ -87,7 +102,7 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
     >
       <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 md:flex-row md:items-center md:justify-between md:px-6">
         <p class="font-ui text-sm text-fg">
-          <span class="font-medium">Latest release:</span> v{NCA_VERSION}. Read before edit, paged reads, and provider retries.
+          <span class="font-medium">Latest release:</span> v{NCA_VERSION}. Desktop clients over ACP, context that fits, and fewer prompts.
         </p>
         <a
           href={`${GITHUB_REPO}/releases/tag/v${NCA_VERSION}`}
@@ -105,7 +120,7 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
           target="_blank"
           rel="noopener noreferrer"
           >6.4 MB</a
-        > during one short reply, sampled before v{NCA_VERSION}. On that run Grok CLI used 59 MB and Claude Code used 162 MB. v{NCA_VERSION} <code class="font-mono-article text-[0.9em]">doctor</code> peaks at 4.0 MB on this Mac, and that sample is startup only.
+        > during one short reply, sampled before v0.5.0. On that run Grok CLI used 59 MB and Claude Code used 162 MB. v0.5.0 <code class="font-mono-article text-[0.9em]">doctor</code> peaks at 4.0 MB on this Mac, and that sample is startup only.
       </p>
     </section>
 
@@ -152,13 +167,13 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
             </div>
           </div>
           <div class="flex flex-col gap-6 md:flex-row md:items-start md:gap-16">
-            <p class="font-ui w-40 shrink-0 text-xs font-medium uppercase tracking-widest text-fg-muted">Automation</p>
+            <p class="font-ui w-40 shrink-0 text-xs font-medium uppercase tracking-widest text-fg-muted">Clients</p>
             <div>
               <h3 class="font-display text-xl text-fg">
-                <a href="/docs/advanced" class="hover:text-accent-hover">JSON, NDJSON &amp; orchestration</a>
+                <a href="/docs/acp/" class="hover:text-accent-hover">Desktop clients</a>
               </h3>
               <p class="font-body mt-2 max-w-xl text-fg-muted">
-                Drive nca as a worker with <code class="font-mono-article text-[0.9em]">--json</code>, <code class="font-mono-article text-[0.9em]">--stream ndjson</code>, and <code class="font-mono-article text-[0.9em]">NCA_ORCH_*</code> metadata. <a href="/docs/agent-uis" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Termul</a> can open the TUI. T3 Code does not drive nca yet.
+                T3 Code, Termul, and Zed run nca with <code class="font-mono-article text-[0.9em]">nca acp</code>.&nbsp;<a href="/docs/advanced/" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Headless jobs</a> still use <code class="font-mono-article text-[0.9em]">--json</code>, <code class="font-mono-article text-[0.9em]">--stream ndjson</code>, and <code class="font-mono-article text-[0.9em]">NCA_ORCH_*</code>.
               </p>
             </div>
           </div>
@@ -172,15 +187,15 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
           Built for real terminal workflows
         </h2>
         <p class="font-body mt-4 max-w-2xl text-fg-muted">
-          Sessions persist under your product home. Tools cover filesystem, search, shell, and web. MCP extends the
-          surface when you need it.
+          Sessions persist under your product home. Tools cover filesystem, search, shell, and web. Ordinary shell
+          commands run without asking. nca still asks before a delete, sudo, or git push.
         </p>
         <ol class="mt-12 divide-y divide-border border-y border-border">
           <li class="grid gap-2 py-8 md:grid-cols-[5rem_1fr] md:gap-8">
             <p class="font-mono-article text-3xl leading-none text-fg/20">01</p>
             <div>
               <h3 class="font-display text-xl tracking-tight text-fg">
-                <a href="/docs/sessions" class="hover:text-accent-hover">Sessions &amp; IPC</a>
+                <a href="/docs/sessions/" class="hover:text-accent-hover">Sessions &amp; IPC</a>
               </h3>
               <p class="font-body mt-2 max-w-2xl text-fg-muted">
                 JSON snapshots and JSONL logs for every session. Resume them over IPC when you come back.
@@ -191,7 +206,7 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
             <p class="font-mono-article text-3xl leading-none text-fg/20">02</p>
             <div>
               <h3 class="font-display text-xl tracking-tight text-fg">
-                <a href="/docs/skills" class="hover:text-accent-hover">Skills &amp; MCP</a>
+                <a href="/docs/skills/" class="hover:text-accent-hover">Skills &amp; MCP</a>
               </h3>
               <p class="font-body mt-2 max-w-2xl text-fg-muted">
                 Discover skills from <code class="font-mono-article text-[0.9em]">AGENTS.md</code>, workspace and user skill dirs, plus built-ins. MCP servers load from config so tools grow with your stack.
@@ -202,7 +217,7 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
             <p class="font-mono-article text-3xl leading-none text-fg/20">03</p>
             <div>
               <h3 class="font-display text-xl tracking-tight text-fg">
-                <a href="/docs/advanced" class="hover:text-accent-hover">Subagents &amp; worktrees</a>
+                <a href="/docs/advanced/" class="hover:text-accent-hover">Subagents &amp; worktrees</a>
               </h3>
               <p class="font-body mt-2 max-w-2xl text-fg-muted">
                 Spawn child agents with parent and child lineage, and optional isolated git worktrees for parallel work.
@@ -213,10 +228,10 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
             <p class="font-mono-article text-3xl leading-none text-fg/20">04</p>
             <div>
               <h3 class="font-display text-xl tracking-tight text-fg">
-                <a href="/docs/interactive-mode" class="hover:text-accent-hover">Images in the TUI</a>
+                <a href="/docs/interactive-mode/" class="hover:text-accent-hover">Images in the TUI</a>
               </h3>
               <p class="font-body mt-2 max-w-2xl text-fg-muted">
-                Paste images with <kbd class="font-mono-article rounded bg-surface-400 px-1 text-[0.85em]">Ctrl+V</kbd> or <code class="font-mono-article text-[0.9em]">/image</code>. If the model cannot see images, nca stops and says so.
+                Paste images with <kbd class="font-mono-article rounded bg-surface-400 px-1 text-[0.85em]">Ctrl+V</kbd> or <code class="font-mono-article text-[0.9em]">/image</code>. The agent can show a picture back with <code class="font-mono-article text-[0.9em]">show_image</code>. If the model cannot see images, nca stops and says so.
               </p>
             </div>
           </li>
@@ -228,7 +243,7 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
       <div class="mx-auto max-w-6xl px-4 md:px-6">
         <h2 class="font-display text-3xl tracking-[-0.03rem] text-fg text-balance md:text-4xl">Providers &amp; context</h2>
         <p class="font-body mt-4 max-w-2xl text-fg-muted">
-          MiniMax-first with OpenAI, Anthropic, OpenRouter, and custom OpenAI/Anthropic-compatible endpoints. Config layers from defaults through <code class="font-mono-article text-[0.9em]">~/.local/share/ncacli/config.toml</code> and workspace overrides. Auto-summarize keeps long threads within your token budget. Smart compaction is opt-in.
+          MiniMax-first with OpenAI, Anthropic, OpenRouter, and custom OpenAI/Anthropic-compatible endpoints. Config layers from defaults through <code class="font-mono-article text-[0.9em]">~/.local/share/ncacli/config.toml</code> and workspace overrides. Every provider request is fitted to the model window.
         </p>
         <div class="mt-10 max-w-xl border border-border bg-terminal-bg p-5">
           <p class="font-mono-article text-[12px] leading-relaxed text-fg md:text-[13px]" translate="no">
@@ -236,15 +251,15 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
             context_window_target = 0<br />
             auto_summarize_threshold = 75<br />
             enable_auto_summarize = true<br />
-            smart_compaction_mode = "off"
+            smart_compaction_mode = "on"
           </p>
         </div>
         <p class="font-ui mt-6 text-sm">
-          <a href="/docs/providers" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+          <a href="/docs/providers/" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
             >Provider setup</a
           >
           ·
-          <a href="/docs/configuration" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
+          <a href="/docs/configuration/" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
             >Configuration reference</a
           >
         </p>
@@ -262,13 +277,13 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
           Apple Silicon &amp; Intel · Linux x86_64 &amp; ARM64 · Windows via GitHub Releases
         </p>
         <a
-          href="/get-started"
+          href="/get-started/"
           class="font-ui mt-6 inline-block text-sm font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover"
         >
           All install options
         </a>
         <p class="font-body mt-8 text-fg-muted">
-          nca is free under the MIT license and sponsored by Cursor, SpaceXAI, and Kenari. <a href="/support" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Support the work</a> if it earns a place in your shell.
+          nca is free under the MIT license and sponsored by Cursor, SpaceXAI, Kenari, and MiniMax. <a href="/support/" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Support the work</a> if it earns a place in your shell.
         </p>
       </div>
     </section>

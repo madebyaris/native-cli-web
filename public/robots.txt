@@ -1,4 +1,6 @@
+# Search, AI answers, and model training are allowed.
 User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Allow: /
 
 Sitemap: https://nca-cli.com/sitemap-index.xml

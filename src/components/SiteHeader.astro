@@ -9,8 +9,8 @@ const { active } = Astro.props;
 
 const nav = [
   { href: "/#workflows", label: "Workflows", key: undefined },
-  { href: "/docs", label: "Docs", key: "docs" as const },
-  { href: "/support", label: "Support", key: "support" as const },
+  { href: "/docs/", label: "Docs", key: "docs" as const },
+  { href: "/support/", label: "Support", key: "support" as const },
 ];
 
 const linkClass = (key: typeof active | undefined) =>
@@ -66,7 +66,7 @@ const linkClass = (key: typeof active | undefined) =>
 
       <div class="flex items-center gap-2">
         <a
-          href="/get-started"
+          href="/get-started/"
           class="font-ui hidden rounded-md bg-accent px-4 py-2 text-sm font-semibold text-page transition-colors hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent md:inline-flex"
         >
           Install
@@ -124,7 +124,7 @@ const linkClass = (key: typeof active | undefined) =>
           GitHub
         </a>
       </div>
-      <a href="/get-started" class="mobile-nav-cta" style={`--i: ${nav.length + 1}`}>
+      <a href="/get-started/" class="mobile-nav-cta" style={`--i: ${nav.length + 1}`}>
         Install nca
       </a>
     </div>

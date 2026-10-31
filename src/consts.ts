@@ -1,5 +1,5 @@
 /** Marketing + docs — keep in sync with native-cli-ai releases */
-export const NCA_VERSION = "0.5.0";
+export const NCA_VERSION = "0.5.5";
 
 export const GITHUB_REPO = "https://github.com/madebyaris/native-cli-ai";
 

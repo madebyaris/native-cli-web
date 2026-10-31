@@ -1,6 +1,6 @@
 ---
 title: "Skills"
-description: "Discover, install, and author nca skills from AGENTS.md, workspace directories, user skill dirs, and built-ins."
+description: "Find, install, and write nca skills as SKILL.md files, from AGENTS.md, a workspace folder, your user skill folder, and the built-in skills shipped with nca."
 sidebarOrder: 9
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Interactive Mode"
-description: "nca TUI and REPL guide: live busy activity, slash commands, keyboard shortcuts, command palette, and image paste."
+description: "The nca full-screen TUI and line REPL: slash commands, keyboard shortcuts, the command palette, live busy timers, and pasting an image into a prompt."
 sidebarOrder: 3
 ---
 

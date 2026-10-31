@@ -30,78 +30,85 @@ const DOCS = [
     out: "overview.md",
     title: "Overview",
     description:
-      "Overview of nca, the Rust-native terminal AI coding agent: quick start, feature map, and documentation index.",
+      "Overview of nca, a Rust terminal AI coding agent in one binary: what it does, how to install it, and where each guide in the documentation lives.",
     order: 0,
   },
   {
     file: "getting-started.md",
     title: "Getting Started",
     description:
-      "Install nca on macOS, Linux, or Windows, run first-time setup, and configure providers for the terminal AI coding agent.",
+      "Install nca on macOS, Linux, or Windows with one command or a GitHub release archive, then run first-time setup and add your provider API key.",
     order: 1,
   },
   {
     file: "commands.md",
     title: "Commands",
     description:
-      "Complete nca CLI command and flag reference for run, spawn, sessions, attach, logs, skills, models, and doctor.",
+      "Complete nca command and flag reference for acp, run, spawn, sessions, attach, logs, skills, models, and doctor, after the binary is installed.",
     order: 2,
   },
   {
     file: "interactive-mode.md",
     title: "Interactive Mode",
     description:
-      "nca TUI and REPL guide: live busy activity, slash commands, keyboard shortcuts, command palette, and image paste.",
+      "The nca full-screen TUI and line REPL: slash commands, keyboard shortcuts, the command palette, live busy timers, and pasting an image into a prompt.",
     order: 3,
   },
   {
     file: "configuration.md",
     title: "Configuration",
     description:
-      "nca configuration files, unified product home paths, TOML format, smart compaction, and environment variables.",
+      "Where nca reads its settings: TOML config files, product-home paths, smart compaction, and the environment variables that change how each session runs.",
     order: 4,
   },
   {
     file: "providers.md",
     title: "Providers",
     description:
-      "Configure MiniMax, Anthropic, OpenAI, OpenRouter, and custom OpenAI/Anthropic-compatible endpoints in nca.",
+      "Set up nca with a MiniMax, Anthropic, OpenAI, or OpenRouter API key, or a custom OpenAI-compatible endpoint. Covers keys, model names, and base URLs.",
     order: 5,
   },
   {
     file: "tools.md",
     title: "Tools",
     description:
-      "nca agent tools reference: file operations, structured search, shell, web, ask_question, spawn_subagent, and MCP.",
+      "What nca can call during each coding task: file reads and edits, structured search, the shell, the web, questions, subagents, and MCP servers.",
     order: 6,
   },
   {
     file: "sessions.md",
     title: "Sessions",
     description:
-      "nca session lifecycle under the unified product home: spawn, resume, attach, logs, status, and persistence.",
+      "Spawn, resume, attach, and inspect an nca session. Each one keeps a JSON snapshot and a JSONL log under the product home. You can leave it running.",
     order: 7,
   },
   {
     file: "permissions.md",
     title: "Permissions",
     description:
-      "nca approval system, permission modes, safe mode, and how tool approvals work in the interactive TUI.",
+      "When nca runs a command without asking, and when it still stops for a delete, sudo, git push, a global install, screen capture, or an MCP tool.",
     order: 8,
   },
   {
     file: "skills.md",
     title: "Skills",
     description:
-      "Discover, install, and author nca skills from AGENTS.md, workspace directories, user skill dirs, and built-ins.",
+      "Find, install, and write nca skills as SKILL.md files, from AGENTS.md, a workspace folder, your user skill folder, and the built-in skills shipped with nca.",
     order: 9,
   },
   {
     file: "advanced.md",
     title: "Advanced",
     description:
-      "Advanced nca topics: sub-agents, git worktrees, MCP servers, hooks, JSON/NDJSON orchestration, and Unix IPC.",
+      "Run nca headless: sub-agents, git worktrees, MCP servers, hooks, JSON and NDJSON output, and the Unix socket protocol for scripts and CI jobs.",
     order: 10,
+  },
+  {
+    file: "acp.md",
+    title: "Desktop Clients",
+    description:
+      "Add nca to T3 Code, Termul, Zed, or any other Agent Client Protocol client. The desktop entry is the command nca with the single argument acp.",
+    order: 11,
   },
 ];
 
