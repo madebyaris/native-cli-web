@@ -207,7 +207,51 @@ timeout_secs = 15
 max_fetch_chars = 25000
 default_search_limit = 5
 user_agent = "nca/0.5 (+https://github.com/user/native-cli-ai)"
+# Search backends, tried in order until one returns results for the query.
+# Keenable is the keyless primary; keyed APIs and HTML scrapers are fallbacks.
+search_backends = ["keenable", "exa", "tavily", "serper", "brave-api", "brave", "duckduckgo", "bing", "mojeek"]
+# User agent for search requests only. Search engines block clients that announce
+# themselves as bots, so this defaults to a browser agent, not `user_agent`.
+# search_user_agent = "Mozilla/5.0 (...) Chrome/131.0.0.0 Safari/537.36"
+
+[web.search_keys]
+# Optional. Keyed APIs without keys are skipped, not reported as failures.
+# keenable  = "..."   # optional; or KEENABLE_API_KEY
+# exa       = "..."   # or EXA_API_KEY
+tavily    = "tvly-..."
+serper    = "..."
+brave-api = "..."
 ```
+
+### Search backends
+
+Keenable ([keenable.ai](https://keenable.ai)) sponsors nca by providing its search API free of charge.
+
+| Backend | Needs a key | Env fallback | Notes |
+|---|---|---|---|
+| `keenable` | no (optional) | `KEENABLE_API_KEY` | Primary keyless search API; a key selects its authenticated endpoint |
+| `exa` | yes | `EXA_API_KEY` | Neural search with extracted highlights |
+| `tavily` | yes | `TAVILY_API_KEY` | `search_depth = "basic"` |
+| `serper` | yes | `SERPER_API_KEY` | Google results via Serper |
+| `brave-api` | yes | `BRAVE_API_KEY` | Official Brave Search API |
+| `brave` | no | — | Scrapes search.brave.com; rate limited under load |
+| `duckduckgo` | no | — | Unreachable on some networks |
+| `bing` | no | — | Sometimes answers with results for a different query; those are rejected |
+| `mojeek` | no | — | Often serves a bot challenge |
+
+Keenable is tried first using its public endpoint. If it fails or returns no relevant
+results, nca tries keyed APIs when their keys are configured, then the keyless HTML
+scrapers. Scraper results are accepted only when the query is visible in them, so a decoy
+response is rejected instead of being handed to the model as fact. When every backend
+fails, `web_search` returns an error naming each one rather than an empty result.
+
+### Using the editor's search in ACP mode
+
+ACP clients send their own MCP servers in `session/new`. nca now connects those servers
+for the session, so a search MCP server that the editor already runs becomes a normal
+tool. Servers declared in the workspace config win if a name collides. Only `stdio` and
+streamable `http` servers are connected; `sse` and the unstable `acp` transport are
+skipped with a warning, since nca has no client for them.
 
 ### `[ui]` — Interface Settings
 
@@ -220,6 +264,22 @@ scroll_speed = 3          # Scroll speed in TUI
 mouse_capture = true      # false lets the terminal select and copy text (wheel scrolling is off; use PageUp/PageDown)
 onboarding_completed = false
 ```
+
+### `[pricing]` — Cost Estimates
+
+Costs in the TUI sidebar, the status bar, and `CostUpdated` events use per-model prices in USD per million tokens. Each model id can have an entry:
+
+```toml
+[pricing."my-model"]                # replace with the model id and your provider's rates
+input_per_mtok = 1.00               # uncached prompt tokens
+output_per_mtok = 4.00              # generated tokens
+cached_input_per_mtok = 0.25        # optional: prompt tokens served from cache (default: input price)
+cache_write_per_mtok = 1.25         # optional: prompt tokens written to cache (default: input price)
+```
+
+Built-in prices cover Anthropic models, OpenAI Standard-tier models with flat prices, and `MiniMax-M3.1-Flash`. An entry here overrides the built-in price. A model with no price shows `cost n/a` and its tokens still count. Models whose price depends on prompt length (such as `gpt-6-luna`, `claude-haiku-5-5`, and `MiniMax-M3`) need an entry for the rate your prompts fall under.
+
+The cache hit percent (`cached N%`) shows how much of the prompt the provider served from its cache. It needs a provider that reports cache usage.
 
 ---
 

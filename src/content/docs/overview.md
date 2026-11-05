@@ -19,7 +19,7 @@ A native-first, Rust-powered AI coding assistant that runs entirely in the termi
 - **Session management** with spawn, resume, attach, and structured logs under a unified product home
 - **Tool execution** — file operations, code search, shell commands, web research, and more
 - **Sub-agent spawning** with isolated git worktrees for parallel task delegation
-- **Multiple LLM providers** — MiniMax, Anthropic, OpenAI, OpenRouter, and custom endpoints
+- **Multiple LLM providers** — MiniMax, Anthropic, OpenAI, OpenRouter, Alibaba DashScope, and custom endpoints
 - **Permission system** — from fully interactive approval to bypass mode for automation
 - **MCP integration** — connect external tool servers via Model Context Protocol
 - **Skills system** — discoverable, loadable instruction packs that extend agent behavior
@@ -54,7 +54,7 @@ Windows users: download `nca-*-pc-windows-msvc.zip` from [GitHub Releases](https
 | [Commands](/docs/commands) | Complete CLI command and flag reference |
 | [Interactive Mode](/docs/interactive-mode) | TUI, REPL, slash commands, keyboard shortcuts |
 | [Configuration](/docs/configuration) | Config files, TOML format, and environment variables |
-| [Providers](/docs/providers) | LLM provider setup — MiniMax, Anthropic, OpenAI, OpenRouter |
+| [Providers](/docs/providers) | LLM provider setup — MiniMax, Anthropic, OpenAI, OpenRouter, Alibaba DashScope |
 | [Tools](/docs/tools) | All agent tools — file ops, search, shell, web, and more |
 | [Sessions](/docs/sessions) | Session lifecycle, persistence, resume, and management |
 | [Permissions](/docs/permissions) | Approval system, permission modes, and safe mode |

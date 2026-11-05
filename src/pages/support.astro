@@ -36,7 +36,18 @@ const hourglassIcon = [
   "#######",
 ];
 
+// A magnifier, for the search that Keenable provides.
+const searchIcon = [".###...", "#...#..", "#...#..", "#...#..", ".###...", ".....#.", "......#"];
+
 const backers = [
+  {
+    name: "Keenable",
+    href: "https://keenable.ai",
+    also: "",
+    status: "Current",
+    body: "Free web search for nca. It is the default backend for web_search, with no API key.",
+    icon: searchIcon,
+  },
   {
     name: "Cursor",
     href: "https://cursor.com",
@@ -108,7 +119,7 @@ const otherWays = [
 
 <BaseLayout
   title="Support nca development | Native CLI AI"
-  description="Cursor and SpaceXAI send ambassador tokens. Kenari sends OSS tokens. MiniMax's ambassador support has ended. Sponsor nca on GitHub or PayPal."
+  description="Keenable provides free web search. Cursor, SpaceXAI, and Kenari send model tokens. Sponsor nca on GitHub or PayPal."
   jsonLdExtra={[breadcrumbs]}
 >
   <SiteHeader active="support" />
@@ -139,7 +150,7 @@ const otherWays = [
 
     <div class="mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-20">
       <section>
-        <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">Who already sends tokens</h2>
+        <h2 class="font-ui text-xs font-semibold uppercase tracking-[0.18em] text-fg-muted">Who backs nca</h2>
         <ul class="mt-6 divide-y divide-border border-y border-border">
           {
             backers.map((b) => (

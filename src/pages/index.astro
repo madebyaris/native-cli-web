@@ -82,7 +82,14 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
 
     <section id="sponsor" class="mx-auto mt-16 max-w-3xl px-4 text-center md:px-6" aria-labelledby="sponsor-heading">
       <h2 id="sponsor-heading" class="font-display text-2xl tracking-[-0.03rem] text-fg md:text-3xl">Our sponsor</h2>
-      <ul class="mx-auto mt-8 grid max-w-xl grid-cols-3 gap-3 md:gap-4">
+      <ul class="mx-auto mt-8 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4 md:gap-4">
+        <li class="flex h-20 items-center justify-center rounded-md bg-white md:h-24">
+          <a href="https://keenable.ai" class="flex h-full w-full items-center justify-center gap-2 p-4 md:p-6" target="_blank" rel="noopener noreferrer">
+            <img src="/images/sponsors/keenable.png" alt="Keenable" width="180" height="180" class="h-9 w-9 shrink-0 object-contain" loading="lazy" />
+            <span class="font-ui text-base font-semibold tracking-tight text-black" translate="no" aria-hidden="true">Keenable</span>
+            <span class="sr-only">, free web search for nca</span>
+          </a>
+        </li>
         <li class="flex h-20 items-center justify-center rounded-md bg-white p-4 md:h-24 md:p-6">
           <img src="/images/sponsors/kenari.png" alt="Kenari" width="107" height="43" class="max-h-10 w-auto max-w-full object-contain" loading="lazy" />
         </li>
@@ -102,7 +109,7 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
     >
       <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 md:flex-row md:items-center md:justify-between md:px-6">
         <p class="font-ui text-sm text-fg">
-          <span class="font-medium">Latest release:</span> v{NCA_VERSION}. Desktop clients over ACP, context that fits, and fewer prompts.
+          <span class="font-medium">Latest release:</span> v{NCA_VERSION}. Alibaba DashScope for Qwen models, and regex search in the TUI pickers.
         </p>
         <a
           href={`${GITHUB_REPO}/releases/tag/v${NCA_VERSION}`}
@@ -243,7 +250,7 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
       <div class="mx-auto max-w-6xl px-4 md:px-6">
         <h2 class="font-display text-3xl tracking-[-0.03rem] text-fg text-balance md:text-4xl">Providers &amp; context</h2>
         <p class="font-body mt-4 max-w-2xl text-fg-muted">
-          MiniMax-first with OpenAI, Anthropic, OpenRouter, and custom OpenAI/Anthropic-compatible endpoints. Config layers from defaults through <code class="font-mono-article text-[0.9em]">~/.local/share/ncacli/config.toml</code> and workspace overrides. Every provider request is fitted to the model window.
+          MiniMax-first with OpenAI, Anthropic, OpenRouter, Alibaba DashScope, and custom OpenAI/Anthropic-compatible endpoints. Config layers from defaults through <code class="font-mono-article text-[0.9em]">~/.local/share/ncacli/config.toml</code> and workspace overrides. Every provider request is fitted to the model window.
         </p>
         <div class="mt-10 max-w-xl border border-border bg-terminal-bg p-5">
           <p class="font-mono-article text-[12px] leading-relaxed text-fg md:text-[13px]" translate="no">
@@ -283,7 +290,7 @@ import { NCA_VERSION, GITHUB_REPO, SITE_DESCRIPTION } from "../consts";
           All install options
         </a>
         <p class="font-body mt-8 text-fg-muted">
-          nca is free under the MIT license and sponsored by Cursor, SpaceXAI, Kenari, and MiniMax. <a href="/support/" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Support the work</a> if it earns a place in your shell.
+          nca is free under the MIT license and sponsored by Keenable, Cursor, SpaceXAI, Kenari, and MiniMax. Keenable provides the free web search that nca uses by default. <a href="/support/" class="font-medium text-accent underline decoration-accent/35 underline-offset-4 hover:text-accent-hover">Support the work</a> if it earns a place in your shell.
         </p>
       </div>
     </section>

@@ -191,6 +191,16 @@ Available agent profiles:
 | `PageUp` / `PageDown` | Scroll the transcript one page (works without the mouse) |
 | `End` | Jump to bottom of transcript (on empty input) |
 
+### Prompt editing
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+Left` / `Ctrl+Right` | Move to the previous / next whitespace-delimited word |
+| `Ctrl+Backspace` / `Ctrl+Delete` | Delete to the previous / next word boundary |
+| `Delete` | Delete the character after the cursor |
+
+Terminal support for modified keys varies by terminal and operating system.
+
 ### Agent and Model
 
 | Shortcut | Action |
@@ -242,6 +252,8 @@ When the agent asks a structured question:
 ## Command Palette
 
 Press `Ctrl+P` to open the command palette — a searchable list of all available commands. Type to filter, use `↑`/`↓` to navigate, and `Enter` to execute.
+
+That filter, and the filters in the model, session, branch, and provider pickers, is a regex. A pattern the regex parser rejects falls back to a case-insensitive substring match.
 
 ## Status Bar
 

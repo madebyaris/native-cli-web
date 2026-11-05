@@ -1,6 +1,6 @@
 ---
 title: "Agent UIs"
-description: "Point T3 Code, Termul, or Zed at nca acp, or open the full-screen TUI in a terminal pane and drive a headless JSON session from your own shell."
+description: "Copy-paste agent config for T3 Code, Termul, and Zed that runs nca acp, plus the full-screen TUI in a terminal pane and a headless JSON session."
 sidebarOrder: 12
 ---
 
@@ -8,15 +8,77 @@ sidebarOrder: 12
 
 Desktop clients start nca with `nca acp`. That speaks the Agent Client Protocol on stdin and stdout. The same binary still opens the TUI, and it still runs headless jobs.
 
-Client setup and the protocol surface are in [Desktop Clients](/docs/acp).
+Each client section below has a block that you can copy and paste. Protocol details are in [Desktop Clients](/docs/acp).
+
+## Before you start
+
+1. Install nca. If the client cannot find `nca` later, run `which nca` and use that absolute path as the command.
+2. Set your API key before the client starts the process. `nca acp` never prompts, because stdin carries the protocol.
+
+Paste this into `~/.local/share/ncacli/config.toml` and replace the key:
+
+```toml
+[provider]
+default = "minimax"
+
+[provider.minimax]
+api_key = "paste-your-key-here"
+```
+
+You can set the provider's environment variable instead, such as `MINIMAX_API_KEY`. Other providers are in [Providers](/docs/providers).
+
+## Alibaba DashScope
+
+To use a Qwen model instead, replace that config with this one:
+
+```toml
+[provider]
+default = "alibaba"
+
+[provider.alibaba]
+api_key_env = "DASHSCOPE_API_KEY"
+base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+model = "qwen2.5-coder-32b-instruct"
+```
+
+Set the key in the shell that starts the client:
+
+```bash
+export DASHSCOPE_API_KEY="paste-your-key-here"
+```
+
+`ALIBABA_API_KEY` works in place of `DASHSCOPE_API_KEY`. In Zed, put the same key in the agent server `env` block:
+
+```json
+"env": {
+  "DASHSCOPE_API_KEY": "paste-your-key-here"
+}
+```
+
+Other Qwen model names are in [Providers](/docs/providers#alibaba-cloud-dashscope).
 
 ## T3 Code
 
-In Settings → Providers → Local ACP command, set the command to `nca` and the arguments to `acp`.
+Open Settings → Providers → Local ACP command and fill in two fields.
+
+| Field | Value |
+| --- | --- |
+| Command | `nca` |
+| Arguments | `acp` |
+
+The full command line is:
+
+```bash
+nca acp
+```
 
 ## Termul
 
-For ACP chat, use `AgentConfig { command: "nca", args: ["acp"] }`.
+For ACP chat, add this agent config:
+
+```text
+AgentConfig { command: "nca", args: ["acp"] }
+```
 
 To open the full-screen TUI in a pane instead, add a custom CLI agent:
 
@@ -39,7 +101,51 @@ nca --run --prompt "inspect the repo and draft a plan"
 
 ## Zed
 
-Add an `agent_servers` entry with `command: "nca"` and `args: ["acp"]`.
+Run `zed: open settings` from the command palette. Add this entry to `settings.json`:
+
+```json
+{
+  "agent_servers": {
+    "nca": {
+      "type": "custom",
+      "command": "nca",
+      "args": ["acp"],
+      "env": {}
+    }
+  }
+}
+```
+
+If `settings.json` already has an `agent_servers` object, add only the `"nca": { ... }` entry inside it.
+
+To pass the API key to nca from Zed, or to start in a stricter mode, use this entry instead:
+
+```json
+{
+  "agent_servers": {
+    "nca": {
+      "type": "custom",
+      "command": "nca",
+      "args": ["acp", "--permission-mode", "plan"],
+      "env": {
+        "MINIMAX_API_KEY": "paste-your-key-here"
+      }
+    }
+  }
+}
+```
+
+The flags that `nca acp` accepts are `--model`, `--safe`, and `--permission-mode`. They are listed in [Desktop Clients](/docs/acp#add-it-to-a-client).
+
+## Any other ACP client
+
+Every ACP client takes an executable and literal arguments. Use these values:
+
+| Field | Value |
+| --- | --- |
+| Command | `nca` |
+| Arguments | `acp` |
+| Working directory | The project that nca should work on |
 
 ## Headless jobs
 
@@ -55,5 +161,3 @@ nca run \
 Each output line is one JSON event. The same session can then be watched with `nca status`, `nca logs`, and `nca attach`.
 
 Set `NCA_ORCH_NAME`, `NCA_ORCH_RUN_ID`, and `NCA_ORCH_TASK_ID` when the manager needs to stamp the session with its own run. The event fields and the Unix socket protocol are in [Advanced](/docs/advanced).
-
-`nca acp` never prompts for an API key, because stdin is the protocol. Put the key in config or the provider environment variable before the client starts the process.

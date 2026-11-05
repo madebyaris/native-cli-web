@@ -1,6 +1,6 @@
 {
   "name": "native-cli-ai-web",
-  "version": "0.5.5",
+  "version": "0.66.0",
   "private": true,
   "type": "module",
   "engines": {

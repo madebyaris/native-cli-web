@@ -10,7 +10,7 @@ sidebarOrder: 1
 
 - **Git** — required for session worktrees and version control integration
 - **ripgrep (`rg`)** — used by the `search_code` tool for fast code search
-- **An LLM API key** — MiniMax (default), Anthropic, OpenAI, OpenRouter, or any compatible endpoint
+- **An LLM API key** — MiniMax (default), Anthropic, OpenAI, OpenRouter, Alibaba DashScope, or any compatible endpoint
 
 ## Installation
 

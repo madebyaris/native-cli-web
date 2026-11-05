@@ -65,7 +65,7 @@ const DOCS = [
     file: "providers.md",
     title: "Providers",
     description:
-      "Set up nca with a MiniMax, Anthropic, OpenAI, or OpenRouter API key, or a custom OpenAI-compatible endpoint. Covers keys, model names, and base URLs.",
+      "Set up nca with a MiniMax, Anthropic, OpenAI, OpenRouter, or Alibaba DashScope API key, or a custom endpoint. Covers keys, model names, and base URLs.",
     order: 5,
   },
   {
@@ -137,6 +137,56 @@ function preferBinaryInstall(file, md) {
   return next;
 }
 
+/**
+ * Keenable sponsors nca with free search. Credit it where readers set up search.
+ * @param {string} file
+ * @param {string} md
+ */
+function creditKeenable(file, md) {
+  const credit =
+    "Keenable ([keenable.ai](https://keenable.ai)) sponsors nca by providing its search API free of charge.";
+  const anchors = {
+    "configuration.md": "### Search backends\n\n",
+    "tools.md": "**Behavior:** Tries Keenable's keyless search API first",
+  };
+  const anchor = anchors[file];
+  if (!anchor || !md.includes(anchor) || md.includes(credit)) return md;
+  return file === "tools.md"
+    ? md.replace(anchor, `${credit}\n\n${anchor}`)
+    : md.replace(anchor, `${anchor}${credit}\n\n`);
+}
+
+/**
+ * Picker search accepts a regex as of 0.66.0. Upstream docs still say "type to filter".
+ * @param {string} file
+ * @param {string} md
+ */
+function notePickerSearch(file, md) {
+  if (file !== "interactive-mode.md") return md;
+  const para =
+    "Press `Ctrl+P` to open the command palette — a searchable list of all available commands. Type to filter, use `↑`/`↓` to navigate, and `Enter` to execute.";
+  const note =
+    "That filter, and the filters in the model, session, branch, and provider pickers, is a regex. A pattern the regex parser rejects falls back to a case-insensitive substring match.";
+  if (!md.includes(para) || md.includes(note)) return md;
+  return md.replace(para, `${para}\n\n${note}`);
+}
+
+/**
+ * Upstream overview and getting-started still list five providers.
+ * @param {string} file
+ * @param {string} md
+ */
+function mentionAlibaba(file, md) {
+  if (file !== "overview.md" && file !== "getting-started.md" && file !== "index.md") return md;
+  return md
+    .replace("OpenRouter, and custom endpoints", "OpenRouter, Alibaba DashScope, and custom endpoints")
+    .replace("OpenRouter, or any compatible endpoint", "OpenRouter, Alibaba DashScope, or any compatible endpoint")
+    .replace(
+      "LLM provider setup — MiniMax, Anthropic, OpenAI, OpenRouter",
+      "LLM provider setup — MiniMax, Anthropic, OpenAI, OpenRouter, Alibaba DashScope",
+    );
+}
+
 /** @param {string} md */
 function rewriteLinks(md) {
   return md.replace(/\]\(\.\/([^)]+\.md)(#[^)]*)?\)/g, (_, path, hash) => {
@@ -147,10 +197,12 @@ function rewriteLinks(md) {
   });
 }
 
-/** @param {string} text */
-function extractVersion(text) {
-  const m = text.match(/VERSION="([0-9]+\.[0-9]+\.[0-9]+)"/);
-  if (!m) throw new Error("Could not parse VERSION from install.sh");
+async function fetchVersion() {
+  const url = `${RAW}/Cargo.toml`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed ${url}: HTTP ${res.status}`);
+  const m = (await res.text()).match(/^version\s*=\s*"([0-9]+\.[0-9]+\.[0-9]+)"/m);
+  if (!m) throw new Error("Could not parse version from Cargo.toml");
   return m[1];
 }
 
@@ -202,7 +254,7 @@ async function syncInstall() {
   }
   await writeFile(INSTALL_OUT, body, "utf8");
   console.log("Wrote", "public/install");
-  return extractVersion(body);
+  return fetchVersion();
 }
 
 async function syncDocs() {
@@ -216,6 +268,9 @@ async function syncDocs() {
     let body = await res.text();
     body = rewriteLinks(body);
     body = preferBinaryInstall(d.file, body);
+    body = creditKeenable(d.file, body);
+    body = notePickerSearch(d.file, body);
+    body = mentionAlibaba(d.file, body);
     const outFile = d.out ?? d.file;
     const fm = `---
 title: "${escapeYaml(d.title)}"
